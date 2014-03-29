@@ -10,6 +10,7 @@
 #import "RWArticlesViewController.h"
 #import "RWNewsViewController.h"
 #import "RWVideosViewController.h"
+#import "RWForumViewController.h"
 
 @interface RWTabBarController ()
 
@@ -32,13 +33,17 @@
     RWVideosViewController* videosViewController = [[RWVideosViewController alloc] init];
     RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
     RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
+    RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
 
     [self addTabBarItemToViewController:videosViewController withTitle:@"Videos"];
     [self addTabBarItemToViewController:articlesViewController withTitle:@"Articles"];
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
+    [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
 
-    self.viewControllers = @[videosViewController, articlesViewController, newsViewController];
-//     self.viewControllers = @[videosViewController];
+    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
+    articlesViewController.view = articlesViewController.view;
+    newsViewController.view = newsViewController.view;
+    forumViewController.view = forumViewController.view;
 }
 
 -(void) addTabBarItemToViewController:(UIViewController*)viewController withTitle:(NSString*)title {
@@ -50,6 +55,7 @@
     
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:tabBarImage selectedImage:tabBarImageSel];
 }
+
 
 - (void)viewDidLoad
 {

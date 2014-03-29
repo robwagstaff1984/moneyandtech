@@ -29,9 +29,13 @@
     [super viewDidLoad];
 }
 
--(NSURL*) urlForCurrentPage {
+#pragma mark - RWWebSectionProtocol
+-(NSURL*) urlForSection {
     return NEWS_URL;
 }
 
+- (NSOperationQueuePriority)queuePriority {
+    return NSOperationQueuePriorityNormal;
+}
 
 @end

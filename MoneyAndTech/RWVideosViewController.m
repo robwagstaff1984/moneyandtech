@@ -33,22 +33,23 @@
     [super viewDidLoad];
 }
 
--(NSURL*) urlForCurrentPage {
+#pragma mark - RWWebSectionProtocol
+-(NSURL*) urlForSection {
     return VIDEOS_URL;
 }
 
-#pragma mark - UIWebViewDelegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-
-    NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
-    
-    if (!self.isRestylingDone) {
-        self.isRestylingDone = YES;
-        [webView stringByEvaluatingJavaScriptFromString:videosPageStrippedJavascript];
-        NSLog(@"stripping down HTML!");
-    }
-    
-    NSLog(@"finish Videos");
+- (NSOperationQueuePriority)queuePriority {
+    return NSOperationQueuePriorityVeryHigh;
 }
+
+//
+//    NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
+//    
+//    if (!self.isRestylingDone) {
+//        self.isRestylingDone = YES;
+//        [webView stringByEvaluatingJavaScriptFromString:videosPageStrippedJavascript];
+//        NSLog(@"stripping down HTML!");
+//    }
+
 
 @end

@@ -36,7 +36,9 @@
 }
 
 -(AFHTTPRequestOperation*) httpRequestOperationForWebSection {
-    NSURLRequest* webSectionRequest = [[NSURLRequest alloc] initWithURL: [self urlForCurrentPage]];
+    NSMutableURLRequest* webSectionRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForSection]];
+    [webSectionRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
+    
     NSLog(@"Adding operation request for: %@", self.title);
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -47,13 +49,19 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
     }];
+    [operation setQueuePriority:[self queuePriority]];
     return operation;
 }
 
-#pragma mark - abstract methods
--(NSURL*) urlForCurrentPage {
-    NSAssert(NO, @"This method should be subclassed");
+#pragma mark - RWWebSectionProtocol
+-(NSURL*) urlForSection {
+    NSAssert(NO, @"This abstract method should be subclassed");
     return nil;
+}
+
+- (NSOperationQueuePriority)queuePriority {
+    NSAssert(NO, @"This abstract method should be subclassed");
+    return NSOperationQueuePriorityNormal;
 }
 
 @end

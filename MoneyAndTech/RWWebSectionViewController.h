@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RWWebSectionViewController : UIViewController
+@protocol RWWebSectionProtocol <NSObject>
+
+@required
+-(NSURL*) urlForSection;
+-(NSOperationQueuePriority)queuePriority;
+@end
+
+@interface RWWebSectionViewController : UIViewController <RWWebSectionProtocol>
 
 @end

@@ -37,8 +37,13 @@
     [super didReceiveMemoryWarning];
 }
 
--(NSURL*) urlForCurrentPage {
+#pragma mark - RWWebSectionProtocol
+-(NSURL*) urlForSection {
     return ARTICLES_URL;
+}
+
+- (NSOperationQueuePriority)queuePriority {
+    return NSOperationQueuePriorityNormal;
 }
 
 #pragma mark - UIWebViewDelegate
