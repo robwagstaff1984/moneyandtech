@@ -22,7 +22,6 @@
 {
     self = [super init];
     if (self) {
-        self.view.backgroundColor = [UIColor greenColor];
         self.title = @"Articles";
     }
     return self;
@@ -30,35 +29,20 @@
 
 - (void)viewDidLoad
 {
-    
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.webView.delegate = self;
-  
-    
-    [self.view addSubview:self.webView];
-    
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
--(void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    NSURLRequest* videosRequest = [[NSURLRequest alloc] initWithURL: ARTICLES_URL];
-    [self.webView loadRequest:videosRequest];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+-(NSURL*) urlForCurrentPage {
+    NSLog(@"articles sublclassed");
+    return ARTICLES_URL;
+}
 
 #pragma mark - UIWebViewDelegate
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"start articles");
-}
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
 //    NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
@@ -70,8 +54,6 @@
 //    
     NSLog(@"finish articles");
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"failed articles");
-}
+
 
 @end

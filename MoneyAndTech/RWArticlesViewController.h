@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RWWebSectionViewController.h"
 
-@interface RWArticlesViewController : UIViewController <UIWebViewDelegate>
+@interface RWArticlesViewController : RWWebSectionViewController
 
 @end

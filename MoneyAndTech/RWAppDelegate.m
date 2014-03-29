@@ -10,7 +10,6 @@
 #import "RWArticlesViewController.h"
 #import "RWNewsViewController.h"
 #import "RWVideosViewController.h"
-#import "RWHomeViewController.h"
 
 #define MONEY_AND_TECH_GREY [UIColor colorWithRed:247.0/255.0 green:249.0/255.0 blue:246/255.0 alpha:1]
 

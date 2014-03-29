@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RWWebSectionViewController.h"
 
-@interface RWVideosViewController : UIViewController <UIWebViewDelegate>
+@interface RWVideosViewController : RWWebSectionViewController
 
 @end

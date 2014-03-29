@@ -24,37 +24,20 @@
 {
     self = [super init];
     if (self) {
-        self.view.backgroundColor = [UIColor yellowColor];
-        self.title = @"Money and Tech";
+        self.title = @"Videos";
     }
     return self;
 }
 - (void)viewDidLoad
 {
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    webView.delegate = self;
-    NSURLRequest* videosRequest = [[NSURLRequest alloc] initWithURL: VIDEOS_URL];
-    [webView loadRequest:videosRequest];
-
-    [self.view addSubview:webView];
-    
-    
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(NSURL*) urlForCurrentPage {
+    return VIDEOS_URL;
 }
-
 
 #pragma mark - UIWebViewDelegate
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"start Videos");
-}
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 
     NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
@@ -66,9 +49,6 @@
     }
     
     NSLog(@"finish Videos");
-}
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"failed Videos");
 }
 
 @end

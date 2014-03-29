@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3607869418E607040045AF0F /* RWForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869318E607040045AF0F /* RWForumViewController.m */; };
+		3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869618E607E50045AF0F /* RWWebSectionViewController.m */; };
 		36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28D818DA456C00476E15 /* Foundation.framework */; };
 		36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DA18DA456C00476E15 /* CoreGraphics.framework */; };
 		36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DC18DA456C00476E15 /* UIKit.framework */; };
@@ -22,7 +24,6 @@
 		36CB290A18DA460200476E15 /* RWArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290918DA460200476E15 /* RWArticlesViewController.m */; };
 		36CB290D18DA461F00476E15 /* RWNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290C18DA461F00476E15 /* RWNewsViewController.m */; };
 		36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290F18DA468000476E15 /* RWVideosViewController.m */; };
-		36CB291318DA4FC000476E15 /* RWHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB291218DA4FC000476E15 /* RWHomeViewController.m */; };
 		36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */; };
 		36CB291A18DB934A00476E15 /* VideosIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291818DB934A00476E15 /* VideosIcon.png */; };
 		36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291918DB934A00476E15 /* VideosIcon@2x.png */; };
@@ -44,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3607869218E607040045AF0F /* RWForumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWForumViewController.h; sourceTree = "<group>"; };
+		3607869318E607040045AF0F /* RWForumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWForumViewController.m; sourceTree = "<group>"; };
+		3607869518E607E50045AF0F /* RWWebSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWWebSectionViewController.h; sourceTree = "<group>"; };
+		3607869618E607E50045AF0F /* RWWebSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWWebSectionViewController.m; sourceTree = "<group>"; };
 		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -66,8 +71,6 @@
 		36CB290C18DA461F00476E15 /* RWNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWNewsViewController.m; sourceTree = "<group>"; };
 		36CB290E18DA468000476E15 /* RWVideosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideosViewController.h; sourceTree = "<group>"; };
 		36CB290F18DA468000476E15 /* RWVideosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWVideosViewController.m; sourceTree = "<group>"; };
-		36CB291118DA4FC000476E15 /* RWHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWHomeViewController.h; sourceTree = "<group>"; };
-		36CB291218DA4FC000476E15 /* RWHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWHomeViewController.m; sourceTree = "<group>"; };
 		36CB291518DB8E6900476E15 /* RWRegexHTMLStripper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRegexHTMLStripper.h; sourceTree = "<group>"; };
 		36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRegexHTMLStripper.m; sourceTree = "<group>"; };
 		36CB291818DB934A00476E15 /* VideosIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VideosIcon.png; sourceTree = "<group>"; };
@@ -105,6 +108,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3607869118E6010D0045AF0F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36CB291818DB934A00476E15 /* VideosIcon.png */,
+				36CB291918DB934A00476E15 /* VideosIcon@2x.png */,
+				36CB291C18DBBB3300476E15 /* ArticlesIcon.png */,
+				36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */,
+				36CB292018DBBF9E00476E15 /* NewsIcon.png */,
+				36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		36CB28CC18DA456C00476E15 = {
 			isa = PBXGroup;
 			children = (
@@ -140,17 +156,12 @@
 		36CB28DE18DA456C00476E15 /* MoneyAndTech */ = {
 			isa = PBXGroup;
 			children = (
+				3607869118E6010D0045AF0F /* Resources */,
 				36CB291418DB8E3A00476E15 /* Helpers */,
 				36CB290718DA45EE00476E15 /* View */,
 				36CB28E718DA456C00476E15 /* RWAppDelegate.h */,
 				36CB28E818DA456C00476E15 /* RWAppDelegate.m */,
 				36CB28EA18DA456C00476E15 /* Images.xcassets */,
-				36CB291818DB934A00476E15 /* VideosIcon.png */,
-				36CB291918DB934A00476E15 /* VideosIcon@2x.png */,
-				36CB291C18DBBB3300476E15 /* ArticlesIcon.png */,
-				36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */,
-				36CB292018DBBF9E00476E15 /* NewsIcon.png */,
-				36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */,
 				36CB28DF18DA456C00476E15 /* Supporting Files */,
 			);
 			path = MoneyAndTech;
@@ -194,8 +205,10 @@
 				36CB290C18DA461F00476E15 /* RWNewsViewController.m */,
 				36CB290E18DA468000476E15 /* RWVideosViewController.h */,
 				36CB290F18DA468000476E15 /* RWVideosViewController.m */,
-				36CB291118DA4FC000476E15 /* RWHomeViewController.h */,
-				36CB291218DA4FC000476E15 /* RWHomeViewController.m */,
+				3607869218E607040045AF0F /* RWForumViewController.h */,
+				3607869318E607040045AF0F /* RWForumViewController.m */,
+				3607869518E607E50045AF0F /* RWWebSectionViewController.h */,
+				3607869618E607E50045AF0F /* RWWebSectionViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -348,8 +361,9 @@
 			files = (
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
 				36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */,
+				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */,
-				36CB291318DA4FC000476E15 /* RWHomeViewController.m in Sources */,
+				3607869418E607040045AF0F /* RWForumViewController.m in Sources */,
 				36CB28E918DA456C00476E15 /* RWAppDelegate.m in Sources */,
 				36CB290D18DA461F00476E15 /* RWNewsViewController.m in Sources */,
 				36CB290A18DA460200476E15 /* RWArticlesViewController.m in Sources */,
