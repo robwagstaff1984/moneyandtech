@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3607869418E607040045AF0F /* RWForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869318E607040045AF0F /* RWForumViewController.m */; };
 		3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869618E607E50045AF0F /* RWWebSectionViewController.m */; };
+		3607869C18E685450045AF0F /* RWNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869B18E685450045AF0F /* RWNavigationController.m */; };
+		3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869E18E689A00045AF0F /* RWTabBarController.m */; };
 		36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28D818DA456C00476E15 /* Foundation.framework */; };
 		36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DA18DA456C00476E15 /* CoreGraphics.framework */; };
 		36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DC18DA456C00476E15 /* UIKit.framework */; };
@@ -49,6 +51,10 @@
 		3607869318E607040045AF0F /* RWForumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWForumViewController.m; sourceTree = "<group>"; };
 		3607869518E607E50045AF0F /* RWWebSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWWebSectionViewController.h; sourceTree = "<group>"; };
 		3607869618E607E50045AF0F /* RWWebSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWWebSectionViewController.m; sourceTree = "<group>"; };
+		3607869A18E685450045AF0F /* RWNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWNavigationController.h; sourceTree = "<group>"; };
+		3607869B18E685450045AF0F /* RWNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWNavigationController.m; sourceTree = "<group>"; };
+		3607869D18E689A00045AF0F /* RWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTabBarController.h; sourceTree = "<group>"; };
+		3607869E18E689A00045AF0F /* RWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTabBarController.m; sourceTree = "<group>"; };
 		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,6 +125,34 @@
 				36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		3607869818E684A10045AF0F /* WebSections */ = {
+			isa = PBXGroup;
+			children = (
+				3607869518E607E50045AF0F /* RWWebSectionViewController.h */,
+				3607869618E607E50045AF0F /* RWWebSectionViewController.m */,
+				36CB290818DA460200476E15 /* RWArticlesViewController.h */,
+				36CB290918DA460200476E15 /* RWArticlesViewController.m */,
+				36CB290B18DA461F00476E15 /* RWNewsViewController.h */,
+				36CB290C18DA461F00476E15 /* RWNewsViewController.m */,
+				36CB290E18DA468000476E15 /* RWVideosViewController.h */,
+				36CB290F18DA468000476E15 /* RWVideosViewController.m */,
+				3607869218E607040045AF0F /* RWForumViewController.h */,
+				3607869318E607040045AF0F /* RWForumViewController.m */,
+			);
+			name = WebSections;
+			sourceTree = "<group>";
+		};
+		3607869918E684BD0045AF0F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				3607869A18E685450045AF0F /* RWNavigationController.h */,
+				3607869B18E685450045AF0F /* RWNavigationController.m */,
+				3607869D18E689A00045AF0F /* RWTabBarController.h */,
+				3607869E18E689A00045AF0F /* RWTabBarController.m */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 		36CB28CC18DA456C00476E15 = {
@@ -199,16 +233,8 @@
 		36CB290718DA45EE00476E15 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				36CB290818DA460200476E15 /* RWArticlesViewController.h */,
-				36CB290918DA460200476E15 /* RWArticlesViewController.m */,
-				36CB290B18DA461F00476E15 /* RWNewsViewController.h */,
-				36CB290C18DA461F00476E15 /* RWNewsViewController.m */,
-				36CB290E18DA468000476E15 /* RWVideosViewController.h */,
-				36CB290F18DA468000476E15 /* RWVideosViewController.m */,
-				3607869218E607040045AF0F /* RWForumViewController.h */,
-				3607869318E607040045AF0F /* RWForumViewController.m */,
-				3607869518E607E50045AF0F /* RWWebSectionViewController.h */,
-				3607869618E607E50045AF0F /* RWWebSectionViewController.m */,
+				3607869918E684BD0045AF0F /* Navigation */,
+				3607869818E684A10045AF0F /* WebSections */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -362,6 +388,8 @@
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
 				36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
+				3607869C18E685450045AF0F /* RWNavigationController.m in Sources */,
+				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,
 				36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */,
 				3607869418E607040045AF0F /* RWForumViewController.m in Sources */,
 				36CB28E918DA456C00476E15 /* RWAppDelegate.m in Sources */,

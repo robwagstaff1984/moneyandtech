@@ -9,23 +9,22 @@
 #import "RWWebSectionViewController.h"
 
 @interface RWWebSectionViewController ()
-
+@property (nonatomic, strong) UIWebView* webView;
 @end
 
 @implementation RWWebSectionViewController
 
 - (void)viewDidLoad
 {
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    webView.delegate = self;
+    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    self.webView.delegate = self;
     
     NSURLRequest* webSectionRequest = [[NSURLRequest alloc] initWithURL: [self urlForCurrentPage]];
-    [webView loadRequest:webSectionRequest];
+    [self.webView loadRequest:webSectionRequest];
     
-    [self.view addSubview:webView];
+    [self.view addSubview:self.webView];
     
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 -(NSURL*) urlForCurrentPage {
@@ -39,6 +38,8 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"failed to load webview for %@ %@", self.title, error);
+    if([error code] == NSURLErrorCancelled)
+        return;
 }
 
 @end

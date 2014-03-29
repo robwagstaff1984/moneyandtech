@@ -44,14 +44,6 @@
 
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-//    NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
-//    
-//    if (!self.isRestylingDone) {
-//        self.isRestylingDone = YES;
-//        [webView stringByEvaluatingJavaScriptFromString:videosPageStrippedJavascript];
-//    }
-//    
     NSLog(@"finish articles");
 }
 
