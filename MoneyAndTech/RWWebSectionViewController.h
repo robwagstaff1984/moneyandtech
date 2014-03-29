@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RWWebSectionViewController : UIViewController <UIWebViewDelegate>
+@interface RWWebSectionViewController : UIViewController
 
 @end

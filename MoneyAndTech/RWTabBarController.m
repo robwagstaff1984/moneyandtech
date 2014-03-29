@@ -38,6 +38,7 @@
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
 
     self.viewControllers = @[videosViewController, articlesViewController, newsViewController];
+//     self.viewControllers = @[videosViewController];
 }
 
 -(void) addTabBarItemToViewController:(UIViewController*)viewController withTitle:(NSString*)title {

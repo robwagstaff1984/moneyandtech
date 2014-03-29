@@ -38,7 +38,6 @@
 }
 
 -(NSURL*) urlForCurrentPage {
-    NSLog(@"articles sublclassed");
     return ARTICLES_URL;
 }
 
