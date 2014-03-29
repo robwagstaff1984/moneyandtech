@@ -9,9 +9,11 @@
 #import "RWWebSectionViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
+#import "MBProgressHUD.h"
 
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
+@property (nonatomic, strong) MBProgressHUD* hud;
 @end
 
 @implementation RWWebSectionViewController
@@ -30,6 +32,7 @@
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:self.webView];
     
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:[self httpRequestOperationForWebSection]];
     
     [super viewDidLoad];
@@ -44,10 +47,12 @@
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* response =  [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"Successfully loaded %@", self.title);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
 //        NSLog(@"Response: %@", response);
         [self.webView loadHTMLString:response baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     [operation setQueuePriority:[self queuePriority]];
     return operation;
