@@ -12,7 +12,7 @@
 #define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
 
 @implementation RWXPathStripper
-
+#pragma mark - public methods
 +(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
     
     TFHpple *tutorialsParser = [TFHpple hppleWithHTMLData:videosHTMLData];
@@ -32,12 +32,11 @@
     return strippedVideosHTML;
 }
 
+#pragma mark - video
 +(NSString*) formattedVideoHTMLFromElement:(TFHppleElement*) element {
     
     NSString* formattedVideoElement = [self rawElementWithEndTag:element];
-    
     formattedVideoElement = [self resizeformattedVideoElement:formattedVideoElement];
-    
     return formattedVideoElement;
 }
 
@@ -47,23 +46,26 @@
 
 +(NSString*) resizeformattedVideoElement:(NSString*)formattedVideoElement {
     
-    formattedVideoElement = [formattedVideoElement stringByReplacingOccurrencesOfString:@"width=\"500\"" withString:@"width=\"320\""];
-    formattedVideoElement = [formattedVideoElement stringByReplacingOccurrencesOfString:@"height=\"282\"" withString:@"height=\"180\""];
-
     int originalHeight = [self originalHeightOfVideo:formattedVideoElement];
     int originalWidth = [self originalWidthOfVideo:formattedVideoElement];
+    float originalRatio = (float)originalHeight / (float)originalWidth;
+    int newWidth = SCREEN_WIDTH - 20;
+    int newHeight = newWidth * originalRatio;
+    
+    formattedVideoElement = [self updateWidth:newWidth forFormattedVideoElement:formattedVideoElement];
+    formattedVideoElement = [self updateHeight:newHeight forFormattedVideoElement:formattedVideoElement];
     
     return formattedVideoElement;
 }
 
 +(int) originalHeightOfVideo:(NSString*)formattedVideoElement {
-    int originalHeight = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"height=\"(...)\""];
+    int originalHeight = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"height=\"(\\d*)\""];
     return originalHeight ?: 169;
 }
 
 +(int) originalWidthOfVideo:(NSString*)formattedVideoElement {
-    int originalWidth = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"width=\"(...)\""];
-    return originalWidth ?: 300;
+    int originalWidth = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"width=\"(\\d*)\""];
+    return originalWidth ?: 309;
 }
 
 +(int) extractValueFromFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
@@ -74,5 +76,21 @@
     return [matchString integerValue];
 }
 
++(NSString*) updateWidth:(int)width forFormattedVideoElement:(NSString*)formattedVideoElement {
+    return [self updateValue:width forFormattedVideoElement:formattedVideoElement regexPattern:@"(width=\")\\d*(\")"];;
+}
+
++(NSString*) updateHeight:(int)height forFormattedVideoElement:(NSString*)formattedVideoElement {
+    return [self updateValue:height forFormattedVideoElement:formattedVideoElement regexPattern:@"(height=\")\\d*(\")"];;
+}
+
++(NSString*) updateValue:(int)value forFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    formattedVideoElement = [regex stringByReplacingMatchesInString:formattedVideoElement
+                                                            options:0
+                                                              range:NSMakeRange(0, [formattedVideoElement length])
+                                                       withTemplate:[NSString stringWithFormat:@"$1%d$2", value]];
+    return formattedVideoElement;
+}
 
 @end
