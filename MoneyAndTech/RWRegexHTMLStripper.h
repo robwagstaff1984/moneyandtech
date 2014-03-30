@@ -10,5 +10,5 @@
 
 @interface RWRegexHTMLStripper : NSObject
 
-+(NSString*) videosPageStrippedJavascript;
++(NSString*) strippedHtmlFromVideosHTML:(NSString*)videosHTML;
 @end

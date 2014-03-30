@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    self.webView.delegate = self;
     [self.view addSubview:self.webView];
 
     self.activityIndicator = [[UIActivityIndicatorView alloc] init];
@@ -51,8 +52,9 @@
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* response =  [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"response: %@", response);
         NSLog(@"Successfully loaded %@", self.title);
-        [self.activityIndicator stopAnimating];
+        
         [self.webView loadHTMLString:response baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
@@ -72,6 +74,22 @@
 - (NSOperationQueuePriority)queuePriority {
     NSAssert(NO, @"This abstract method should be subclassed");
     return NSOperationQueuePriorityNormal;
+}
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"shouldStartLoadWithRequest");
+    return YES;
+}
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+        NSLog(@"webViewDidStartLoad");
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+        [self.activityIndicator stopAnimating];
+        NSLog(@"webViewDidFinishLoad");
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+        NSLog(@"didFailLoadWithError");
 }
 
 @end

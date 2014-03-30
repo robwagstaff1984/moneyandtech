@@ -15,6 +15,6 @@
 -(NSOperationQueuePriority)queuePriority;
 @end
 
-@interface RWWebSectionViewController : UIViewController <RWWebSectionProtocol>
+@interface RWWebSectionViewController : UIViewController <RWWebSectionProtocol, UIWebViewDelegate>
 
 @end
