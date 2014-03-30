@@ -12,6 +12,11 @@
 		3607869C18E685450045AF0F /* RWNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869B18E685450045AF0F /* RWNavigationController.m */; };
 		3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869E18E689A00045AF0F /* RWTabBarController.m */; };
 		360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786A118E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m */; };
+		360786D518E8B2640045AF0F /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786BC18E8B2640045AF0F /* TFHpple.m */; };
+		360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786BE18E8B2640045AF0F /* TFHppleElement.m */; };
+		360786DC18E8B2640045AF0F /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786C718E8B2640045AF0F /* XPathQuery.m */; };
+		360786E418E8B29F0045AF0F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786E318E8B29F0045AF0F /* libxml2.2.dylib */; };
+		360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786E618E8B3CE0045AF0F /* RWXPathStripper.m */; };
 		36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28D818DA456C00476E15 /* Foundation.framework */; };
 		36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DA18DA456C00476E15 /* CoreGraphics.framework */; };
 		36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DC18DA456C00476E15 /* UIKit.framework */; };
@@ -58,6 +63,15 @@
 		3607869E18E689A00045AF0F /* RWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTabBarController.m; sourceTree = "<group>"; };
 		360786A018E7611D0045AF0F /* RWAFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWAFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
 		360786A118E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWAFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		360786BB18E8B2640045AF0F /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		360786BC18E8B2640045AF0F /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		360786BD18E8B2640045AF0F /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		360786BE18E8B2640045AF0F /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		360786C618E8B2640045AF0F /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		360786C718E8B2640045AF0F /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		360786E318E8B29F0045AF0F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		360786E518E8B3CE0045AF0F /* RWXPathStripper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWXPathStripper.h; sourceTree = "<group>"; };
+		360786E618E8B3CE0045AF0F /* RWXPathStripper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWXPathStripper.m; sourceTree = "<group>"; };
 		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360786E418E8B29F0045AF0F /* libxml2.2.dylib in Frameworks */,
 				36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */,
 				36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */,
 				36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */,
@@ -167,6 +182,19 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		360786A418E8B2640045AF0F /* hpple */ = {
+			isa = PBXGroup;
+			children = (
+				360786BB18E8B2640045AF0F /* TFHpple.h */,
+				360786BC18E8B2640045AF0F /* TFHpple.m */,
+				360786BD18E8B2640045AF0F /* TFHppleElement.h */,
+				360786BE18E8B2640045AF0F /* TFHppleElement.m */,
+				360786C618E8B2640045AF0F /* XPathQuery.h */,
+				360786C718E8B2640045AF0F /* XPathQuery.m */,
+			);
+			path = hpple;
+			sourceTree = "<group>";
+		};
 		36CB28CC18DA456C00476E15 = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +218,8 @@
 		36CB28D718DA456C00476E15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				360786E318E8B29F0045AF0F /* libxml2.2.dylib */,
+				360786A418E8B2640045AF0F /* hpple */,
 				36CB28D818DA456C00476E15 /* Foundation.framework */,
 				36CB28DA18DA456C00476E15 /* CoreGraphics.framework */,
 				36CB28DC18DA456C00476E15 /* UIKit.framework */,
@@ -257,6 +287,8 @@
 			children = (
 				36CB291518DB8E6900476E15 /* RWRegexHTMLStripper.h */,
 				36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */,
+				360786E518E8B3CE0045AF0F /* RWXPathStripper.h */,
+				360786E618E8B3CE0045AF0F /* RWXPathStripper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -398,12 +430,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360786DC18E8B2640045AF0F /* XPathQuery.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
 				36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
+				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
 				3607869C18E685450045AF0F /* RWNavigationController.m in Sources */,
+				360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */,
 				360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */,
 				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,
+				360786D518E8B2640045AF0F /* TFHpple.m in Sources */,
 				36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */,
 				3607869418E607040045AF0F /* RWForumViewController.m in Sources */,
 				36CB28E918DA456C00476E15 /* RWAppDelegate.m in Sources */,
@@ -532,6 +568,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -546,6 +588,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

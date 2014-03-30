@@ -9,6 +9,8 @@
 #import "RWWebSectionViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
+#import "RWXPathStripper.h"
+
 
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
@@ -51,11 +53,10 @@
     NSLog(@"Adding operation request for: %@", self.title);
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString* response =  [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"response: %@", response);
-        NSLog(@"Successfully loaded %@", self.title);
+    
+        NSString* strippedHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
+        [self.webView loadHTMLString:strippedHTML baseURL:nil];
         
-        [self.webView loadHTMLString:response baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
         [self.activityIndicator stopAnimating];
