@@ -18,7 +18,7 @@
     RWNavigationController *navigationController = [[RWNavigationController alloc] initWithRootViewController:tabBarController];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor grayColor];
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
     

@@ -10,41 +10,90 @@
 #import "TFHpple.h"
 
 #define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
+#define VIDEOS_PAGE_TITLE_XPATH @"//h1[@class='entry-title']/a/text()"
+#define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']"
+#define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()"
+
+@interface RWXPathStripper()
+@property (nonatomic, strong) NSString* strippedVideosHTML;
+@property (nonatomic, strong) NSMutableArray* videoHTMLElements;
+@property (nonatomic, strong) NSMutableArray* titleHTMLElements;
+@property (nonatomic, strong) NSMutableArray* shareHTMLElements;
+@property (nonatomic, strong) NSMutableArray* timeHTMLElements;
+@property (nonatomic, strong) TFHpple* videosPageParser;
+
+@end
 
 @implementation RWXPathStripper
 #pragma mark - public methods
-+(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
-    
-    TFHpple *tutorialsParser = [TFHpple hppleWithHTMLData:videosHTMLData];
-    
-    NSString *tutorialsXpathQueryString = @"//iframe";
-    NSArray *tutorialsNodes = [tutorialsParser searchWithXPathQuery:tutorialsXpathQueryString];
-   
-    NSString* strippedVideosHTML = @"<html><body>";
-    
-    for (TFHppleElement *element in tutorialsNodes) {
-        strippedVideosHTML = [strippedVideosHTML stringByAppendingString:@"<div>MyTitle</div>"];
-        strippedVideosHTML = [strippedVideosHTML stringByAppendingString:[self formattedVideoHTMLFromElement:element]];
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.videoHTMLElements = [[NSMutableArray alloc] init];
+        self.titleHTMLElements = [[NSMutableArray alloc] init];
+        self.shareHTMLElements = [[NSMutableArray alloc] init];
+        self.timeHTMLElements = [[NSMutableArray alloc] init];
     }
+    return self;
+}
+
++(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
+    RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
+    return [xpathStripper strippedHtmlFromVideosHTML:videosHTMLData];
+}
+
+-(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
     
-    strippedVideosHTML = [strippedVideosHTML stringByAppendingString:@"</body></html>"];
+    self.videosPageParser = [TFHpple hppleWithHTMLData:videosHTMLData];
+
+    [self extractAllVideoElements];
+    [self extractAllTitleElements];
+    [self extractAllShareElements];
+    [self extractAllTimeElements];
     
-    return strippedVideosHTML;
+    [self constructStrippedVideosHTML];
+    
+    
+    
+    return self.strippedVideosHTML;
+}
+
+-(void) constructStrippedVideosHTML {
+    self.strippedVideosHTML = @"<html><body>";
+    
+    for (int articleNumber = 0; articleNumber < [self.videoHTMLElements count]; articleNumber++) {
+        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.titleHTMLElements[articleNumber]];
+        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.videoHTMLElements[articleNumber]];
+        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.shareHTMLElements[articleNumber]];
+        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.timeHTMLElements[articleNumber]];
+    }
+    self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:@"</body></html>"];
 }
 
 #pragma mark - video
-+(NSString*) formattedVideoHTMLFromElement:(TFHppleElement*) element {
+-(void) extractAllVideoElements {
+    NSString *videoElementXpathQueryString = VIDEOS_PAGE_VIDEO_XPATH;
+    NSArray *videoNodes = [self.videosPageParser searchWithXPathQuery:videoElementXpathQueryString];
+    
+    for (TFHppleElement *videoElement in videoNodes) {
+        [self.videoHTMLElements addObject:[self formattedVideoHTMLFromElement:videoElement]];
+    }
+}
+
+-(NSString*) formattedVideoHTMLFromElement:(TFHppleElement*) element {
     
     NSString* formattedVideoElement = [self rawElementWithEndTag:element];
     formattedVideoElement = [self resizeformattedVideoElement:formattedVideoElement];
     return formattedVideoElement;
 }
 
-+(NSString*) rawElementWithEndTag:(TFHppleElement*)element {
+-(NSString*) rawElementWithEndTag:(TFHppleElement*)element {
     return [element.raw stringByReplacingOccurrencesOfString:@"/>" withString:[NSString stringWithFormat:@"></%@>", [element valueForKeyPath:@"node.nodeName"]]];
 }
 
-+(NSString*) resizeformattedVideoElement:(NSString*)formattedVideoElement {
+-(NSString*) resizeformattedVideoElement:(NSString*)formattedVideoElement {
     
     int originalHeight = [self originalHeightOfVideo:formattedVideoElement];
     int originalWidth = [self originalWidthOfVideo:formattedVideoElement];
@@ -58,17 +107,17 @@
     return formattedVideoElement;
 }
 
-+(int) originalHeightOfVideo:(NSString*)formattedVideoElement {
+-(int) originalHeightOfVideo:(NSString*)formattedVideoElement {
     int originalHeight = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"height=\"(\\d*)\""];
     return originalHeight ?: 169;
 }
 
-+(int) originalWidthOfVideo:(NSString*)formattedVideoElement {
+-(int) originalWidthOfVideo:(NSString*)formattedVideoElement {
     int originalWidth = [self extractValueFromFormattedVideoElement:formattedVideoElement regexPattern:@"width=\"(\\d*)\""];
     return originalWidth ?: 309;
 }
 
-+(int) extractValueFromFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
+-(int) extractValueFromFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:NSRegularExpressionCaseInsensitive error:nil];
     NSTextCheckingResult *match  = [regex firstMatchInString:formattedVideoElement options:0 range:NSMakeRange(0, [formattedVideoElement length])];
     NSRange matchRange = [match rangeAtIndex:1];
@@ -76,21 +125,65 @@
     return [matchString integerValue];
 }
 
-+(NSString*) updateWidth:(int)width forFormattedVideoElement:(NSString*)formattedVideoElement {
+-(NSString*) updateWidth:(int)width forFormattedVideoElement:(NSString*)formattedVideoElement {
     return [self updateValue:width forFormattedVideoElement:formattedVideoElement regexPattern:@"(width=\")\\d*(\")"];;
 }
 
-+(NSString*) updateHeight:(int)height forFormattedVideoElement:(NSString*)formattedVideoElement {
+-(NSString*) updateHeight:(int)height forFormattedVideoElement:(NSString*)formattedVideoElement {
     return [self updateValue:height forFormattedVideoElement:formattedVideoElement regexPattern:@"(height=\")\\d*(\")"];;
 }
 
-+(NSString*) updateValue:(int)value forFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
+-(NSString*) updateValue:(int)value forFormattedVideoElement:(NSString*)formattedVideoElement regexPattern:(NSString*)regexPattern {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:NSRegularExpressionCaseInsensitive error:nil];
     formattedVideoElement = [regex stringByReplacingMatchesInString:formattedVideoElement
                                                             options:0
                                                               range:NSMakeRange(0, [formattedVideoElement length])
                                                        withTemplate:[NSString stringWithFormat:@"$1%d$2", value]];
     return formattedVideoElement;
+}
+
+#pragma mark - title
+-(void) extractAllTitleElements {
+    NSString *titleElementXpathQueryString = VIDEOS_PAGE_TITLE_XPATH;
+    NSArray *titleNodes = [self.videosPageParser searchWithXPathQuery:titleElementXpathQueryString];
+    
+    for (TFHppleElement *titleElement in titleNodes) {
+        [self.titleHTMLElements addObject:[self formattedTitleHTMLFromElement:titleElement]];
+    }
+}
+
+-(NSString*) formattedTitleHTMLFromElement:(TFHppleElement*)titleElement {
+    return [NSString stringWithFormat:@"<h3>%@</h3>", titleElement.raw];
+}
+
+#pragma mark - share
+
+-(void) extractAllShareElements {
+    NSString *shareElementXpathQueryString = VIDEOS_PAGE_SHARE_XPATH;
+    NSArray *shareNodes = [self.videosPageParser searchWithXPathQuery:shareElementXpathQueryString];
+    
+    for (TFHppleElement *shareElement in shareNodes) {
+        [self.shareHTMLElements addObject:[self formattedShareHTMLFromElement:shareElement]];
+    }
+}
+
+-(NSString*) formattedShareHTMLFromElement:(TFHppleElement*)shareElement {
+    return [@"<div>&nbsp</div>" stringByAppendingString:shareElement.raw];
+}
+
+#pragma mark - time
+
+-(void) extractAllTimeElements {
+    NSString *timeElementXpathQueryString = VIDEOS_PAGE_TIME_XPATH;
+    NSArray *timeNodes = [self.videosPageParser searchWithXPathQuery:timeElementXpathQueryString];
+    
+    for (TFHppleElement *timeElement in timeNodes) {
+        [self.timeHTMLElements addObject:[self formattedTimeHTMLFromElement:timeElement]];
+    }
+}
+
+-(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
+    return [NSString stringWithFormat:@"<div>%@</div>", timeElement.raw];
 }
 
 @end

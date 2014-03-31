@@ -42,14 +42,4 @@
     return NSOperationQueuePriorityVeryHigh;
 }
 
-//
-//    NSString* videosPageStrippedJavascript = [RWRegexHTMLStripper videosPageStrippedJavascript];
-//    
-//    if (!self.isRestylingDone) {
-//        self.isRestylingDone = YES;
-//        [webView stringByEvaluatingJavaScriptFromString:videosPageStrippedJavascript];
-//        NSLog(@"stripping down HTML!");
-//    }
-
-
 @end

@@ -25,14 +25,16 @@
 {
     self = [super init];
     if (self) {
-
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    CGRect frameInsideTabBarController =  CGRectMake(0, 0, self.tabBarController.view.frame.size.width,
+               self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
+    self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
+    self.webView.hidden = YES;
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
 
@@ -53,9 +55,11 @@
     NSLog(@"Adding operation request for: %@", self.title);
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    
+        
         NSString* strippedHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
+        self.webView.hidden = NO;
         [self.webView loadHTMLString:strippedHTML baseURL:nil];
+        [self.activityIndicator stopAnimating];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
@@ -86,7 +90,6 @@
         NSLog(@"webViewDidStartLoad");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-        [self.activityIndicator stopAnimating];
         NSLog(@"webViewDidFinishLoad");
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
