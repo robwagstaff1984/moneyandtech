@@ -31,6 +31,7 @@
 -(void) setupNavigationView {
     [self.navigationBar setBarTintColor:MONEY_AND_TECH_GREY];
     [self.navigationBar setTranslucent:NO];
+    
 }
 
 - (void)viewDidLoad

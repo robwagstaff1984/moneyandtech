@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWXPathStripper.h"
+#import "RWExternalWebViewController.h"
 
 
 @interface RWWebSectionViewController ()
@@ -31,23 +32,32 @@
 
 - (void)viewDidLoad
 {
-    CGRect frameInsideTabBarController =  CGRectMake(0, 0, self.tabBarController.view.frame.size.width,
-               self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
-    self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
-    self.webView.hidden = YES;
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
-
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [self.view addSubview:self.activityIndicator];
-    self.activityIndicator.center = self.view.center;
+    [self setupWebView];
+    [self setupActivityIndicator];
     
     [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:[self httpRequestOperationForWebSection]];
     
     [super viewDidLoad];
 }
+#pragma mark - setup
 
+-(void) setupWebView {
+    CGRect frameInsideTabBarController =  CGRectMake(0, 0, self.tabBarController.view.frame.size.width,
+                                                     self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
+    self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
+    self.webView.hidden = YES;
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+}
+
+-(void) setupActivityIndicator {
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:self.activityIndicator];
+    self.activityIndicator.center = self.view.center;
+}
+
+#pragma mark - AFNetworking
 -(AFHTTPRequestOperation*) httpRequestOperationForWebSection {
     NSMutableURLRequest* webSectionRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForSection]];
     [webSectionRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
@@ -70,6 +80,7 @@
     return operation;
 }
 
+
 #pragma mark - RWWebSectionProtocol
 -(NSURL*) urlForSection {
     NSAssert(NO, @"This abstract method should be subclassed");
@@ -81,8 +92,12 @@
     return NSOperationQueuePriorityNormal;
 }
 
-
+#pragma mark - UIWebviewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if(navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [self pushExternalWebViewWithRequest:request];
+        return NO;
+    }
     NSLog(@"shouldStartLoadWithRequest");
     return YES;
 }
@@ -95,5 +110,15 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
         NSLog(@"didFailLoadWithError");
 }
+
+#pragma mark - external link clicks
+-(void) pushExternalWebViewWithRequest:(NSURLRequest *)request {
+    NSLog(@"clicked external link");
+    UINavigationController* externalWebViewNavigationController = [[UINavigationController alloc] init];
+    RWExternalWebViewController* externalWebViewController = [[RWExternalWebViewController alloc] initWithURLRequest:request];
+    externalWebViewNavigationController.viewControllers = @[externalWebViewController];
+    [self.navigationController pushViewController:externalWebViewController animated:YES];
+}
+
 
 @end
