@@ -14,6 +14,9 @@
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()"
 
+#define HTML_OPEN @"<html><body>"
+#define HTML_CLOSE @"</body></html>"
+
 @interface RWXPathStripper()
 @property (nonatomic, strong) NSString* strippedVideosHTML;
 @property (nonatomic, strong) NSMutableArray* videoHTMLElements;
@@ -44,6 +47,15 @@
     return [xpathStripper strippedHtmlFromVideosHTML:videosHTMLData];
 }
 
++(NSString*) addNextPage:(NSString*)nextPageHTML toOriginalHTML:(NSString*)originalHTML {
+    nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:HTML_OPEN withString:@""];
+    nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:HTML_CLOSE withString:@""];
+    originalHTML = [originalHTML stringByReplacingOccurrencesOfString:HTML_OPEN withString:@""];
+    originalHTML = [originalHTML stringByReplacingOccurrencesOfString:HTML_CLOSE withString:@""];
+    NSString* combinedHTML = [NSString stringWithFormat:@"%@%@%@%@", HTML_OPEN, originalHTML, nextPageHTML, HTML_CLOSE];
+    return combinedHTML;
+}
+
 -(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
     
     self.videosPageParser = [TFHpple hppleWithHTMLData:videosHTMLData];
@@ -61,7 +73,7 @@
 }
 
 -(void) constructStrippedVideosHTML {
-    self.strippedVideosHTML = @"<html><body>";
+    self.strippedVideosHTML = HTML_OPEN;
     
     for (int articleNumber = 0; articleNumber < [self.videoHTMLElements count]; articleNumber++) {
         self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.titleHTMLElements[articleNumber]];
@@ -69,7 +81,7 @@
         self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.shareHTMLElements[articleNumber]];
         self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.timeHTMLElements[articleNumber]];
     }
-    self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:@"</body></html>"];
+    self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:HTML_CLOSE];
 }
 
 #pragma mark - video
@@ -128,7 +140,7 @@
     NSTextCheckingResult *match  = [regex firstMatchInString:formattedVideoElement options:0 range:NSMakeRange(0, [formattedVideoElement length])];
     NSRange matchRange = [match rangeAtIndex:1];
     NSString *matchString = [formattedVideoElement substringWithRange:matchRange];
-    return [matchString integerValue];
+    return [matchString intValue];
 }
 
 -(NSString*) updateWidth:(int)width forFormattedVideoElement:(NSString*)formattedVideoElement {

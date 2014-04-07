@@ -16,5 +16,6 @@
 @end
 
 @interface RWWebSectionViewController : UIViewController <RWWebSectionProtocol, UIWebViewDelegate>
+@property (nonatomic) int pageNumber;
 
 @end

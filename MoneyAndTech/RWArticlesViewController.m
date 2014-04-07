@@ -11,7 +11,6 @@
 #define ARTICLES_URL [NSURL URLWithString:@"http://www.moneyandtech.com/articles"]
 
 @interface RWArticlesViewController ()
-@property (nonatomic) BOOL isRestylingDone;
 @property (nonatomic) UIWebView* webView;
 
 @end

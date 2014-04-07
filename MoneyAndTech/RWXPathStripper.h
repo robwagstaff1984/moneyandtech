@@ -11,4 +11,5 @@
 @interface RWXPathStripper : AFHTTPRequestOperationManager
 
 +(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData;
++(NSString*) addNextPage:(NSString*)nextPageHTML toOriginalHTML:(NSString*)originalHTML;
 @end
