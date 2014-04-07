@@ -86,11 +86,13 @@
     
     NSString* formattedVideoElement = [self rawElementWithEndTag:element];
     formattedVideoElement = [self resizeformattedVideoElement:formattedVideoElement];
+    formattedVideoElement = [self fixMalformedURLSource:formattedVideoElement];
     return formattedVideoElement;
 }
 
 -(NSString*) rawElementWithEndTag:(TFHppleElement*)element {
-    return [element.raw stringByReplacingOccurrencesOfString:@"/>" withString:[NSString stringWithFormat:@"></%@>", [element valueForKeyPath:@"node.nodeName"]]];
+    NSString* rawElementWithEndTag = [element.raw stringByReplacingOccurrencesOfString:@"/>" withString:[NSString stringWithFormat:@"></%@>", [element valueForKeyPath:@"node.nodeName"]]];
+    return rawElementWithEndTag;
 }
 
 -(NSString*) resizeformattedVideoElement:(NSString*)formattedVideoElement {
@@ -105,6 +107,10 @@
     formattedVideoElement = [self updateHeight:newHeight forFormattedVideoElement:formattedVideoElement];
     
     return formattedVideoElement;
+}
+
+-(NSString*) fixMalformedURLSource:(NSString*)formattedVideoElement {
+    return [formattedVideoElement stringByReplacingOccurrencesOfString:@"src=\"//www." withString:@"src=\"http://www."];
 }
 
 -(int) originalHeightOfVideo:(NSString*)formattedVideoElement {
