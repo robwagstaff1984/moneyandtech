@@ -19,6 +19,18 @@
 		360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786E618E8B3CE0045AF0F /* RWXPathStripper.m */; };
 		360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786E918EA1A9A0045AF0F /* RWExternalWebViewController.m */; };
 		360786ED18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */; };
+		360786F418F35EED0045AF0F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786F318F35EED0045AF0F /* AudioToolbox.framework */; };
+		360786F618F35EF90045AF0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786F518F35EF90045AF0F /* CFNetwork.framework */; };
+		360786F818F35F130045AF0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786F718F35F130045AF0F /* CoreLocation.framework */; };
+		360786FA18F35F1F0045AF0F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786F918F35F1F0045AF0F /* libz.dylib */; };
+		360786FC18F35F280045AF0F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786FB18F35F280045AF0F /* MobileCoreServices.framework */; };
+		360786FE18F35F370045AF0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786FD18F35F370045AF0F /* QuartzCore.framework */; };
+		3607870018F35F430045AF0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360786FF18F35F430045AF0F /* Security.framework */; };
+		3607870218F35F4D0045AF0F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870118F35F4D0045AF0F /* StoreKit.framework */; };
+		3607870418F35F570045AF0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870318F35F570045AF0F /* SystemConfiguration.framework */; };
+		3607870618F365230045AF0F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870518F365230045AF0F /* Parse.framework */; };
+		3607870A18F365EC0045AF0F /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607870918F365EC0045AF0F /* FBMissingSymbols.m */; };
+		3607870B18F366480045AF0F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870718F3656F0045AF0F /* Accounts.framework */; };
 		36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28D818DA456C00476E15 /* Foundation.framework */; };
 		36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DA18DA456C00476E15 /* CoreGraphics.framework */; };
 		36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DC18DA456C00476E15 /* UIKit.framework */; };
@@ -78,6 +90,18 @@
 		360786E918EA1A9A0045AF0F /* RWExternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWExternalWebViewController.m; sourceTree = "<group>"; };
 		360786EB18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		360786F318F35EED0045AF0F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		360786F518F35EF90045AF0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		360786F718F35F130045AF0F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		360786F918F35F1F0045AF0F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		360786FB18F35F280045AF0F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		360786FD18F35F370045AF0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		360786FF18F35F430045AF0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3607870118F35F4D0045AF0F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3607870318F35F570045AF0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3607870518F365230045AF0F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		3607870718F3656F0045AF0F /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		3607870918F365EC0045AF0F /* FBMissingSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBMissingSymbols.m; sourceTree = "<group>"; };
 		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,8 +141,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				360786E418E8B29F0045AF0F /* libxml2.2.dylib in Frameworks */,
+				3607870B18F366480045AF0F /* Accounts.framework in Frameworks */,
+				3607870418F35F570045AF0F /* SystemConfiguration.framework in Frameworks */,
+				3607870218F35F4D0045AF0F /* StoreKit.framework in Frameworks */,
+				3607870018F35F430045AF0F /* Security.framework in Frameworks */,
+				360786FE18F35F370045AF0F /* QuartzCore.framework in Frameworks */,
+				3607870618F365230045AF0F /* Parse.framework in Frameworks */,
+				360786FC18F35F280045AF0F /* MobileCoreServices.framework in Frameworks */,
+				360786FA18F35F1F0045AF0F /* libz.dylib in Frameworks */,
+				360786F818F35F130045AF0F /* CoreLocation.framework in Frameworks */,
 				36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */,
+				360786F618F35EF90045AF0F /* CFNetwork.framework in Frameworks */,
+				360786F418F35EED0045AF0F /* AudioToolbox.framework in Frameworks */,
+				360786E418E8B29F0045AF0F /* libxml2.2.dylib in Frameworks */,
 				36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */,
 				36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */,
 				8290320DE6544096B77AB564 /* libPods.a in Frameworks */,
@@ -226,6 +261,17 @@
 		36CB28D718DA456C00476E15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3607870718F3656F0045AF0F /* Accounts.framework */,
+				3607870518F365230045AF0F /* Parse.framework */,
+				3607870318F35F570045AF0F /* SystemConfiguration.framework */,
+				3607870118F35F4D0045AF0F /* StoreKit.framework */,
+				360786FF18F35F430045AF0F /* Security.framework */,
+				360786FD18F35F370045AF0F /* QuartzCore.framework */,
+				360786FB18F35F280045AF0F /* MobileCoreServices.framework */,
+				360786F918F35F1F0045AF0F /* libz.dylib */,
+				360786F718F35F130045AF0F /* CoreLocation.framework */,
+				360786F518F35EF90045AF0F /* CFNetwork.framework */,
+				360786F318F35EED0045AF0F /* AudioToolbox.framework */,
 				360786E318E8B29F0045AF0F /* libxml2.2.dylib */,
 				360786A418E8B2640045AF0F /* hpple */,
 				36CB28D818DA456C00476E15 /* Foundation.framework */,
@@ -293,6 +339,7 @@
 		36CB291418DB8E3A00476E15 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3607870918F365EC0045AF0F /* FBMissingSymbols.m */,
 				360786EB18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.h */,
 				360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */,
 				36CB291518DB8E6900476E15 /* RWRegexHTMLStripper.h */,
@@ -446,6 +493,7 @@
 				36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
+				3607870A18F365EC0045AF0F /* FBMissingSymbols.m in Sources */,
 				3607869C18E685450045AF0F /* RWNavigationController.m in Sources */,
 				360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */,
 				360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */,
@@ -515,7 +563,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Wagstaff (8ELYU7XP26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Wagstaff (8ELYU7XP26)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -578,6 +627,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Wagstaff (8ELYU7XP26)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/robertwagstaff/work/workspace/MoneyAndTech,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -587,6 +641,16 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -598,6 +662,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/robertwagstaff/work/workspace/MoneyAndTech,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -607,6 +676,16 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

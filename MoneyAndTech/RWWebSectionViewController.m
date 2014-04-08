@@ -144,10 +144,6 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 //        NSLog(@"webViewDidStartLoad");
     self.openRequestsCount++;
-    if(self.webView.scrollView.contentOffset.y == -64) {
-        NSLog(@"adjusting offset");
-        [self.webView.scrollView setContentOffset:self.offsetOfInfiniteScroll animated:NO];
-    }
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.openRequestsCount--;
