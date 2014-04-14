@@ -17,7 +17,6 @@
 @property (nonatomic, strong) UIWebView* webView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) BOOL needsInfiniteScrollTurnedOff;
-@property (nonatomic) CGPoint offsetOfInfiniteScroll;
 @property (nonatomic) int openRequestsCount;
 
 
@@ -31,7 +30,6 @@
     self = [super init];
     if (self) {
         self.pageNumber = 1;
-        self.offsetOfInfiniteScroll = CGPointMake(0, -64);
     }
     return self;
 }
@@ -94,26 +92,33 @@
 -(void) loadNextPage {
     self.pageNumber++;
     NSMutableURLRequest* nextPageRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForNextPage]];
-
+    
     [nextPageRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
     NSLog(@"Adding next page operation request for: %@", self.title);
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:nextPageRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString* originalHTML = [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
-        NSString* strippedNextPageHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
-        NSString* newHTML =  [RWXPathStripper addNextPage:strippedNextPageHTML toOriginalHTML:originalHTML];
-        
-        self.offsetOfInfiniteScroll = self.webView.scrollView.contentOffset;
-        [self.webView loadHTMLString:newHTML baseURL:[NSURL URLWithString:nil]];
-        self.needsInfiniteScrollTurnedOff = YES;
-    
+        [self appendNextPageToDOM:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
         [self.activityIndicator stopAnimating];
     }];
     [operation setQueuePriority:[self queuePriority]];
     
-     [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:operation];
+    [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:operation];
+}
+
+-(void) appendNextPageToDOM:(id)responseObject {
+    NSString* strippedNextPageHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
+    
+    [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('div');myDiv.innerHTML='%@';document.documentElement.appendChild(myDiv)", strippedNextPageHTML]];
+    
+    [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
+
+}
+
+-(NSString*) injectJavascript:(NSString*)javascript {
+    NSString* result = [self.webView stringByEvaluatingJavaScriptFromString:javascript];
+    return result;
 }
 
 #pragma mark - RWWebSectionProtocol
@@ -147,19 +152,17 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.openRequestsCount--;
-    NSLog(@"webViewDidFinishLoad %d", self.openRequestsCount);
-    
-    if(self.webView.scrollView.contentOffset.y == -64) {
-        NSLog(@"adjusting offset");
-        [self.webView.scrollView setContentOffset:self.offsetOfInfiniteScroll animated:NO];
+    if (self.openRequestsCount == 0) {
+        NSLog(@"webViewDidFinishLoad All open requests finished");
     }
-    
-    if(self.needsInfiniteScrollTurnedOff && self.openRequestsCount == 0) {
-        NSLog(@"Turning off infinite scroll");
-        self.needsInfiniteScrollTurnedOff = NO;
-        
-        [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
-    }
+
+
+//    if(self.needsInfiniteScrollTurnedOff && self.openRequestsCount == 0) {
+//        NSLog(@"Turning off infinite scroll");
+//        self.needsInfiniteScrollTurnedOff = NO;
+//        
+//        [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
+//    }
     
     
 }

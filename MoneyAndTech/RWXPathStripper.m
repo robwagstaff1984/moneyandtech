@@ -14,6 +14,7 @@
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()"
 
+#define HTML_HEAD @"<head></head>"
 #define HTML_OPEN @"<html><body>"
 #define HTML_CLOSE @"</body></html>"
 
@@ -44,16 +45,17 @@
 
 +(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
     RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
-    return [xpathStripper strippedHtmlFromVideosHTML:videosHTMLData];
+    NSString* strippedVideosHTML = [xpathStripper strippedHtmlFromVideosHTML:videosHTMLData];
+    strippedVideosHTML = [self nextPageFormatted:strippedVideosHTML];
+    return strippedVideosHTML;
 }
 
-+(NSString*) addNextPage:(NSString*)nextPageHTML toOriginalHTML:(NSString*)originalHTML {
++(NSString*) nextPageFormatted:(NSString*)nextPageHTML {
+    nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:HTML_HEAD withString:@""];
     nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:HTML_OPEN withString:@""];
     nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:HTML_CLOSE withString:@""];
-    originalHTML = [originalHTML stringByReplacingOccurrencesOfString:HTML_OPEN withString:@""];
-    originalHTML = [originalHTML stringByReplacingOccurrencesOfString:HTML_CLOSE withString:@""];
-    NSString* combinedHTML = [NSString stringWithFormat:@"%@%@%@%@", HTML_OPEN, originalHTML, nextPageHTML, HTML_CLOSE];
-    return combinedHTML;
+    nextPageHTML = [nextPageHTML stringByReplacingOccurrencesOfString:@"'" withString:@"\""];
+    return nextPageHTML;
 }
 
 -(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
@@ -76,12 +78,21 @@
     self.strippedVideosHTML = HTML_OPEN;
     
     for (int articleNumber = 0; articleNumber < [self.videoHTMLElements count]; articleNumber++) {
-        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.titleHTMLElements[articleNumber]];
-        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.videoHTMLElements[articleNumber]];
-        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.shareHTMLElements[articleNumber]];
-        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:self.timeHTMLElements[articleNumber]];
+        [self appendArticleNumber:articleNumber fromElementArray:self.titleHTMLElements];
+        [self appendArticleNumber:articleNumber fromElementArray:self.videoHTMLElements];
+        [self appendArticleNumber:articleNumber fromElementArray:self.shareHTMLElements];
+        [self appendArticleNumber:articleNumber fromElementArray:self.timeHTMLElements];
     }
     self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:HTML_CLOSE];
+}
+
+-(void) appendArticleNumber:(int)articleNumber fromElementArray:(NSMutableArray*)elementArray {
+    if ([elementArray count] > articleNumber) {
+        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:elementArray[articleNumber]];
+    } else {
+        NSLog(@"Warning. Missing Article Element");
+    }
+    
 }
 
 #pragma mark - video
