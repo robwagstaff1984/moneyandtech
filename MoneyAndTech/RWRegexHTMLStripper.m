@@ -16,8 +16,6 @@
 @implementation RWRegexHTMLStripper
 
 +(NSString*) strippedHtmlFromVideosHTML:(NSString*)videosHTML {
-    
-    
     return @"";
 }
 

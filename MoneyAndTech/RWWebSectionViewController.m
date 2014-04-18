@@ -19,8 +19,6 @@
 @property (nonatomic) BOOL needsInfiniteScrollTurnedOff;
 @property (nonatomic) int openRequestsCount;
 
-
-//[alert addSubview: progress];
 @end
 
 @implementation RWWebSectionViewController

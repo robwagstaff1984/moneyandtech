@@ -9,8 +9,8 @@
 #import "RWVideosViewController.h"
 #import "RWRegexHTMLStripper.h"
 
-#define VIDEOS_URL [NSURL URLWithString:@"http://www.moneyandtech.com/videos"]
-#define VIDEOS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"http://www.moneyandtech.com/videos/page/%d/", self.pageNumber]]
+#define VIDEOS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/videos", MONEY_AND_TECH_HOME_PAGE_URL]]
+#define VIDEOS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/videos/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]
 
 #define JAVASCRIPT_RESTYLE_VIDEOS_PAGE @"document.getElementsByTagName('body')[0].style['visibility']='hidden'; document.getElementsByTagName('article')[0].style['visibility']='visible';"
 

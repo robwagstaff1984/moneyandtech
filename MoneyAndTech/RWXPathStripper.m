@@ -11,7 +11,7 @@
 
 #define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
 #define VIDEOS_PAGE_TITLE_XPATH @"//h1[@class='entry-title']/a/text()"
-#define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']"
+#define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()"
 
 #define HTML_HEAD @"<head></head>"
@@ -109,7 +109,7 @@
     
     NSString* formattedVideoElement = [self rawElementWithEndTag:element];
     formattedVideoElement = [self resizeformattedVideoElement:formattedVideoElement];
-    formattedVideoElement = [self fixMalformedURLSource:formattedVideoElement];
+    formattedVideoElement = [self fixMalformedURLSourceForVideo:formattedVideoElement];
     return formattedVideoElement;
 }
 
@@ -132,8 +132,8 @@
     return formattedVideoElement;
 }
 
--(NSString*) fixMalformedURLSource:(NSString*)formattedVideoElement {
-    return [formattedVideoElement stringByReplacingOccurrencesOfString:@"src=\"//www." withString:@"src=\"http://www."];
+-(NSString*) fixMalformedURLSourceForVideo:(NSString*)formattedVideoElement {
+    return [formattedVideoElement stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://www."];
 }
 
 -(int) originalHeightOfVideo:(NSString*)formattedVideoElement {
@@ -197,8 +197,18 @@
 }
 
 -(NSString*) formattedShareHTMLFromElement:(TFHppleElement*)shareElement {
-    return [@"<div>&nbsp</div>" stringByAppendingString:shareElement.raw];
+    
+    NSString* shareElementFixed = [self fixMalformedURLSourceForShare:shareElement.raw];
+    
+    return [@"<div>&nbsp</div>" stringByAppendingString:shareElementFixed];
 }
+
+-(NSString*) fixMalformedURLSourceForShare:(NSString*)formattedShareElement {
+    
+    formattedShareElement = [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/development" withString:[NSString stringWithFormat:@"src=\"%@/", MONEY_AND_TECH_HOME_PAGE_URL]];
+    return [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/" withString:[NSString stringWithFormat:@"src=\"%@/", MONEY_AND_TECH_HOME_PAGE_URL]];
+}
+
 
 #pragma mark - time
 

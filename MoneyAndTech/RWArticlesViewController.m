@@ -8,7 +8,7 @@
 
 #import "RWArticlesViewController.h"
 
-#define ARTICLES_URL [NSURL URLWithString:@"http://www.moneyandtech.com/articles"]
+#define ARTICLES_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles", MONEY_AND_TECH_HOME_PAGE_URL]]
 
 @interface RWArticlesViewController ()
 @property (nonatomic) UIWebView* webView;

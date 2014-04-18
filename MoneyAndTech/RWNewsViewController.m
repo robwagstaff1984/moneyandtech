@@ -7,7 +7,7 @@
 //
 
 #import "RWNewsViewController.h"
-#define NEWS_URL [NSURL URLWithString:@"http://www.moneyandtech.com/news"]
+#define NEWS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news", MONEY_AND_TECH_HOME_PAGE_URL]]
 
 @interface RWNewsViewController ()
 
