@@ -9,7 +9,6 @@
 #import "RWWebSectionViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
-#import "RWXPathStripper.h"
 #import "RWExternalWebViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
@@ -73,7 +72,7 @@
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSString* strippedHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
+        NSString* strippedHTML = [self strippedHTMLFromData:responseObject];
         self.webView.hidden = NO;
         [self.webView loadHTMLString:strippedHTML baseURL:nil];
         [self.activityIndicator stopAnimating];
@@ -135,6 +134,11 @@
     return NSOperationQueuePriorityNormal;
 }
 
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData {
+    NSAssert(NO, @"This abstract method should be subclassed");
+    return nil;
+}
+
 #pragma mark - UIWebviewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if(navigationType == UIWebViewNavigationTypeLinkClicked) {
@@ -153,16 +157,6 @@
     if (self.openRequestsCount == 0) {
         NSLog(@"webViewDidFinishLoad All open requests finished");
     }
-
-
-//    if(self.needsInfiniteScrollTurnedOff && self.openRequestsCount == 0) {
-//        NSLog(@"Turning off infinite scroll");
-//        self.needsInfiniteScrollTurnedOff = NO;
-//        
-//        [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
-//    }
-    
-    
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     self.openRequestsCount--;

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RWXPathStripper.h"
 
 @protocol RWWebSectionProtocol <NSObject>
 
 @required
 -(NSURL*) urlForSection;
+-(NSURL*) urlForNextPage;
 -(NSOperationQueuePriority)queuePriority;
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData;
 @end
 
 @interface RWWebSectionViewController : UIViewController <RWWebSectionProtocol, UIWebViewDelegate>

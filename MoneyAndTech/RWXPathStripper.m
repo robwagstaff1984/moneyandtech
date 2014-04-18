@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray* shareHTMLElements;
 @property (nonatomic, strong) NSMutableArray* timeHTMLElements;
 @property (nonatomic, strong) TFHpple* videosPageParser;
+@property (nonatomic, strong) TFHpple* articlesPageParser;
 
 @end
 
@@ -45,9 +46,16 @@
 
 +(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
     RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
-    NSString* strippedVideosHTML = [xpathStripper strippedHtmlFromVideosHTML:videosHTMLData];
+    NSString* strippedVideosHTML = [xpathStripper strippedHtmlFromVideosHTMLData:videosHTMLData];
     strippedVideosHTML = [self nextPageFormatted:strippedVideosHTML];
     return strippedVideosHTML;
+}
+
++(NSString*) strippedHtmlFromArticlesHTML:(NSData*)articlesHTMLData {
+    RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
+    NSString* strippedArticlesHTML = [xpathStripper strippedHtmlFromArticlesHTMLData:articlesHTMLData];
+    strippedArticlesHTML = [self nextPageFormatted:strippedArticlesHTML];
+    return strippedArticlesHTML;
 }
 
 +(NSString*) nextPageFormatted:(NSString*)nextPageHTML {
@@ -58,7 +66,7 @@
     return nextPageHTML;
 }
 
--(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData {
+-(NSString*) strippedHtmlFromVideosHTMLData:(NSData*)videosHTMLData {
     
     self.videosPageParser = [TFHpple hppleWithHTMLData:videosHTMLData];
 
@@ -69,10 +77,23 @@
     
     [self constructStrippedVideosHTML];
     
+    return self.strippedVideosHTML;
+}
+
+-(NSString*) strippedHtmlFromArticlesHTMLData:(NSData*)articlesHTMLData {
     
+    self.articlesPageParser = [TFHpple hppleWithHTMLData:articlesHTMLData];
+    
+//    [self extractAllVideoElements];
+    [self extractAllTitleElements];
+//    [self extractAllShareElements];
+//    [self extractAllTimeElements];
+//    
+//    [self constructStrippedVideosHTML];
     
     return self.strippedVideosHTML;
 }
+
 
 -(void) constructStrippedVideosHTML {
     self.strippedVideosHTML = HTML_OPEN;

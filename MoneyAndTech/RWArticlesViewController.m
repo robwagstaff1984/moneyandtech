@@ -9,6 +9,7 @@
 #import "RWArticlesViewController.h"
 
 #define ARTICLES_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles", MONEY_AND_TECH_HOME_PAGE_URL]]
+#define ARTICLES_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]
 
 @interface RWArticlesViewController ()
 @property (nonatomic) UIWebView* webView;
@@ -41,9 +42,18 @@
     return ARTICLES_URL;
 }
 
+-(NSURL*) urlForNextPage {
+    return ARTICLES_NEXT_PAGE_URL;
+}
+
 - (NSOperationQueuePriority)queuePriority {
     return NSOperationQueuePriorityNormal;
 }
+
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData {
+    return [RWXPathStripper strippedHtmlFromArticlesHTML:htmlData];
+}
+
 
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

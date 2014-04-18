@@ -40,7 +40,7 @@
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
     [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
 
-   // self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
+ //   self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
      self.viewControllers = @[videosViewController];
 //    articlesViewController.view = articlesViewController.view;
 //    newsViewController.view = newsViewController.view;

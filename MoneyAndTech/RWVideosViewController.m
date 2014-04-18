@@ -42,6 +42,10 @@
     return VIDEOS_NEXT_PAGE_URL;
 }
 
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData {
+    return [RWXPathStripper strippedHtmlFromVideosHTML:htmlData];
+}
+
 - (NSOperationQueuePriority)queuePriority {
     return NSOperationQueuePriorityVeryHigh;
 }
