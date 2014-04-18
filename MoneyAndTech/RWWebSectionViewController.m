@@ -18,6 +18,9 @@
 @property (nonatomic) BOOL needsInfiniteScrollTurnedOff;
 @property (nonatomic) int openRequestsCount;
 
+@property (nonatomic) int currentContentHeight;
+@property (nonatomic, strong) NSTimer *infinteScrollPaginationTimer;
+
 @end
 
 @implementation RWWebSectionViewController
@@ -95,6 +98,7 @@
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:nextPageRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self appendNextPageToDOM:responseObject];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
         [self.activityIndicator stopAnimating];
@@ -105,12 +109,25 @@
 }
 
 -(void) appendNextPageToDOM:(id)responseObject {
-    NSString* strippedNextPageHTML = [RWXPathStripper strippedHtmlFromVideosHTML:responseObject];
+    NSString* strippedNextPageHTML = [self strippedHTMLFromData:responseObject];
     
-    [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('div');myDiv.innerHTML='%@';document.documentElement.appendChild(myDiv)", strippedNextPageHTML]];
+    [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('div');\nmyDiv.innerHTML = '%@';\ndocument.documentElement.appendChild(myDiv);", strippedNextPageHTML]];
     
-    [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
+    [self monitorForPaginationComplete];
+}
 
+-(void) monitorForPaginationComplete {
+    self.currentContentHeight = self.webView.scrollView.contentSize.height;
+    self.infinteScrollPaginationTimer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(checkIfPaginationIsComplete:) userInfo: nil repeats:YES];
+}
+
+-(void)checkIfPaginationIsComplete:(id)sender {
+    if (self.currentContentHeight != self.webView.scrollView.contentSize.height) {
+        NSLog(@"Pagination complete!");
+        self.currentContentHeight = self.webView.scrollView.contentSize.height;
+        [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
+        [self.infinteScrollPaginationTimer invalidate];
+    }
 }
 
 -(NSString*) injectJavascript:(NSString*)javascript {

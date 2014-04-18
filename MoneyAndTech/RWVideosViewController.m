@@ -7,7 +7,6 @@
 //
 
 #import "RWVideosViewController.h"
-#import "RWRegexHTMLStripper.h"
 
 #define VIDEOS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/videos", MONEY_AND_TECH_HOME_PAGE_URL]]
 #define VIDEOS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/videos/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]

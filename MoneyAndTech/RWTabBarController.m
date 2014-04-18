@@ -41,7 +41,8 @@
     [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
 
  //   self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
-     self.viewControllers = @[videosViewController];
+//    self.viewControllers = @[videosViewController];
+    self.viewControllers = @[articlesViewController];
 //    articlesViewController.view = articlesViewController.view;
 //    newsViewController.view = newsViewController.view;
 //    forumViewController.view = forumViewController.view;

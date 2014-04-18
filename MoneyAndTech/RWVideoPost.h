@@ -10,4 +10,6 @@
 
 @interface RWVideoPost : RWPost
 
+@property (nonatomic, strong) NSString* videoHTML;
+
 @end

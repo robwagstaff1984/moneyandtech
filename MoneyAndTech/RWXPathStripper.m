@@ -8,7 +8,11 @@
 
 #import "RWXPathStripper.h"
 #import "TFHpple.h"
+#import "RWVideoPost.h"
+#import "RWArticlePost.h"
+#import "RWNewsPost.h"
 
+#define GENERIC_POST_XPATH @"//article"
 #define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
 #define VIDEOS_PAGE_TITLE_XPATH @"//h1[@class='entry-title']/a/text()"
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
@@ -19,13 +23,12 @@
 #define HTML_CLOSE @"</body></html>"
 
 @interface RWXPathStripper()
-@property (nonatomic, strong) NSString* strippedVideosHTML;
-@property (nonatomic, strong) NSMutableArray* videoHTMLElements;
-@property (nonatomic, strong) NSMutableArray* titleHTMLElements;
-@property (nonatomic, strong) NSMutableArray* shareHTMLElements;
-@property (nonatomic, strong) NSMutableArray* timeHTMLElements;
-@property (nonatomic, strong) TFHpple* videosPageParser;
-@property (nonatomic, strong) TFHpple* articlesPageParser;
+
+@property (nonatomic, strong) NSMutableArray* videoPosts;
+@property (nonatomic, strong) NSMutableArray* articlePosts;
+@property (nonatomic, strong) NSMutableArray* newsPosts;
+
+@property (nonatomic, strong) TFHpple* pageParser;
 
 @end
 
@@ -36,10 +39,9 @@
 {
     self = [super init];
     if (self) {
-        self.videoHTMLElements = [[NSMutableArray alloc] init];
-        self.titleHTMLElements = [[NSMutableArray alloc] init];
-        self.shareHTMLElements = [[NSMutableArray alloc] init];
-        self.timeHTMLElements = [[NSMutableArray alloc] init];
+        self.videoPosts = [[NSMutableArray alloc] init];
+        self.articlePosts = [[NSMutableArray alloc] init];
+        self.newsPosts = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -68,61 +70,94 @@
 
 -(NSString*) strippedHtmlFromVideosHTMLData:(NSData*)videosHTMLData {
     
-    self.videosPageParser = [TFHpple hppleWithHTMLData:videosHTMLData];
-
-    [self extractAllVideoElements];
-    [self extractAllTitleElements];
-    [self extractAllShareElements];
-    [self extractAllTimeElements];
+    self.pageParser = [TFHpple hppleWithHTMLData:videosHTMLData];
     
-    [self constructStrippedVideosHTML];
+    int totalPosts = [self countOfPostsFromHTMLData:videosHTMLData];
+    for (int postNumber = 0; postNumber < totalPosts; postNumber++) {
+        RWVideoPost* videoPost = [RWVideoPost new];
+        [self extractTitleElementfromPostNumber:postNumber intoPost:videoPost];
+        [self extractVideoElementfromPostNumber:postNumber intoPost:videoPost];
+        [self extractShareElementfromPostNumber:postNumber intoPost:videoPost];
+        [self extractTimeElementfromPostNumber:postNumber intoPost:videoPost];
+        [self.videoPosts addObject:videoPost];
+    }
     
-    return self.strippedVideosHTML;
+    NSString* strippedVideosHTML = [self constructStrippedVideosHTML];
+    
+    return strippedVideosHTML;
 }
 
 -(NSString*) strippedHtmlFromArticlesHTMLData:(NSData*)articlesHTMLData {
     
-    self.articlesPageParser = [TFHpple hppleWithHTMLData:articlesHTMLData];
+    self.pageParser = [TFHpple hppleWithHTMLData:articlesHTMLData];
     
-//    [self extractAllVideoElements];
-    [self extractAllTitleElements];
-//    [self extractAllShareElements];
-//    [self extractAllTimeElements];
-//    
-//    [self constructStrippedVideosHTML];
-    
-    return self.strippedVideosHTML;
-}
-
-
--(void) constructStrippedVideosHTML {
-    self.strippedVideosHTML = HTML_OPEN;
-    
-    for (int articleNumber = 0; articleNumber < [self.videoHTMLElements count]; articleNumber++) {
-        [self appendArticleNumber:articleNumber fromElementArray:self.titleHTMLElements];
-        [self appendArticleNumber:articleNumber fromElementArray:self.videoHTMLElements];
-        [self appendArticleNumber:articleNumber fromElementArray:self.shareHTMLElements];
-        [self appendArticleNumber:articleNumber fromElementArray:self.timeHTMLElements];
-    }
-    self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:HTML_CLOSE];
-}
-
--(void) appendArticleNumber:(int)articleNumber fromElementArray:(NSMutableArray*)elementArray {
-    if ([elementArray count] > articleNumber) {
-        self.strippedVideosHTML = [self.strippedVideosHTML stringByAppendingString:elementArray[articleNumber]];
-    } else {
-        NSLog(@"Warning. Missing Article Element");
+    int totalPosts = [self countOfPostsFromHTMLData:articlesHTMLData];
+    for (int postNumber = 0; postNumber < totalPosts; postNumber++) {
+        RWArticlePost* articlePost = [RWArticlePost new];
+        [self extractTitleElementfromPostNumber:postNumber intoPost:articlePost];
+        [self extractShareElementfromPostNumber:postNumber intoPost:articlePost];
+        [self extractTimeElementfromPostNumber:postNumber intoPost:articlePost];
+        [self.articlePosts addObject:articlePost];
     }
     
+    NSString* strippedArticlesHMTL = [self constructStrippedArticleHTML];
+    return strippedArticlesHMTL;
 }
+
+-(int) countOfPostsFromHTMLData:(NSData*)htmlData {
+    TFHpple* genericPostParser = [TFHpple hppleWithHTMLData:htmlData];
+    NSArray *genericPostNodes = [genericPostParser searchWithXPathQuery:GENERIC_POST_XPATH];
+    return [genericPostNodes count];
+}
+
+
+-(NSString*) constructStrippedVideosHTML {
+    NSString* strippedVideosHTML = HTML_OPEN;
+    
+    for (int postNumber = 0; postNumber < [self.videoPosts count]; postNumber++) {
+        strippedVideosHTML = [self appendVideoPostNumber:postNumber toVideoHTML:strippedVideosHTML];
+    }
+    strippedVideosHTML = [strippedVideosHTML stringByAppendingString:HTML_CLOSE];
+    return strippedVideosHTML;
+}
+
+-(NSString*) appendVideoPostNumber:(int)postNumber toVideoHTML:(NSString*)videoHTML {
+    RWVideoPost* videoPost = self.videoPosts[postNumber];
+    videoHTML = [videoHTML stringByAppendingString:videoPost.titleHTML];
+    videoHTML = [videoHTML stringByAppendingString:videoPost.videoHTML];
+    videoHTML = [videoHTML stringByAppendingString:videoPost.shareHTML];
+    videoHTML = [videoHTML stringByAppendingString:videoPost.timeHTML];
+    return videoHTML;
+}
+
+-(NSString*) constructStrippedArticleHTML {
+    NSString* strippedVideosHTML = HTML_OPEN;
+    
+    for (int postNumber = 0; postNumber < [self.articlePosts count]; postNumber++) {
+        strippedVideosHTML = [self appendArticlePostNumber:postNumber toArticleHTML:strippedVideosHTML];
+    }
+    strippedVideosHTML = [strippedVideosHTML stringByAppendingString:HTML_CLOSE];
+    return strippedVideosHTML;
+}
+
+-(NSString*) appendArticlePostNumber:(int)postNumber toArticleHTML:(NSString*)articleHTML {
+    RWVideoPost* articlePost = self.articlePosts[postNumber];
+    articleHTML = [articleHTML stringByAppendingString:articlePost.titleHTML];
+    articleHTML = [articleHTML stringByAppendingString:articlePost.shareHTML];
+    articleHTML = [articleHTML stringByAppendingString:articlePost.timeHTML];
+    return articleHTML;
+}
+
+
 
 #pragma mark - video
--(void) extractAllVideoElements {
-    NSString *videoElementXpathQueryString = VIDEOS_PAGE_VIDEO_XPATH;
-    NSArray *videoNodes = [self.videosPageParser searchWithXPathQuery:videoElementXpathQueryString];
+
+-(void) extractVideoElementfromPostNumber:(int)postNumber intoPost:(RWVideoPost*)videoPost {
+    NSArray *videoNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_VIDEO_XPATH];
+    TFHppleElement *videoElement = videoNodes[postNumber];
     
-    for (TFHppleElement *videoElement in videoNodes) {
-        [self.videoHTMLElements addObject:[self formattedVideoHTMLFromElement:videoElement]];
+    if (videoPost != nil && videoElement != nil) {
+        videoPost.videoHTML = [self formattedVideoHTMLFromElement:videoElement];
     }
 }
 
@@ -193,12 +228,12 @@
 }
 
 #pragma mark - title
--(void) extractAllTitleElements {
-    NSString *titleElementXpathQueryString = VIDEOS_PAGE_TITLE_XPATH;
-    NSArray *titleNodes = [self.videosPageParser searchWithXPathQuery:titleElementXpathQueryString];
+-(void) extractTitleElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
+    NSArray *titleNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TITLE_XPATH];
+    TFHppleElement *titleElement = titleNodes[postNumber];
     
-    for (TFHppleElement *titleElement in titleNodes) {
-        [self.titleHTMLElements addObject:[self formattedTitleHTMLFromElement:titleElement]];
+    if (post != nil && titleElement != nil) {
+        post.titleHTML = [self formattedTitleHTMLFromElement:titleElement];
     }
 }
 
@@ -208,12 +243,12 @@
 
 #pragma mark - share
 
--(void) extractAllShareElements {
-    NSString *shareElementXpathQueryString = VIDEOS_PAGE_SHARE_XPATH;
-    NSArray *shareNodes = [self.videosPageParser searchWithXPathQuery:shareElementXpathQueryString];
+-(void) extractShareElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
+    NSArray *shareNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_SHARE_XPATH];
+    TFHppleElement *shareElement = shareNodes[postNumber];
     
-    for (TFHppleElement *shareElement in shareNodes) {
-        [self.shareHTMLElements addObject:[self formattedShareHTMLFromElement:shareElement]];
+    if (post != nil && shareElement != nil) {
+        post.shareHTML = [self formattedTitleHTMLFromElement:shareElement];
     }
 }
 
@@ -232,13 +267,12 @@
 
 
 #pragma mark - time
-
--(void) extractAllTimeElements {
-    NSString *timeElementXpathQueryString = VIDEOS_PAGE_TIME_XPATH;
-    NSArray *timeNodes = [self.videosPageParser searchWithXPathQuery:timeElementXpathQueryString];
+-(void) extractTimeElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
+    NSArray *timeNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TIME_XPATH];
+    TFHppleElement *timeElement = timeNodes[postNumber];
     
-    for (TFHppleElement *timeElement in timeNodes) {
-        [self.timeHTMLElements addObject:[self formattedTimeHTMLFromElement:timeElement]];
+    if (post != nil && timeElement != nil) {
+        post.timeHTML = [self formattedTimeHTMLFromElement:timeElement];
     }
 }
 

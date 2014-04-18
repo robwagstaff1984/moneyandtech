@@ -55,10 +55,5 @@
 }
 
 
-#pragma mark - UIWebViewDelegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"finish articles");
-}
-
 
 @end

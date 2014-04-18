@@ -50,7 +50,6 @@
 		36CB290A18DA460200476E15 /* RWArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290918DA460200476E15 /* RWArticlesViewController.m */; };
 		36CB290D18DA461F00476E15 /* RWNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290C18DA461F00476E15 /* RWNewsViewController.m */; };
 		36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB290F18DA468000476E15 /* RWVideosViewController.m */; };
-		36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */; };
 		36CB291A18DB934A00476E15 /* VideosIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291818DB934A00476E15 /* VideosIcon.png */; };
 		36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291918DB934A00476E15 /* VideosIcon@2x.png */; };
 		36CB291E18DBBB3300476E15 /* ArticlesIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291C18DBBB3300476E15 /* ArticlesIcon.png */; };
@@ -136,8 +135,6 @@
 		36CB290C18DA461F00476E15 /* RWNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWNewsViewController.m; sourceTree = "<group>"; };
 		36CB290E18DA468000476E15 /* RWVideosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideosViewController.h; sourceTree = "<group>"; };
 		36CB290F18DA468000476E15 /* RWVideosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWVideosViewController.m; sourceTree = "<group>"; };
-		36CB291518DB8E6900476E15 /* RWRegexHTMLStripper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRegexHTMLStripper.h; sourceTree = "<group>"; };
-		36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRegexHTMLStripper.m; sourceTree = "<group>"; };
 		36CB291818DB934A00476E15 /* VideosIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VideosIcon.png; sourceTree = "<group>"; };
 		36CB291918DB934A00476E15 /* VideosIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideosIcon@2x.png"; sourceTree = "<group>"; };
 		36CB291C18DBBB3300476E15 /* ArticlesIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArticlesIcon.png; sourceTree = "<group>"; };
@@ -370,8 +367,6 @@
 				3607870918F365EC0045AF0F /* FBMissingSymbols.m */,
 				360786EB18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.h */,
 				360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */,
-				36CB291518DB8E6900476E15 /* RWRegexHTMLStripper.h */,
-				36CB291618DB8E6900476E15 /* RWRegexHTMLStripper.m */,
 				360786E518E8B3CE0045AF0F /* RWXPathStripper.h */,
 				360786E618E8B3CE0045AF0F /* RWXPathStripper.m */,
 			);
@@ -519,7 +514,6 @@
 				36C624FB1901C4880014F082 /* RWNewsPost.m in Sources */,
 				360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
-				36CB291718DB8E6900476E15 /* RWRegexHTMLStripper.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
 				36C624F21901C3F60014F082 /* RWPost.m in Sources */,
