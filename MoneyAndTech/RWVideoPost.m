@@ -10,4 +10,13 @@
 
 @implementation RWVideoPost
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.videoHTML = @"";
+    }
+    return self;
+}
+
 @end

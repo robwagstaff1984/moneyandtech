@@ -10,4 +10,15 @@
 
 @implementation RWPost
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.titleHTML = @"";
+        self.shareHTML = @"";
+        self.timeHTML = @"";
+    }
+    return self;
+}
+
 @end

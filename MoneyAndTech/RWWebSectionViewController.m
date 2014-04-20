@@ -55,8 +55,7 @@
     [self.webView.scrollView addInfiniteScrollingWithActionHandler:^{
         [weakSelf loadNextPage];
     } forPosition:SVInfiniteScrollingPositionBottom];
-    [self.view addSubview:self.webView];
-    
+    [self.view addSubview:self.webView];    
 }
 
 -(void) setupActivityIndicator {

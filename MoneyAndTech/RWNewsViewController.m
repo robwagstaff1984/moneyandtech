@@ -8,6 +8,7 @@
 
 #import "RWNewsViewController.h"
 #define NEWS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news", MONEY_AND_TECH_HOME_PAGE_URL]]
+#define NEWS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]
 
 @interface RWNewsViewController ()
 
@@ -34,8 +35,17 @@
     return NEWS_URL;
 }
 
+-(NSURL*) urlForNextPage {
+    return NEWS_NEXT_PAGE_URL;
+}
+
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData {
+    return [RWXPathStripper strippedHtmlFromNewsHTML:htmlData];
+}
+
 - (NSOperationQueuePriority)queuePriority {
     return NSOperationQueuePriorityNormal;
 }
+
 
 @end

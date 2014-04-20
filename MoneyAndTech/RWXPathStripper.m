@@ -13,10 +13,11 @@
 #import "RWNewsPost.h"
 
 #define GENERIC_POST_XPATH @"//article"
+#define NEWS_POST_XPATH @"//div[@class='rss-output']"
 #define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
-#define VIDEOS_PAGE_TITLE_XPATH @"//h1[@class='entry-title']/a/text()"
+#define VIDEOS_PAGE_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
-#define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()"
+#define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
 
 #define HTML_HEAD @"<head></head>"
 #define HTML_OPEN @"<html><body>"
@@ -58,6 +59,13 @@
     NSString* strippedArticlesHTML = [xpathStripper strippedHtmlFromArticlesHTMLData:articlesHTMLData];
     strippedArticlesHTML = [self nextPageFormatted:strippedArticlesHTML];
     return strippedArticlesHTML;
+}
+
++(NSString*) strippedHtmlFromNewsHTML:(NSData*)newsHTMLData {
+    RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
+    NSString* strippedNewsHTML = [xpathStripper strippedHtmlFromNewsHTMLData:newsHTMLData];
+    strippedNewsHTML = [self nextPageFormatted:strippedNewsHTML];
+    return strippedNewsHTML;
 }
 
 +(NSString*) nextPageFormatted:(NSString*)nextPageHTML {
@@ -104,10 +112,28 @@
     return strippedArticlesHMTL;
 }
 
+-(NSString*) strippedHtmlFromNewsHTMLData:(NSData*)newsHTMLData {
+    self.pageParser = [TFHpple hppleWithHTMLData:newsHTMLData];
+    
+    int totalPosts = [self countOfPostsFromHTMLData:newsHTMLData];
+    for (int postNumber = 0; postNumber < totalPosts; postNumber++) {
+        RWNewsPost* newsPost = [RWNewsPost new];
+        [self extractTitleElementfromPostNumber:postNumber intoPost:newsPost];
+        [self extractShareElementfromPostNumber:postNumber intoPost:newsPost];
+        [self extractTimeElementfromPostNumber:postNumber intoPost:newsPost];
+        [self.newsPosts addObject:newsPost];
+    }
+    
+    NSString* strippedNewsHMTL = [self constructStrippedNewsHTML];
+    return strippedNewsHMTL;
+}
+
 -(int) countOfPostsFromHTMLData:(NSData*)htmlData {
     TFHpple* genericPostParser = [TFHpple hppleWithHTMLData:htmlData];
     NSArray *genericPostNodes = [genericPostParser searchWithXPathQuery:GENERIC_POST_XPATH];
-    return [genericPostNodes count];
+    NSArray *newsPostNodes = [genericPostParser searchWithXPathQuery:NEWS_POST_XPATH];
+    
+    return MAX([genericPostNodes count], [newsPostNodes count]);
 }
 
 
@@ -148,13 +174,29 @@
     return articleHTML;
 }
 
+-(NSString*) constructStrippedNewsHTML {
+    NSString* strippedNewsHTML = HTML_OPEN;
+    
+    for (int postNumber = 0; postNumber < [self.newsPosts count]; postNumber++) {
+        strippedNewsHTML = [self appendNewsPostNumber:postNumber toNewsHTML:strippedNewsHTML];
+    }
+    strippedNewsHTML = [strippedNewsHTML stringByAppendingString:HTML_CLOSE];
+    return strippedNewsHTML;
+}
 
+-(NSString*) appendNewsPostNumber:(int)postNumber toNewsHTML:(NSString*)newsHTML {
+    RWNewsPost* newsPost = self.newsPosts[postNumber];
+    newsHTML = [newsHTML stringByAppendingString:newsPost.titleHTML];
+//    newsHTML = [newsHTML stringByAppendingString:newsPost.shareHTML];
+    newsHTML = [newsHTML stringByAppendingString:newsPost.timeHTML];
+    return newsHTML;
+}
 
 #pragma mark - video
 
 -(void) extractVideoElementfromPostNumber:(int)postNumber intoPost:(RWVideoPost*)videoPost {
     NSArray *videoNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_VIDEO_XPATH];
-    TFHppleElement *videoElement = videoNodes[postNumber];
+    TFHppleElement *videoElement = [videoNodes count] > postNumber ? videoNodes[postNumber] : nil;
     
     if (videoPost != nil && videoElement != nil) {
         videoPost.videoHTML = [self formattedVideoHTMLFromElement:videoElement];
@@ -230,7 +272,7 @@
 #pragma mark - title
 -(void) extractTitleElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
     NSArray *titleNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TITLE_XPATH];
-    TFHppleElement *titleElement = titleNodes[postNumber];
+    TFHppleElement *titleElement = [titleNodes count] > postNumber ? titleNodes[postNumber] : nil;
     
     if (post != nil && titleElement != nil) {
         post.titleHTML = [self formattedTitleHTMLFromElement:titleElement];
@@ -245,10 +287,10 @@
 
 -(void) extractShareElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
     NSArray *shareNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_SHARE_XPATH];
-    TFHppleElement *shareElement = shareNodes[postNumber];
+    TFHppleElement *shareElement = [shareNodes count] > postNumber ? shareNodes[postNumber] : nil;
     
     if (post != nil && shareElement != nil) {
-        post.shareHTML = [self formattedTitleHTMLFromElement:shareElement];
+        post.shareHTML = [self formattedShareHTMLFromElement:shareElement];
     }
 }
 
@@ -269,7 +311,7 @@
 #pragma mark - time
 -(void) extractTimeElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
     NSArray *timeNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TIME_XPATH];
-    TFHppleElement *timeElement = timeNodes[postNumber];
+    TFHppleElement *timeElement = [timeNodes count] > postNumber ? timeNodes[postNumber] : nil;
     
     if (post != nil && timeElement != nil) {
         post.timeHTML = [self formattedTimeHTMLFromElement:timeElement];
@@ -277,7 +319,7 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-    return [NSString stringWithFormat:@"<div>%@</div>", timeElement.raw];
+    return  [@"<div>&nbsp</div>" stringByAppendingString:timeElement.raw];
 }
 
 @end
