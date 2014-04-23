@@ -16,6 +16,7 @@
 
 //#define MONEY_AND_TECH_HOME_PAGE_URL @"http://www.moneyandtech.com"
 #define MONEY_AND_TECH_HOME_PAGE_URL @"http://www.moneyandtech.com/development"
+#define MONEY_AND_TECH_GREY [UIColor colorWithRed:247.0/255.0 green:249.0/255.0 blue:246/255.0 alpha:1]
 
 #define SCREEN_WIDTH ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_HEIGHT ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width)

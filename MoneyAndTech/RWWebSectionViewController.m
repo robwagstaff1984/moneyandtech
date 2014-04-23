@@ -55,6 +55,7 @@
     [self.webView.scrollView addInfiniteScrollingWithActionHandler:^{
         [weakSelf loadNextPage];
     } forPosition:SVInfiniteScrollingPositionBottom];
+    [self.webView setBackgroundColor:MONEY_AND_TECH_GREY];
     [self.view addSubview:self.webView];    
 }
 
@@ -74,7 +75,8 @@
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSString* strippedHTML = [self strippedHTMLFromData:responseObject];
+        NSString* strippedHTML = [NSString stringWithFormat:@"<html><body style=\"background-color:#F7F9F6\">%@</body></html>", [self strippedHTMLFromData:responseObject]];
+        
         self.webView.hidden = NO;
         [self.webView loadHTMLString:strippedHTML baseURL:nil];
         [self.activityIndicator stopAnimating];
@@ -110,7 +112,7 @@
 -(void) appendNextPageToDOM:(id)responseObject {
     NSString* strippedNextPageHTML = [self strippedHTMLFromData:responseObject];
     
-    [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('div');\nmyDiv.innerHTML = '%@';\ndocument.documentElement.appendChild(myDiv);", strippedNextPageHTML]];
+    [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('p');\nmyDiv.innerHTML = '%@';\ndocument.body.appendChild(myDiv);", strippedNextPageHTML]];
     
     [self monitorForPaginationComplete];
 }

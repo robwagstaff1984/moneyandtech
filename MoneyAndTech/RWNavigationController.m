@@ -11,7 +11,6 @@
 #import "RWArticlesViewController.h"
 #import "RWNewsViewController.h"
 
-#define MONEY_AND_TECH_GREY [UIColor colorWithRed:247.0/255.0 green:249.0/255.0 blue:246/255.0 alpha:1]
 
 @interface RWNavigationController ()
 
@@ -29,7 +28,7 @@
 }
 
 -(void) setupNavigationView {
-    [self.navigationBar setBarTintColor:MONEY_AND_TECH_GREY];
+    [self.navigationBar setBarTintColor:[UIColor blueColor]];
     [self.navigationBar setTranslucent:NO];
     
 }
