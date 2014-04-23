@@ -18,9 +18,9 @@
 
 @implementation RWNavigationController
 
-- (id)init
+- (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-    self = [super init];
+    self = [super initWithRootViewController:rootViewController];
     if (self) {
         [self setupNavigationView];
     }
@@ -28,9 +28,8 @@
 }
 
 -(void) setupNavigationView {
-    [self.navigationBar setBarTintColor:[UIColor blueColor]];
-    [self.navigationBar setTranslucent:NO];
-    
+    self.navigationBar.titleTextAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"OCR A Extended" size:20.0], NSForegroundColorAttributeName: [UIColor blackColor]};
+    [self.navigationBar setBarTintColor:NAV_BAR_GREY];
 }
 
 - (void)viewDidLoad

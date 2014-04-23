@@ -35,6 +35,7 @@
 		36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F41901C46A0014F082 /* RWVideoPost.m */; };
 		36C624F81901C4770014F082 /* RWArticlePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F71901C4770014F082 /* RWArticlePost.m */; };
 		36C624FB1901C4880014F082 /* RWNewsPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624FA1901C4880014F082 /* RWNewsPost.m */; };
+		36C624FD190858210014F082 /* ocraextended.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36C624FC190858210014F082 /* ocraextended.ttf */; };
 		36CB28D918DA456C00476E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28D818DA456C00476E15 /* Foundation.framework */; };
 		36CB28DB18DA456C00476E15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DA18DA456C00476E15 /* CoreGraphics.framework */; };
 		36CB28DD18DA456C00476E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CB28DC18DA456C00476E15 /* UIKit.framework */; };
@@ -113,6 +114,7 @@
 		36C624F71901C4770014F082 /* RWArticlePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWArticlePost.m; sourceTree = "<group>"; };
 		36C624F91901C4880014F082 /* RWNewsPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWNewsPost.h; sourceTree = "<group>"; };
 		36C624FA1901C4880014F082 /* RWNewsPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWNewsPost.m; sourceTree = "<group>"; };
+		36C624FC190858210014F082 /* ocraextended.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ocraextended.ttf; sourceTree = "<group>"; };
 		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -185,6 +187,7 @@
 		3607869118E6010D0045AF0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				36C624FC190858210014F082 /* ocraextended.ttf */,
 				36CB291818DB934A00476E15 /* VideosIcon.png */,
 				36CB291918DB934A00476E15 /* VideosIcon@2x.png */,
 				36CB291C18DBBB3300476E15 /* ArticlesIcon.png */,
@@ -453,6 +456,7 @@
 			files = (
 				36CB291E18DBBB3300476E15 /* ArticlesIcon.png in Resources */,
 				36CB28E318DA456C00476E15 /* InfoPlist.strings in Resources */,
+				36C624FD190858210014F082 /* ocraextended.ttf in Resources */,
 				36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */,
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,

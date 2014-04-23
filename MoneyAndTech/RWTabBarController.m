@@ -40,12 +40,15 @@
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
     [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
 
- //   self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
     self.viewControllers = @[videosViewController, articlesViewController, newsViewController];
-//    self.viewControllers = @[newsViewController];
-//    videosViewController.view  = videosViewController.view;
     articlesViewController.view = articlesViewController.view;
     newsViewController.view = newsViewController.view;
+
+    [self.tabBar setBarTintColor:NAV_BAR_GREY];
+    [self.tabBar setTintColor:[UIColor blackColor]];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"OCR A Extended" size:11.0], NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+    
    // forumViewController.view = forumViewController.view;
 }
 
