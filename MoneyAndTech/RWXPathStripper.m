@@ -167,9 +167,13 @@
     RWVideoPost* videoPost = self.videoPosts[postNumber];
     videoHTML = [videoHTML stringByAppendingString:videoPost.titleHTML];
     videoHTML = [videoHTML stringByAppendingString:videoPost.videoHTML];
-    videoHTML = [videoHTML stringByAppendingString:videoPost.shareHTML];
-    videoHTML = [videoHTML stringByAppendingString:videoPost.timeHTML];
+    videoHTML = [videoHTML stringByAppendingString:[self combinedHTMLForTime:videoPost.timeHTML andShare:videoPost.shareHTML]];
+
     return videoHTML;
+}
+
+-(NSString*) combinedHTMLForTime:(NSString*)timeHTML andShare:(NSString*)shareHTML {
+    return [NSString stringWithFormat:@"<div style=\"border-bottom: 1px solid darkgray; padding: 12px 5px 10px 5px; height:56px;\">%@%@</div><div style=\"clear: both;\"></div>", timeHTML, shareHTML];
 }
 
 -(NSString*) constructStrippedArticleHTML {
@@ -185,8 +189,7 @@
 -(NSString*) appendArticlePostNumber:(int)postNumber toArticleHTML:(NSString*)articleHTML {
     RWVideoPost* articlePost = self.articlePosts[postNumber];
     articleHTML = [articleHTML stringByAppendingString:articlePost.titleHTML];
-    articleHTML = [articleHTML stringByAppendingString:articlePost.shareHTML];
-    articleHTML = [articleHTML stringByAppendingString:articlePost.timeHTML];
+    articleHTML = [articleHTML stringByAppendingString:[self combinedHTMLForTime:articlePost.timeHTML andShare:articlePost.shareHTML]];
     return articleHTML;
 }
 
@@ -314,7 +317,7 @@
     
     NSString* shareElementFixed = [self fixMalformedURLSourceForShare:shareElement.raw];
     
-    return [@"<div>&nbsp</div>" stringByAppendingString:shareElementFixed];
+    return [NSString stringWithFormat:@"<span style=\"display:inline-block; background-color:ble;float:right\">%@</span>", shareElementFixed];
 }
 
 -(NSString*) fixMalformedURLSourceForShare:(NSString*)formattedShareElement {
@@ -335,13 +338,13 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-    return  [@"<div>&nbsp</div>" stringByAppendingString:timeElement.raw];
+     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; background-color:rd; font-style:italic; float:left; padding-top:15px\">%@</span>", timeElement.raw];
 }
 
 #pragma mark - forum
 
 -(NSString*) extractUnformatedForumHTML {
-     NSArray *htmlNodes = [self.pageParser searchWithXPathQuery:FORUM_PAGE_XPATH];
+    NSArray *htmlNodes = [self.pageParser searchWithXPathQuery:FORUM_PAGE_XPATH];;
     TFHppleElement *htmlElement = htmlNodes[0];
     return htmlElement.raw;
 }
