@@ -17,6 +17,8 @@
 {
     [self setupParse];
     RWTabBarController* tabBarController = [[RWTabBarController alloc] init];
+    
+    [tabBarController setEdgesForExtendedLayout:UIRectEdgeBottom];
     RWNavigationController *navigationController = [[RWNavigationController alloc] initWithRootViewController:tabBarController];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

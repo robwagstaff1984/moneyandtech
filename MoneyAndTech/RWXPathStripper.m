@@ -149,7 +149,7 @@
     NSArray *genericPostNodes = [genericPostParser searchWithXPathQuery:GENERIC_POST_XPATH];
     NSArray *newsPostNodes = [genericPostParser searchWithXPathQuery:NEWS_POST_XPATH];
     
-    return MAX([genericPostNodes count], [newsPostNodes count]);
+    return MAX((int)[genericPostNodes count], (int)[newsPostNodes count]);
 }
 
 

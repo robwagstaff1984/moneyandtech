@@ -12,6 +12,8 @@
 #import "RWExternalWebViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
+#define NAV_BAR_HEIGHT 64
+
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
@@ -57,7 +59,7 @@
 
 -(void) setupWebView {
     CGRect frameInsideTabBarController =  CGRectMake(0, 0, self.tabBarController.view.frame.size.width,
-                                                     self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
+                                                     self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height - NAV_BAR_HEIGHT);
     self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
     self.webView.hidden = YES;
     self.webView.delegate = self;
@@ -160,6 +162,11 @@
 -(NSURL*) urlForSection {
     NSAssert(NO, @"This abstract method should be subclassed");
     return nil;
+}
+
+-(BOOL) shouldStripDownWebSection {
+    NSAssert(NO, @"This abstract method should be subclassed");
+    return NO;
 }
 
 -(NSURL*) urlForNextPage {
