@@ -18,6 +18,7 @@
 #define VIDEOS_PAGE_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
+#define ARTICLE_TEXT_XPATH @"//div[@class='entry-content']"
 #define FORUM_PAGE_XPATH @"//html"
 
 #define HTML_HEAD @"<head></head>"
@@ -111,8 +112,9 @@
     for (int postNumber = 0; postNumber < totalPosts; postNumber++) {
         RWArticlePost* articlePost = [RWArticlePost new];
         [self extractTitleElementfromPostNumber:postNumber intoPost:articlePost];
-        [self extractShareElementfromPostNumber:postNumber intoPost:articlePost];
-        [self extractTimeElementfromPostNumber:postNumber intoPost:articlePost];
+        [self extractArticleElementfromPostNumber:postNumber intoPost:articlePost];
+//        [self extractShareElementfromPostNumber:postNumber intoPost:articlePost];
+//        [self extractTimeElementfromPostNumber:postNumber intoPost:articlePost];
         [self.articlePosts addObject:articlePost];
     }
     
@@ -187,9 +189,11 @@
 }
 
 -(NSString*) appendArticlePostNumber:(int)postNumber toArticleHTML:(NSString*)articleHTML {
-    RWVideoPost* articlePost = self.articlePosts[postNumber];
+    RWArticlePost* articlePost = self.articlePosts[postNumber];
     articleHTML = [articleHTML stringByAppendingString:articlePost.titleHTML];
+    articleHTML = [articleHTML stringByAppendingString:articlePost.articleHTML];
     articleHTML = [articleHTML stringByAppendingString:[self combinedHTMLForTime:articlePost.timeHTML andShare:articlePost.shareHTML]];
+
     return articleHTML;
 }
 
@@ -225,7 +229,7 @@
 -(NSString*) formattedVideoHTMLFromElement:(TFHppleElement*) element {
     
     NSString* formattedVideoElement = [self rawElementWithEndTag:element];
-    formattedVideoElement = [self resizeformattedVideoElement:formattedVideoElement];
+    formattedVideoElement = [self resizeAssetsToFitFromHTML:formattedVideoElement];
     formattedVideoElement = [self fixMalformedURLSourceForVideo:formattedVideoElement];
     return formattedVideoElement;
 }
@@ -235,18 +239,21 @@
     return rawElementWithEndTag;
 }
 
--(NSString*) resizeformattedVideoElement:(NSString*)formattedVideoElement {
+-(NSString*) resizeAssetsToFitFromHTML:(NSString*)htmlToBeFormatted {
     
-    int originalHeight = [self originalHeightOfVideo:formattedVideoElement];
-    int originalWidth = [self originalWidthOfVideo:formattedVideoElement];
-    float originalRatio = (float)originalHeight / (float)originalWidth;
-    int newWidth = SCREEN_WIDTH - 20;
-    int newHeight = newWidth * originalRatio;
+    int originalHeight = [self originalHeightOfVideo:htmlToBeFormatted];
+    int originalWidth = [self originalWidthOfVideo:htmlToBeFormatted];
     
-    formattedVideoElement = [self updateWidth:newWidth forFormattedVideoElement:formattedVideoElement];
-    formattedVideoElement = [self updateHeight:newHeight forFormattedVideoElement:formattedVideoElement];
+    if (originalWidth > 300) {
+        float originalRatio = (float)originalHeight / (float)originalWidth;
+        int newWidth = SCREEN_WIDTH - 20;
+        int newHeight = newWidth * originalRatio;
+        
+        htmlToBeFormatted = [self updateWidth:newWidth forFormattedVideoElement:htmlToBeFormatted];
+        htmlToBeFormatted = [self updateHeight:newHeight forFormattedVideoElement:htmlToBeFormatted];
+    }
     
-    return formattedVideoElement;
+    return htmlToBeFormatted;
 }
 
 -(NSString*) fixMalformedURLSourceForVideo:(NSString*)formattedVideoElement {
@@ -317,7 +324,7 @@
     
     NSString* shareElementFixed = [self fixMalformedURLSourceForShare:shareElement.raw];
     
-    return [NSString stringWithFormat:@"<span style=\"display:inline-block; background-color:ble;float:right\">%@</span>", shareElementFixed];
+    return [NSString stringWithFormat:@"<span style=\"display:inline-block;float:right\">%@</span>", shareElementFixed];
 }
 
 -(NSString*) fixMalformedURLSourceForShare:(NSString*)formattedShareElement {
@@ -338,7 +345,25 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; background-color:rd; font-style:italic; float:left; padding-top:15px\">%@</span>", timeElement.raw];
+     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; font-style:italic; float:left; padding-top:15px\">%@</span>", timeElement.raw];
+}
+
+-(NSString*) formattedArticleTextHTMLFromElement:(TFHppleElement*)articleTextElement {
+    
+    NSString* articleTextHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
+    articleTextHTML = [self resizeAssetsToFitFromHTML:articleTextHTML];
+    return articleTextHTML;
+}
+
+
+#pragma mark - article
+-(void) extractArticleElementfromPostNumber:(int)postNumber intoPost:(RWArticlePost*)articlePost {
+    NSArray* articleNodes = [self.pageParser searchWithXPathQuery:ARTICLE_TEXT_XPATH];
+    TFHppleElement *articleElement = [articleNodes count] > postNumber ? articleNodes[postNumber] : nil;
+    
+    if (articlePost != nil && articleElement != nil) {
+        articlePost.articleHTML = [self formattedArticleTextHTMLFromElement:articleElement];
+    }
 }
 
 #pragma mark - forum
@@ -348,5 +373,7 @@
     TFHppleElement *htmlElement = htmlNodes[0];
     return htmlElement.raw;
 }
+
+
 
 @end

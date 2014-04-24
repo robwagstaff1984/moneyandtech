@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        self.title = @"Money And Tech";
+        self.title = @"MONEY & TECH";
         self.request = request;
     }
     return self;

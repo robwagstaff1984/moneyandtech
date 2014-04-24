@@ -10,4 +10,6 @@
 
 @interface RWArticlePost : RWPost
 
+@property (nonatomic, strong) NSString* articleHTML;
+
 @end
