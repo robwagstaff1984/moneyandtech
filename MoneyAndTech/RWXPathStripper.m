@@ -18,6 +18,7 @@
 #define VIDEOS_PAGE_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
+#define FORUM_PAGE_XPATH @"//html"
 
 #define HTML_HEAD @"<head></head>"
 #define HTML_OPEN @"<html><body>"
@@ -66,6 +67,13 @@
     NSString* strippedNewsHTML = [xpathStripper strippedHtmlFromNewsHTMLData:newsHTMLData];
     strippedNewsHTML = [self nextPageFormatted:strippedNewsHTML];
     return strippedNewsHTML;
+}
+
++(NSString*) strippedHtmlFromForumHTML:(NSData*)forumHTMLData {
+    RWXPathStripper* xpathStripper = [[RWXPathStripper alloc] init];
+    NSString* strippedForumHTML = [xpathStripper strippedHtmlFromForumHTMLData:forumHTMLData];
+    strippedForumHTML = [self nextPageFormatted:strippedForumHTML];
+    return strippedForumHTML;
 }
 
 +(NSString*) nextPageFormatted:(NSString*)nextPageHTML {
@@ -127,6 +135,14 @@
     NSString* strippedNewsHMTL = [self constructStrippedNewsHTML];
     return strippedNewsHMTL;
 }
+
+-(NSString*) strippedHtmlFromForumHTMLData:(NSData*)forumHTMLData {
+    self.pageParser = [TFHpple hppleWithHTMLData:forumHTMLData];
+    NSString* unformatedForumHTML =  [self extractUnformatedForumHTML];
+    return unformatedForumHTML;
+}
+
+
 
 -(int) countOfPostsFromHTMLData:(NSData*)htmlData {
     TFHpple* genericPostParser = [TFHpple hppleWithHTMLData:htmlData];
@@ -320,6 +336,14 @@
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
     return  [@"<div>&nbsp</div>" stringByAppendingString:timeElement.raw];
+}
+
+#pragma mark - forum
+
+-(NSString*) extractUnformatedForumHTML {
+     NSArray *htmlNodes = [self.pageParser searchWithXPathQuery:FORUM_PAGE_XPATH];
+    TFHppleElement *htmlElement = htmlNodes[0];
+    return htmlElement.raw;
 }
 
 @end

@@ -13,4 +13,5 @@
 +(NSString*) strippedHtmlFromVideosHTML:(NSData*)videosHTMLData;
 +(NSString*) strippedHtmlFromArticlesHTML:(NSData*)articlesHTMLData;
 +(NSString*) strippedHtmlFromNewsHTML:(NSData*)newsHTMLData;
++(NSString*) strippedHtmlFromForumHTML:(NSData*)forumHTMLData;
 @end

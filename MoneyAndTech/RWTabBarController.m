@@ -28,28 +28,33 @@
 }
 
 -(void) setupTabBarController {
-    self.title = @"Money And Tech";
-    
-    RWVideosViewController* videosViewController = [[RWVideosViewController alloc] init];
-    RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
-    RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
-    RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
+    self.title = @"MONEY & TECH";
+    [self setupTabBarAppearance];
+    [self addWebSectionViewControllersToTabBar];
+}
 
-    [self addTabBarItemToViewController:videosViewController withTitle:@"Videos"];
-    [self addTabBarItemToViewController:articlesViewController withTitle:@"Articles"];
-    [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
-    [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
-
-    self.viewControllers = @[videosViewController, articlesViewController, newsViewController];
-    articlesViewController.view = articlesViewController.view;
-    newsViewController.view = newsViewController.view;
-
+-(void) setupTabBarAppearance {
     [self.tabBar setBarTintColor:NAV_BAR_GREY];
     [self.tabBar setTintColor:[UIColor blackColor]];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"OCR A Extended" size:11.0], NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+}
+
+-(void) addWebSectionViewControllersToTabBar {
+    RWVideosViewController* videosViewController = [[RWVideosViewController alloc] init];
+    RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
+    RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
+    RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
     
-   // forumViewController.view = forumViewController.view;
+    [self addTabBarItemToViewController:videosViewController withTitle:@"Videos"];
+    [self addTabBarItemToViewController:articlesViewController withTitle:@"Articles"];
+    [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
+    [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
+    
+    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
+    articlesViewController.view = articlesViewController.view;
+    newsViewController.view = newsViewController.view;
+    forumViewController.view = forumViewController.view;
 }
 
 -(void) addTabBarItemToViewController:(UIViewController*)viewController withTitle:(NSString*)title {
@@ -63,9 +68,5 @@
 }
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
 
 @end

@@ -38,11 +38,21 @@
 {
     [self setupWebView];
     [self setupActivityIndicator];
-    
-    [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:[self httpRequestOperationForWebSection]];
-    
+    [self beginLoadingWebSections];
+
+
     [super viewDidLoad];
 }
+
+-(void) beginLoadingWebSections {
+    if ([self shouldStripDownWebSection]) {
+        [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:[self httpRequestOperationForWebSection]];
+    } else {
+        self.webView.hidden = NO;
+        [self.webView loadRequest:[self urlRequestForFirstPage]];
+    }
+}
+
 #pragma mark - setup
 
 -(void) setupWebView {
@@ -51,11 +61,15 @@
     self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
     self.webView.hidden = YES;
     self.webView.delegate = self;
-    __weak typeof(self) weakSelf = self;
-    [self.webView.scrollView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf loadNextPage];
-    } forPosition:SVInfiniteScrollingPositionBottom];
     [self.webView setBackgroundColor:MONEY_AND_TECH_GREY];
+    
+    if ([self shouldStripDownWebSection]) {
+        __weak typeof(self) weakSelf = self;
+        [self.webView.scrollView addInfiniteScrollingWithActionHandler:^{
+            [weakSelf loadNextPage];
+        } forPosition:SVInfiniteScrollingPositionBottom];
+    }
+
     [self.view addSubview:self.webView];    
 }
 
@@ -68,15 +82,12 @@
 
 #pragma mark - AFNetworking
 -(AFHTTPRequestOperation*) httpRequestOperationForWebSection {
-    NSMutableURLRequest* webSectionRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForSection]];
-    [webSectionRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
-    
+
     NSLog(@"Adding operation request for: %@", self.title);
     
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:webSectionRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:[self urlRequestForFirstPage] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString* strippedHTML = [NSString stringWithFormat:@"<html><body style=\"background-color:#F7F9F6\">%@</body></html>", [self strippedHTMLFromData:responseObject]];
-        
         self.webView.hidden = NO;
         [self.webView loadHTMLString:strippedHTML baseURL:nil];
         [self.activityIndicator stopAnimating];
@@ -91,13 +102,7 @@
 }
 
 -(void) loadNextPage {
-    self.pageNumber++;
-    NSMutableURLRequest* nextPageRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForNextPage]];
-    
-    [nextPageRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
-    NSLog(@"Adding next page operation request for: %@", self.title);
-    
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:nextPageRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:[self urlRequestForNextPage] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self appendNextPageToDOM:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -107,6 +112,21 @@
     [operation setQueuePriority:[self queuePriority]];
     
     [[RWAFHTTPRequestOperationManager sharedRequestOperationManager].operationQueue addOperation:operation];
+}
+
+- (NSMutableURLRequest*) urlRequestForFirstPage {
+    NSMutableURLRequest* webSectionRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForSection]];
+    [webSectionRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
+    return webSectionRequest;
+}
+
+
+- (NSMutableURLRequest*) urlRequestForNextPage {
+    NSLog(@"Adding next page operation request for: %@", self.title);
+    self.pageNumber++;
+    NSMutableURLRequest* webSectionRequest = [[NSMutableURLRequest alloc] initWithURL: [self urlForNextPage]];
+    [webSectionRequest setValue:@"MyUserAgent (iPhone; iOS 7.0.2; gzip)" forHTTPHeaderField:@"User-Agent"];
+    return webSectionRequest;
 }
 
 -(void) appendNextPageToDOM:(id)responseObject {

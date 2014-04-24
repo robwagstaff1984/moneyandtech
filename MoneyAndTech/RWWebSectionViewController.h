@@ -13,6 +13,8 @@
 
 @required
 -(NSURL*) urlForSection;
+-(BOOL) shouldStripDownWebSection;
+@optional
 -(NSURL*) urlForNextPage;
 -(NSOperationQueuePriority)queuePriority;
 -(NSString*) strippedHTMLFromData:(NSData*)htmlData;

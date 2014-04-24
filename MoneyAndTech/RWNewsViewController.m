@@ -35,6 +35,10 @@
     return NEWS_URL;
 }
 
+-(BOOL) shouldStripDownWebSection {
+    return YES;
+}
+
 -(NSURL*) urlForNextPage {
     return NEWS_NEXT_PAGE_URL;
 }

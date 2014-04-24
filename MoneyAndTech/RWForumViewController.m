@@ -35,6 +35,18 @@
     return FORUM_URL;
 }
 
+-(BOOL) shouldStripDownWebSection {
+    return NO;
+}
+
+-(NSURL*) urlForNextPage {
+    return FORUM_URL;
+}
+
+-(NSString*) strippedHTMLFromData:(NSData*)htmlData {
+    return [RWXPathStripper strippedHtmlFromForumHTML:htmlData];
+}
+
 - (NSOperationQueuePriority)queuePriority {
     return NSOperationQueuePriorityLow;
 }

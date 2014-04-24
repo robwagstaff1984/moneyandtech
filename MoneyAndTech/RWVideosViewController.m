@@ -37,6 +37,10 @@
     return VIDEOS_URL;
 }
 
+-(BOOL) shouldStripDownWebSection {
+    return YES;
+}
+
 -(NSURL*) urlForNextPage {
     return VIDEOS_NEXT_PAGE_URL;
 }

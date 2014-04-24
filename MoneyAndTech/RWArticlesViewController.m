@@ -42,6 +42,10 @@
     return ARTICLES_URL;
 }
 
+-(BOOL) shouldStripDownWebSection {
+    return YES;
+}
+
 -(NSURL*) urlForNextPage {
     return ARTICLES_NEXT_PAGE_URL;
 }
