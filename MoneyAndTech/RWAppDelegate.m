@@ -25,7 +25,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
-    
+
+
+
+// Start the notifier, which will cause the reachability object to retain itself!
     return YES;
 }
 
@@ -34,6 +37,16 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
     
 }
+
+//- (void)networkChanged:(NSNotification *)notification
+//{
+//    
+//    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+//    
+//    if(remoteHostStatus == NotReachable) { NSLog(@"not reachable");}
+//    else if (remoteHostStatus == ReachableViaWiFiNetwork) { NSLog(@"wifi"); }
+//    else if (remoteHostStatus == ReachableViaCarrierDataNetwork) { NSLog(@"carrier"); }
+//}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {

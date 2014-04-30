@@ -11,8 +11,7 @@
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWExternalWebViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
-
-#define NAV_BAR_HEIGHT 64
+#import "Reachability.h"
 
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
@@ -22,6 +21,9 @@
 
 @property (nonatomic) int currentContentHeight;
 @property (nonatomic, strong) NSTimer *infinteScrollPaginationTimer;
+
+@property (nonatomic, strong) UIView* noNetworkView;
+
 
 @end
 
@@ -40,7 +42,10 @@
 {
     [self setupWebView];
     [self setupActivityIndicator];
-    [self beginLoadingWebSections];
+    [self testNetworkWithSuccessBlock:^(void){
+         [self beginLoadingWebSections];
+    }];
+
 
 
     [super viewDidLoad];
@@ -216,6 +221,35 @@
     externalWebViewNavigationController.viewControllers = @[externalWebViewController];
     [self.navigationController pushViewController:externalWebViewController animated:YES];
 }
+-(void) testNetworkWithSuccessBlock:(void(^)(void))successBlock {
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    reach.reachableBlock = ^(Reachability*reach) {
+        if (self.webView.hidden) {
+            successBlock();
+        }
+        [self.noNetworkView removeFromSuperview];
+        NSLog(@"REACHABLE!");
+    };
+    
+    reach.unreachableBlock = ^(Reachability*reach) {
+        if (self.webView.hidden && self.noNetworkView == nil) {
+            [self createNoNetworkView];
+        }
+        NSLog(@"UNREACHABLE!");
+    };
+    [reach startNotifier];
+}
 
+-(void) createNoNetworkView {
+    self.noNetworkView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.noNetworkView.backgroundColor = [UIColor redColor];
+    UIView *noNetworkLabel = [[UIView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAV_BAR_HEIGHT - 40)/2, SCREEN_WIDTH, 40)];
+    noNetworkLabel.backgroundColor = [UIColor yellowColor];
+//    noNetworkLabel.text = @"No internet connection";
+//    noNetworkLabel.textColor = [UIColor greenColor];
+    [self.view addSubview:self.noNetworkView];
+    [self.view addSubview:noNetworkLabel];
+}
 
 @end

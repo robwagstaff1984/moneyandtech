@@ -18,6 +18,11 @@
 //#define MONEY_AND_TECH_HOME_PAGE_URL @"http://www.moneyandtech.com/development"
 #define MONEY_AND_TECH_GREY [UIColor colorWithRed:247.0/255.0 green:249.0/255.0 blue:246/255.0 alpha:1]
 #define NAV_BAR_GREY [UIColor colorWithRed:205/255.0 green:205/255.0 blue:205/255.0 alpha:1]
+#define TAB_BAR_TINT [UIColor colorWithRed:30/255.0 green:90/255.0 blue:215/255.0 alpha:1]
+//#define TAB_BAR_TINT [UIColor colorWithRed:10/255.0 green:10/255.0 blue:255/255.0 alpha:1]
+//#define TAB_BAR_BLUE [UIColor colorWithRed:10/255.0 green:104/255.0 blue:255/255.0 alpha:1]
+#define NAV_BAR_HEIGHT 64
+#define TAB_BAR_HEIGHT 49
 
 #define SCREEN_WIDTH ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_HEIGHT ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width)

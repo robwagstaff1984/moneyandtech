@@ -38,6 +38,9 @@
     [self.tabBar setTintColor:[UIColor blackColor]];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"OCR A Extended" size:11.0], NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"OCR A Extended" size:11.0], NSForegroundColorAttributeName: TAB_BAR_TINT} forState:UIControlStateSelected];
+    [self.tabBar setTintColor:TAB_BAR_TINT];
+    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabBarButtonBackground.png"]];
 }
 
 -(void) addWebSectionViewControllersToTabBar {
@@ -62,7 +65,7 @@
     UIImage *tabBarImageSel = [UIImage imageNamed:[title stringByAppendingString:@"Icon.png"]];
     
     tabBarImage = [tabBarImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    tabBarImageSel = [tabBarImageSel imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    tabBarImageSel = [tabBarImageSel imageWithRenderingMode:UIImageRenderingModeAutomatic];
     
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:tabBarImage selectedImage:tabBarImageSel];
 }
