@@ -10,4 +10,5 @@
 
 @interface RWNewsPost : RWPost
 
+@property (nonatomic, strong) NSString* newsBodyHTML;
 @end

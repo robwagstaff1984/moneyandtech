@@ -158,7 +158,7 @@
 		36C6250D1908721C0014F082 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		36C6251E19096A1F0014F082 /* ForumIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForumIcon.png; sourceTree = "<group>"; };
 		36C6251F19096A1F0014F082 /* ForumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ForumIcon@2x.png"; sourceTree = "<group>"; };
-		36CB28D518DA456C00476E15 /* MoneyAndTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyAndTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36CB28D518DA456C00476E15 /* Money&Tech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Money&Tech.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CB28D818DA456C00476E15 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36CB28DA18DA456C00476E15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		36CB28DC18DA456C00476E15 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -342,7 +342,7 @@
 		36CB28D618DA456C00476E15 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				36CB28D518DA456C00476E15 /* MoneyAndTech.app */,
+				36CB28D518DA456C00476E15 /* Money&Tech.app */,
 				36CB28F018DA456C00476E15 /* MoneyAndTechTests.xctest */,
 			);
 			name = Products;
@@ -460,7 +460,7 @@
 			);
 			name = MoneyAndTech;
 			productName = MoneyAndTech;
-			productReference = 36CB28D518DA456C00476E15 /* MoneyAndTech.app */;
+			productReference = 36CB28D518DA456C00476E15 /* Money&Tech.app */;
 			productType = "com.apple.product-type.application";
 		};
 		36CB28EF18DA456C00476E15 /* MoneyAndTechTests */ = {
@@ -765,7 +765,7 @@
 					"-framework",
 					SystemConfiguration,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Money&Tech";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -800,7 +800,7 @@
 					"-framework",
 					SystemConfiguration,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Money&Tech";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

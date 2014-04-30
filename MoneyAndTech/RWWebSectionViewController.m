@@ -205,6 +205,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.openRequestsCount--;
     if (self.openRequestsCount == 0) {
+        [self printCurrentHTML];
         NSLog(@"webViewDidFinishLoad All open requests finished");
     }
 }
@@ -250,6 +251,11 @@
 //    noNetworkLabel.textColor = [UIColor greenColor];
     [self.view addSubview:self.noNetworkView];
     [self.view addSubview:noNetworkLabel];
+}
+
+-(void) printCurrentHTML {
+    NSString *documentHTML = [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    NSLog(@"%@", documentHTML);
 }
 
 @end

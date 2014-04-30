@@ -19,6 +19,7 @@
 #define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
 #define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
 #define ARTICLE_TEXT_XPATH @"//div[@class='entry-content']"
+#define NEWS_BODY_XPATH @"//div[@class='entry-content']//div[@class='body']"
 #define FORUM_PAGE_XPATH @"//html"
 
 #define HTML_HEAD @"<head></head>"
@@ -129,6 +130,7 @@
     for (int postNumber = 0; postNumber < totalPosts; postNumber++) {
         RWNewsPost* newsPost = [RWNewsPost new];
         [self extractTitleElementfromPostNumber:postNumber intoPost:newsPost];
+        [self extractNewsBodyFromPostNumber:postNumber intoPost:newsPost];
         [self extractShareElementfromPostNumber:postNumber intoPost:newsPost];
         [self extractTimeElementfromPostNumber:postNumber intoPost:newsPost];
         [self.newsPosts addObject:newsPost];
@@ -195,24 +197,6 @@
     articleHTML = [articleHTML stringByAppendingString:[self combinedHTMLForTime:articlePost.timeHTML andShare:articlePost.shareHTML]];
 
     return articleHTML;
-}
-
--(NSString*) constructStrippedNewsHTML {
-    NSString* strippedNewsHTML = HTML_OPEN;
-    
-    for (int postNumber = 0; postNumber < [self.newsPosts count]; postNumber++) {
-        strippedNewsHTML = [self appendNewsPostNumber:postNumber toNewsHTML:strippedNewsHTML];
-    }
-    strippedNewsHTML = [strippedNewsHTML stringByAppendingString:HTML_CLOSE];
-    return strippedNewsHTML;
-}
-
--(NSString*) appendNewsPostNumber:(int)postNumber toNewsHTML:(NSString*)newsHTML {
-    RWNewsPost* newsPost = self.newsPosts[postNumber];
-    newsHTML = [newsHTML stringByAppendingString:newsPost.titleHTML];
-//    newsHTML = [newsHTML stringByAppendingString:newsPost.shareHTML];
-    newsHTML = [newsHTML stringByAppendingString:newsPost.timeHTML];
-    return newsHTML;
 }
 
 #pragma mark - video
@@ -345,14 +329,7 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; font-style:italic; float:left; padding-top:15px\">%@</span>", timeElement.raw];
-}
-
--(NSString*) formattedArticleTextHTMLFromElement:(TFHppleElement*)articleTextElement {
-    
-    NSString* articleTextHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
-    articleTextHTML = [self resizeAssetsToFitFromHTML:articleTextHTML];
-    return articleTextHTML;
+     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; font-style:italic; padding-top:15px\">%@</span>", timeElement.raw];
 }
 
 
@@ -366,6 +343,13 @@
     }
 }
 
+-(NSString*) formattedArticleTextHTMLFromElement:(TFHppleElement*)articleTextElement {
+    
+    NSString* articleTextHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
+    articleTextHTML = [self resizeAssetsToFitFromHTML:articleTextHTML];
+    return articleTextHTML;
+}
+
 #pragma mark - forum
 
 -(NSString*) extractUnformatedForumHTML {
@@ -374,6 +358,44 @@
     return htmlElement.raw;
 }
 
+#pragma mark - news 
+
+-(void) extractNewsBodyFromPostNumber:(int)postNumber intoPost:(RWNewsPost*)newsPost {
+    NSArray* newsBodyNodes = [self.pageParser searchWithXPathQuery:NEWS_BODY_XPATH];
+    TFHppleElement *newsBodyElement = [newsBodyNodes count] > postNumber ? newsBodyNodes[postNumber] : nil;
+    
+    if (newsPost != nil && newsBodyElement != nil) {
+        newsPost.newsBodyHTML = [self formattedNewsBodyTextHTMLFromElement:newsBodyElement];
+    }
+}
+
+-(NSString*) formattedNewsBodyTextHTMLFromElement:(TFHppleElement*)articleTextElement {
+    NSString* newsBodyHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
+    newsBodyHTML = [self resizeAssetsToFitFromHTML:newsBodyHTML];
+    return newsBodyHTML;
+}
+
+-(NSString*) constructStrippedNewsHTML {
+    NSString* strippedNewsHTML = HTML_OPEN;
+    
+    for (int postNumber = 0; postNumber < [self.newsPosts count]; postNumber++) {
+        strippedNewsHTML = [self appendNewsPostNumber:postNumber toNewsHTML:strippedNewsHTML];
+    }
+    strippedNewsHTML = [strippedNewsHTML stringByAppendingString:HTML_CLOSE];
+    return strippedNewsHTML;
+}
+
+-(NSString*) appendNewsPostNumber:(int)postNumber toNewsHTML:(NSString*)newsHTML {
+    RWNewsPost* newsPost = self.newsPosts[postNumber];
+    
+    NSString* nextNewsPost = newsPost.titleHTML;
+    nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.newsBodyHTML];
+    //    newsHTML = [newsHTML stringByAppendingString:newsPost.shareHTML];
+    nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.timeHTML];
+    nextNewsPost = [NSString stringWithFormat: @"<div style=\"border-bottom: 1px solid darkgray; padding-bottom:20px;\">%@</div>", nextNewsPost];
+    newsHTML =[newsHTML stringByAppendingString:nextNewsPost];
+    return newsHTML;
+}
 
 
 @end

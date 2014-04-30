@@ -36,7 +36,7 @@
 }
 
 -(BOOL) shouldStripDownWebSection {
-    return NO;
+    return YES;
 }
 
 -(NSURL*) urlForNextPage {
