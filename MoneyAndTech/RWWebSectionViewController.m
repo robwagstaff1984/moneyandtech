@@ -77,7 +77,7 @@
         } forPosition:SVInfiniteScrollingPositionBottom];
     }
 
-    [self.view addSubview:self.webView];    
+    [self.view addSubview:self.webView];
 }
 
 -(void) setupActivityIndicator {
@@ -205,7 +205,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.openRequestsCount--;
     if (self.openRequestsCount == 0) {
-        [self printCurrentHTML];
+//        [self printCurrentHTML];
         NSLog(@"webViewDidFinishLoad All open requests finished");
     }
 }
@@ -226,31 +226,38 @@
     Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
     
     reach.reachableBlock = ^(Reachability*reach) {
+        NSLog(@"REACHABLE!");
         if (self.webView.hidden) {
             successBlock();
         }
-        [self.noNetworkView removeFromSuperview];
-        NSLog(@"REACHABLE!");
+        [self removeNoNetworkView];
     };
     
     reach.unreachableBlock = ^(Reachability*reach) {
+        NSLog(@"UNREACHABLE!");
         if (self.webView.hidden && self.noNetworkView == nil) {
             [self createNoNetworkView];
         }
-        NSLog(@"UNREACHABLE!");
     };
     [reach startNotifier];
 }
 
 -(void) createNoNetworkView {
-    self.noNetworkView = [[UIView alloc] initWithFrame:self.view.frame];
-    self.noNetworkView.backgroundColor = [UIColor redColor];
-    UIView *noNetworkLabel = [[UIView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAV_BAR_HEIGHT - 40)/2, SCREEN_WIDTH, 40)];
-    noNetworkLabel.backgroundColor = [UIColor yellowColor];
-//    noNetworkLabel.text = @"No internet connection";
-//    noNetworkLabel.textColor = [UIColor greenColor];
-    [self.view addSubview:self.noNetworkView];
-    [self.view addSubview:noNetworkLabel];
+    dispatch_after(0, dispatch_get_main_queue(), ^{
+        self.noNetworkView = [[UIView alloc] initWithFrame:self.view.frame];
+        UILabel *noNetworkLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAV_BAR_HEIGHT - 40)/2, SCREEN_WIDTH, 40)];
+        noNetworkLabel.text = @"No internet connection";
+        noNetworkLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:self.noNetworkView];
+        [self.noNetworkView addSubview:noNetworkLabel];
+    });
+}
+
+-(void) removeNoNetworkView {
+    dispatch_after(0, dispatch_get_main_queue(), ^{
+        [self.noNetworkView removeFromSuperview];
+        self.noNetworkView = nil;
+    });
 }
 
 -(void) printCurrentHTML {
