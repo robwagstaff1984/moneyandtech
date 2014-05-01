@@ -491,6 +491,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Robert Wagstaff";
 				TargetAttributes = {
+					36CB28D418DA456C00476E15 = {
+						DevelopmentTeam = G52BLHGDV4;
+					};
 					36CB28EF18DA456C00476E15 = {
 						TestTargetID = 36CB28D418DA456C00476E15;
 					};
@@ -742,6 +745,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Wagstaff (8ELYU7XP26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Wagstaff (8ELYU7XP26)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/robertwagstaff/work/workspace/MoneyAndTech,
@@ -766,6 +770,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = MoneyAndTech;
+				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -776,7 +781,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Robert Wagstaff (G52BLHGDV4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Robert Wagstaff (G52BLHGDV4)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/robertwagstaff/work/workspace/MoneyAndTech,
@@ -801,6 +807,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = MoneyAndTech;
+				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
