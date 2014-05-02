@@ -8,7 +8,7 @@
 
 #import "RWForumViewController.h"
 
-#define FORUM_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/forum", MONEY_AND_TECH_HOME_PAGE_URL]]
+#define FORUM_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/forum", [RWConfiguration sharedConfiguration].homeURL]]
 
 @interface RWForumViewController ()
 

@@ -8,8 +8,8 @@
 
 #import "RWArticlesViewController.h"
 
-#define ARTICLES_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles", MONEY_AND_TECH_HOME_PAGE_URL]]
-#define ARTICLES_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]
+#define ARTICLES_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles", [RWConfiguration sharedConfiguration].homeURL]]
+#define ARTICLES_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/articles/page/%d/", [RWConfiguration sharedConfiguration].homeURL, self.pageNumber]]
 
 @interface RWArticlesViewController ()
 @property (nonatomic) UIWebView* webView;

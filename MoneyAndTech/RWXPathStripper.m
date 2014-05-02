@@ -11,16 +11,19 @@
 #import "RWVideoPost.h"
 #import "RWArticlePost.h"
 #import "RWNewsPost.h"
+#import "RWConfiguration.h"
 
-#define GENERIC_POST_XPATH @"//article"
-#define NEWS_POST_XPATH @"//div[@class='rss-output']"
-#define VIDEOS_PAGE_VIDEO_XPATH @"//iframe"
-#define VIDEOS_PAGE_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
-#define VIDEOS_PAGE_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
-#define VIDEOS_PAGE_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
-#define ARTICLE_TEXT_XPATH @"//div[@class='entry-content']"
-#define NEWS_BODY_XPATH @"//div[@class='entry-content']//div[@class='body']"
-#define FORUM_PAGE_XPATH @"//html"
+//#define GENERIC_POST_XPATH @"//article"
+//#define NEWS_POST_XPATH @"//div[@class='rss-output']"
+
+//#define GENERIC_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
+//#define GENERIC_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
+//#define GENERIC_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
+
+//#define VIDEO_XPATH @"//iframe"
+//#define ARTICLE_TEXT_XPATH @"//div[@class='entry-content']"
+//#define NEWS_BODY_XPATH @"//div[@class='entry-content']//div[@class='body']"
+//#define FORUM_PAGE_XPATH @"//html"
 
 #define HTML_HEAD @"<head></head>"
 #define HTML_OPEN @"<html><body>"
@@ -150,8 +153,8 @@
 
 -(int) countOfPostsFromHTMLData:(NSData*)htmlData {
     TFHpple* genericPostParser = [TFHpple hppleWithHTMLData:htmlData];
-    NSArray *genericPostNodes = [genericPostParser searchWithXPathQuery:GENERIC_POST_XPATH];
-    NSArray *newsPostNodes = [genericPostParser searchWithXPathQuery:NEWS_POST_XPATH];
+    NSArray *genericPostNodes = [genericPostParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].genericPostXPath];
+    NSArray *newsPostNodes = [genericPostParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].newsPostXPath];
     
     return MAX((int)[genericPostNodes count], (int)[newsPostNodes count]);
 }
@@ -202,7 +205,7 @@
 #pragma mark - video
 
 -(void) extractVideoElementfromPostNumber:(int)postNumber intoPost:(RWVideoPost*)videoPost {
-    NSArray *videoNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_VIDEO_XPATH];
+    NSArray *videoNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].videoXPath];
     TFHppleElement *videoElement = [videoNodes count] > postNumber ? videoNodes[postNumber] : nil;
     
     if (videoPost != nil && videoElement != nil) {
@@ -281,7 +284,7 @@
 
 #pragma mark - title
 -(void) extractTitleElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
-    NSArray *titleNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TITLE_XPATH];
+    NSArray *titleNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].genericTitleXPath];
     TFHppleElement *titleElement = [titleNodes count] > postNumber ? titleNodes[postNumber] : nil;
     
     if (post != nil && titleElement != nil) {
@@ -296,7 +299,7 @@
 #pragma mark - share
 
 -(void) extractShareElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
-    NSArray *shareNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_SHARE_XPATH];
+    NSArray *shareNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].genericShareXPath];
     TFHppleElement *shareElement = [shareNodes count] > postNumber ? shareNodes[postNumber] : nil;
     
     if (post != nil && shareElement != nil) {
@@ -313,14 +316,14 @@
 
 -(NSString*) fixMalformedURLSourceForShare:(NSString*)formattedShareElement {
     
-    formattedShareElement = [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/development" withString:[NSString stringWithFormat:@"src=\"%@/", MONEY_AND_TECH_HOME_PAGE_URL]];
-    return [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/" withString:[NSString stringWithFormat:@"src=\"%@/", MONEY_AND_TECH_HOME_PAGE_URL]];
+    formattedShareElement = [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/development" withString:[NSString stringWithFormat:@"src=\"%@/", [RWConfiguration sharedConfiguration].homeURL]];
+    return [formattedShareElement stringByReplacingOccurrencesOfString:@"src=\"/" withString:[NSString stringWithFormat:@"src=\"%@/", [RWConfiguration sharedConfiguration].homeURL]];
 }
 
 
 #pragma mark - time
 -(void) extractTimeElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
-    NSArray *timeNodes = [self.pageParser searchWithXPathQuery:VIDEOS_PAGE_TIME_XPATH];
+    NSArray *timeNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].genericTimeXPath];
     TFHppleElement *timeElement = [timeNodes count] > postNumber ? timeNodes[postNumber] : nil;
     
     if (post != nil && timeElement != nil) {
@@ -335,7 +338,7 @@
 
 #pragma mark - article
 -(void) extractArticleElementfromPostNumber:(int)postNumber intoPost:(RWArticlePost*)articlePost {
-    NSArray* articleNodes = [self.pageParser searchWithXPathQuery:ARTICLE_TEXT_XPATH];
+    NSArray* articleNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].articleTextXPath];
     TFHppleElement *articleElement = [articleNodes count] > postNumber ? articleNodes[postNumber] : nil;
     
     if (articlePost != nil && articleElement != nil) {
@@ -353,7 +356,7 @@
 #pragma mark - forum
 
 -(NSString*) extractUnformatedForumHTML {
-    NSArray *htmlNodes = [self.pageParser searchWithXPathQuery:FORUM_PAGE_XPATH];;
+    NSArray *htmlNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].forumPageXPath];
     TFHppleElement *htmlElement = htmlNodes[0];
     return htmlElement.raw;
 }
@@ -361,7 +364,7 @@
 #pragma mark - news 
 
 -(void) extractNewsBodyFromPostNumber:(int)postNumber intoPost:(RWNewsPost*)newsPost {
-    NSArray* newsBodyNodes = [self.pageParser searchWithXPathQuery:NEWS_BODY_XPATH];
+    NSArray* newsBodyNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].newsBodyXPath];
     TFHppleElement *newsBodyElement = [newsBodyNodes count] > postNumber ? newsBodyNodes[postNumber] : nil;
     
     if (newsPost != nil && newsBodyElement != nil) {

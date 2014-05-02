@@ -7,8 +7,8 @@
 //
 
 #import "RWNewsViewController.h"
-#define NEWS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news", MONEY_AND_TECH_HOME_PAGE_URL]]
-#define NEWS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news/page/%d/", MONEY_AND_TECH_HOME_PAGE_URL, self.pageNumber]]
+#define NEWS_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news", [RWConfiguration sharedConfiguration].homeURL]]
+#define NEWS_NEXT_PAGE_URL [NSURL URLWithString:[NSString stringWithFormat:@"%@/news/page/%d/", [RWConfiguration sharedConfiguration].homeURL, self.pageNumber]]
 
 @interface RWNewsViewController ()
 
