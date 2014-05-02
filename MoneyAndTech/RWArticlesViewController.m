@@ -43,7 +43,7 @@
 }
 
 -(BOOL) shouldStripDownWebSection {
-    return YES;
+    return [RWConfiguration sharedConfiguration].shouldReformatArticlesPage;
 }
 
 -(NSURL*) urlForNextPage {

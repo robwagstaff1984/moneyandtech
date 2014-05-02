@@ -30,6 +30,9 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Configuration"];
     PFObject* parseConfiguration = [query getFirstObject]; //TODO make it run in background
     
+    [[RWConfiguration sharedConfiguration] setShouldReformatVideosPage: [parseConfiguration[@"shouldReformatVideosPage"] boolValue]];
+    [[RWConfiguration sharedConfiguration] setShouldReformatArticlesPage: [parseConfiguration[@"shouldReformatArticlesPage"] boolValue]];
+    [[RWConfiguration sharedConfiguration] setShouldReformatNewsPage: [parseConfiguration[@"shouldReformatNewsPage"] boolValue]];
     [[RWConfiguration sharedConfiguration] setHomeURL: parseConfiguration[@"homeURL"]];
     [[RWConfiguration sharedConfiguration] setGenericPostXPath: parseConfiguration[@"genericPostXPath"]];
     [[RWConfiguration sharedConfiguration] setNewsPostXPath: parseConfiguration[@"newsPostXPath"]];
@@ -40,7 +43,6 @@
     [[RWConfiguration sharedConfiguration] setArticleTextXPath: parseConfiguration[@"articleTextXPath"]];
     [[RWConfiguration sharedConfiguration] setNewsBodyXPath: parseConfiguration[@"newsBodyXPath"]];
     [[RWConfiguration sharedConfiguration] setForumPageXPath: parseConfiguration[@"forumPageXPath"]];
-    NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
 }
 
 @end

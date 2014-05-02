@@ -269,12 +269,12 @@
 			children = (
 				3607869518E607E50045AF0F /* RWWebSectionViewController.h */,
 				3607869618E607E50045AF0F /* RWWebSectionViewController.m */,
+				36CB290E18DA468000476E15 /* RWVideosViewController.h */,
+				36CB290F18DA468000476E15 /* RWVideosViewController.m */,
 				36CB290818DA460200476E15 /* RWArticlesViewController.h */,
 				36CB290918DA460200476E15 /* RWArticlesViewController.m */,
 				36CB290B18DA461F00476E15 /* RWNewsViewController.h */,
 				36CB290C18DA461F00476E15 /* RWNewsViewController.m */,
-				36CB290E18DA468000476E15 /* RWVideosViewController.h */,
-				36CB290F18DA468000476E15 /* RWVideosViewController.m */,
 				3607869218E607040045AF0F /* RWForumViewController.h */,
 				3607869318E607040045AF0F /* RWForumViewController.m */,
 			);
