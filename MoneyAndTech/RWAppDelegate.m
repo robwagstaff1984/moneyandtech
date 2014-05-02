@@ -10,47 +10,31 @@
 #import "RWNavigationController.h"
 #import "RWTabBarController.h"
 #import <Parse/Parse.h>
+#import "RWConfiguration.h"
 
 @implementation RWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self setupParse];
-    RWTabBarController* tabBarController = [[RWTabBarController alloc] init];
-    
-    [tabBarController setEdgesForExtendedLayout:UIRectEdgeBottom];
-    RWNavigationController *navigationController = [[RWNavigationController alloc] initWithRootViewController:tabBarController];
+    [[RWConfiguration sharedConfiguration] setupParse];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
-
-
-
-// Start the notifier, which will cause the reachability object to retain itself!
+    [self.window setRootViewController:[self createRootViewController]];
+    
     return YES;
 }
 
--(void) setupParse {
-    [Parse setApplicationId:@"sfgZq1Me3Z6AXgVktP3Yb6RFaW0AhxwI3Yv9wtk8" clientKey:@"IAhDDnpjSOvb2tu6UneXvwhDV9Yz5tObRxHhThmB"];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
-    
+-(UIViewController*) createRootViewController {
+    RWTabBarController* tabBarController = [[RWTabBarController alloc] init];
+    [tabBarController setEdgesForExtendedLayout:UIRectEdgeBottom];
+    RWNavigationController *navigationController = [[RWNavigationController alloc] initWithRootViewController:tabBarController];\
+    return navigationController;
 }
-
-//- (void)networkChanged:(NSNotification *)notification
-//{
-//    
-//    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
-//    
-//    if(remoteHostStatus == NotReachable) { NSLog(@"not reachable");}
-//    else if (remoteHostStatus == ReachableViaWiFiNetwork) { NSLog(@"wifi"); }
-//    else if (remoteHostStatus == ReachableViaCarrierDataNetwork) { NSLog(@"carrier"); }
-//}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];

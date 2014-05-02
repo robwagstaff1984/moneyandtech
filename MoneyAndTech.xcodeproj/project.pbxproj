@@ -78,6 +78,7 @@
 		36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */; };
 		36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292018DBBF9E00476E15 /* NewsIcon.png */; };
 		36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */; };
+		36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */; };
 		8290320DE6544096B77AB564 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 373E7C6795DD43FAB03D8DF2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,8 @@
 		36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArticlesIcon@2x.png"; sourceTree = "<group>"; };
 		36CB292018DBBF9E00476E15 /* NewsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewsIcon.png; sourceTree = "<group>"; };
 		36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewsIcon@2x.png"; sourceTree = "<group>"; };
+		36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWConfiguration.h; sourceTree = "<group>"; };
+		36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWConfiguration.m; sourceTree = "<group>"; };
 		373E7C6795DD43FAB03D8DF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9E8A68522D44D5817CE441 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,6 +327,8 @@
 				36C624F71901C4770014F082 /* RWArticlePost.m */,
 				36C624F91901C4880014F082 /* RWNewsPost.h */,
 				36C624FA1901C4880014F082 /* RWNewsPost.m */,
+				36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */,
+				36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				3607869C18E685450045AF0F /* RWNavigationController.m in Sources */,
 				360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */,
 				36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */,
+				36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */,
 				360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */,
 				36C624F81901C4770014F082 /* RWArticlePost.m in Sources */,
 				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,

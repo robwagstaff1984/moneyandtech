@@ -89,9 +89,6 @@
 
 #pragma mark - AFNetworking
 -(AFHTTPRequestOperation*) httpRequestOperationForWebSection {
-
-    NSLog(@"Adding operation request for: %@", self.title);
-    
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:[self urlRequestForFirstPage] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString* strippedHTML = [NSString stringWithFormat:@"<html><body style=\"background-color:#F7F9F6\">%@</body></html>", [self strippedHTMLFromData:responseObject]];
@@ -199,14 +196,12 @@
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-//        NSLog(@"webViewDidStartLoad");
     self.openRequestsCount++;
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.openRequestsCount--;
     if (self.openRequestsCount == 0) {
-//        [self printCurrentHTML];
-        NSLog(@"webViewDidFinishLoad All open requests finished");
+        NSLog(@"webViewDidFinishLoad All open requests finished for: %@", self.title);
     }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -226,7 +221,6 @@
     Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
     
     reach.reachableBlock = ^(Reachability*reach) {
-        NSLog(@"REACHABLE!");
         if (self.webView.hidden) {
             successBlock();
         }
