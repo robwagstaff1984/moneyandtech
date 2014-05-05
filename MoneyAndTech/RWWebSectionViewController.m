@@ -112,6 +112,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
         [self.activityIndicator stopAnimating];
+        [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
+        [self.infinteScrollPaginationTimer invalidate];
     }];
     [operation setQueuePriority:[self queuePriority]];
     
