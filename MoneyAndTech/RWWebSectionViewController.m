@@ -136,8 +136,11 @@
 -(void) appendNextPageToDOM:(id)responseObject {
     NSString* strippedNextPageHTML = [self strippedHTMLFromData:responseObject];
     
+  
+    strippedNextPageHTML = [strippedNextPageHTML stringByReplacingOccurrencesOfString:@"\r" withString:@"\\n"];
+    strippedNextPageHTML = [strippedNextPageHTML stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
     [self injectJavascript:[NSString stringWithFormat:@"var myDiv = document.createElement('p');\nmyDiv.innerHTML = '%@';\ndocument.body.appendChild(myDiv);", strippedNextPageHTML]];
-    
+
     [self monitorForPaginationComplete];
 }
 
