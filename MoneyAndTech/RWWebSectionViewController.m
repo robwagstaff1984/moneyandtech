@@ -227,6 +227,10 @@
     
     reach.reachableBlock = ^(Reachability*reach) {
         if (self.webView.hidden) {
+            
+            if(![[RWConfiguration sharedConfiguration].homeURL length]) {
+                [[RWConfiguration sharedConfiguration] setupParse];
+            }
             successBlock();
         }
         [self removeNoNetworkView];

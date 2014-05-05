@@ -16,11 +16,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[RWConfiguration sharedConfiguration] setupParse];
+
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [[RWConfiguration sharedConfiguration] setupParse];
     [self.window setRootViewController:[self createRootViewController]];
     
     return YES;

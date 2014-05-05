@@ -13,18 +13,6 @@
 #import "RWNewsPost.h"
 #import "RWConfiguration.h"
 
-//#define GENERIC_POST_XPATH @"//article"
-//#define NEWS_POST_XPATH @"//div[@class='rss-output']"
-
-//#define GENERIC_TITLE_XPATH @"//*[@class='entry-title']/a/text()|//div[@class='title']/span/a/text()"
-//#define GENERIC_SHARE_XPATH @"//div[@id='ssba']|//div[@class='ssba']"
-//#define GENERIC_TIME_XPATH @"//time[@pubdate]/text()|//span[@class='date']/text()"
-
-//#define VIDEO_XPATH @"//iframe"
-//#define ARTICLE_TEXT_XPATH @"//div[@class='entry-content']"
-//#define NEWS_BODY_XPATH @"//div[@class='entry-content']//div[@class='body']"
-//#define FORUM_PAGE_XPATH @"//html"
-
 #define HTML_HEAD @"<head></head>"
 #define HTML_OPEN @"<html><body>"
 #define HTML_CLOSE @"</body></html>"
@@ -180,7 +168,7 @@
 }
 
 -(NSString*) combinedHTMLForTime:(NSString*)timeHTML andShare:(NSString*)shareHTML {
-    return [NSString stringWithFormat:@"<div style=\"border-bottom: 1px solid darkgray; padding: 12px 5px 10px 5px; height:56px;\">%@%@</div><div style=\"clear: both;\"></div>", timeHTML, shareHTML];
+    return [NSString stringWithFormat:@"<div id=\"iosAppTimeAndShare\" style=\"border-bottom: 1px solid darkgray; padding: 12px 5px 10px 5px; height:56px;\">%@%@</div><div style=\"clear: both;\"></div>", timeHTML, shareHTML];
 }
 
 -(NSString*) constructStrippedArticleHTML {
@@ -293,7 +281,7 @@
 }
 
 -(NSString*) formattedTitleHTMLFromElement:(TFHppleElement*)titleElement {
-    return [NSString stringWithFormat:@"<h3>%@</h3>", titleElement.raw];
+    return [NSString stringWithFormat:@"<h3 id=\"iosAppTitle\" >%@</h3>", titleElement.raw];
 }
 
 #pragma mark - share
@@ -311,7 +299,7 @@
     
     NSString* shareElementFixed = [self fixMalformedURLSourceForShare:shareElement.raw];
     
-    return [NSString stringWithFormat:@"<span style=\"display:inline-block;float:right\">%@</span>", shareElementFixed];
+    return [NSString stringWithFormat:@"<span id=\"iosAppShare\" style=\"display:inline-block;float:right\">%@</span>", shareElementFixed];
 }
 
 -(NSString*) fixMalformedURLSourceForShare:(NSString*)formattedShareElement {
@@ -332,7 +320,7 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-     return  [NSString stringWithFormat: @"<span style=\"display:inline-block; font-style:italic; padding-top:15px\">%@</span>", timeElement.raw];
+     return  [NSString stringWithFormat: @"<span id=\"iosAppTime\" style=\"display:inline-block; font-style:italic; padding-top:15px\">%@</span>", timeElement.raw];
 }
 
 
@@ -348,7 +336,7 @@
 
 -(NSString*) formattedArticleTextHTMLFromElement:(TFHppleElement*)articleTextElement {
     
-    NSString* articleTextHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
+    NSString* articleTextHTML = [NSString stringWithFormat: @"<div id=\"iosAppArticleText\">%@</div>", articleTextElement.raw];
     articleTextHTML = [self resizeAssetsToFitFromHTML:articleTextHTML];
     return articleTextHTML;
 }
@@ -373,7 +361,7 @@
 }
 
 -(NSString*) formattedNewsBodyTextHTMLFromElement:(TFHppleElement*)articleTextElement {
-    NSString* newsBodyHTML = [NSString stringWithFormat: @"<div>%@</div>", articleTextElement.raw];
+    NSString* newsBodyHTML = [NSString stringWithFormat: @"<div id=\"iosAppNewsBody\">%@</div>", articleTextElement.raw];
     newsBodyHTML = [self resizeAssetsToFitFromHTML:newsBodyHTML];
     return newsBodyHTML;
 }
@@ -395,7 +383,7 @@
     nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.newsBodyHTML];
     //    newsHTML = [newsHTML stringByAppendingString:newsPost.shareHTML];
     nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.timeHTML];
-    nextNewsPost = [NSString stringWithFormat: @"<div style=\"border-bottom: 1px solid darkgray; padding-bottom:20px;\">%@</div>", nextNewsPost];
+    nextNewsPost = [NSString stringWithFormat: @"<div id=\"iosAppNewsPost\" style=\"border-bottom: 1px solid darkgray; padding-bottom:20px;\">%@</div>", nextNewsPost];
     newsHTML =[newsHTML stringByAppendingString:nextNewsPost];
     return newsHTML;
 }

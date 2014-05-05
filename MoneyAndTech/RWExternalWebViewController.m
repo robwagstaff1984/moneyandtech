@@ -62,6 +62,7 @@
     [self.activityIndicator stopAnimating];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    
     NSLog(@"didFailLoadWithError");
 }
 

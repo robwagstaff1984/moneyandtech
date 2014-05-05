@@ -28,7 +28,8 @@
 
 -(void) retrieveParseConfiguration {
     PFQuery *query = [PFQuery queryWithClassName:@"Configuration"];
-    PFObject* parseConfiguration = [query getFirstObject]; //TODO make it run in background
+
+    PFObject* parseConfiguration = [query getFirstObject];
     
     [[RWConfiguration sharedConfiguration] setShouldReformatVideosPage: [parseConfiguration[@"shouldReformatVideosPage"] boolValue]];
     [[RWConfiguration sharedConfiguration] setShouldReformatArticlesPage: [parseConfiguration[@"shouldReformatArticlesPage"] boolValue]];
@@ -43,6 +44,7 @@
     [[RWConfiguration sharedConfiguration] setArticleTextXPath: parseConfiguration[@"articleTextXPath"]];
     [[RWConfiguration sharedConfiguration] setNewsBodyXPath: parseConfiguration[@"newsBodyXPath"]];
     [[RWConfiguration sharedConfiguration] setForumPageXPath: parseConfiguration[@"forumPageXPath"]];
+    
 }
 
 @end
