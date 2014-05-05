@@ -335,8 +335,8 @@
 }
 
 -(NSString*) formattedArticleTextHTMLFromElement:(TFHppleElement*)articleTextElement {
-    
-    NSString* articleTextHTML = [NSString stringWithFormat: @"<div id=\"iosAppArticleText\">%@</div>", articleTextElement.raw];
+    NSString* formattedArticleText = [self fixMalformedURLSourceForShare:articleTextElement.raw];
+    NSString* articleTextHTML = [NSString stringWithFormat: @"<div id=\"iosAppArticleText\">%@</div>", formattedArticleText];
     articleTextHTML = [self resizeAssetsToFitFromHTML:articleTextHTML];
     return articleTextHTML;
 }
