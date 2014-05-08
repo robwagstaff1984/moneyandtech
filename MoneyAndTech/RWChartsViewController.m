@@ -9,6 +9,11 @@
 #import "RWChartsViewController.h"
 #import "LCLineChartView.h"
 #import "RWChartDataItem.h"
+#import <AFNetworking/AFNetworking.h>
+#import "RWAFHTTPRequestOperationManager.h"
+
+#define MARKET_PRICE_USD_URL [NSURL URLWithString:@"https://blockchain.info/charts/market-price?format=json"]
+
 
 @interface RWChartsViewController ()
 
@@ -37,17 +42,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self retrieveData];
-    [self setupChartData];
-    [self setupChart];
-
+    [self retrieveDataWithSuccessBlock:^{
+        [self setupChartData];
+        [self setupChart];
+    }];
 }
 #pragma mark retrieve data
--(void) retrieveData {
-        //TODO replace with network call
-    NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"chart-data" ofType:@"json"];
-    NSDictionary *transaction = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath] options:kNilOptions error:nil];
-    self.chartValues = (NSArray*)transaction[@"values"];
+-(void) retrieveDataWithSuccessBlock:(void(^)(void))successBlock {
+
+    NSURLRequest* marketPriceUSDRequest= [[NSURLRequest alloc] initWithURL:MARKET_PRICE_USD_URL];
+    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:marketPriceUSDRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       self.chartValues = (NSArray*)responseObject[@"values"];
+        successBlock();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure %@", error);
+    }];
+    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperation:operation];
 }
 
 #pragma mark - chart data

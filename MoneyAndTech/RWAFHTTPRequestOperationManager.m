@@ -21,4 +21,14 @@
     return _sharedRequestOperationManager;
 }
 
++(RWAFHTTPRequestOperationManager*) sharedJSONRequestOperationManager {
+    
+    static RWAFHTTPRequestOperationManager* _sharedJSONRequestOperationManager;
+    if(!_sharedJSONRequestOperationManager) {
+        _sharedJSONRequestOperationManager = [self new];
+        _sharedJSONRequestOperationManager = [RWAFHTTPRequestOperationManager manager];
+    }
+    return _sharedJSONRequestOperationManager;
+}
+
 @end

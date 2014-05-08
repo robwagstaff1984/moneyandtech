@@ -11,5 +11,6 @@
 @interface RWAFHTTPRequestOperationManager : AFHTTPRequestOperationManager
 
 +(RWAFHTTPRequestOperationManager*) sharedRequestOperationManager;
++(RWAFHTTPRequestOperationManager*) sharedJSONRequestOperationManager;
 
 @end
