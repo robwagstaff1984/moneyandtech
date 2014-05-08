@@ -38,6 +38,14 @@
 		363BA3F31918489B00277708 /* LaunchImageIPhone35Inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3EF1918489B00277708 /* LaunchImageIPhone35Inch.png */; };
 		365895E319118D18005FAD8A /* tabBarButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E119118D18005FAD8A /* tabBarButtonBackground.png */; };
 		365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */; };
+		367406D6191AF0FE00D78C8E /* RWChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406D5191AF0FE00D78C8E /* RWChartsViewController.m */; };
+		367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 367406D7191AF17100D78C8E /* ChartsIcon.png */; };
+		367406DA191AF17100D78C8E /* ChartsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367406D8191AF17100D78C8E /* ChartsIcon@2x.png */; };
+		367406DC191AF51100D78C8E /* chart-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 367406DB191AF51100D78C8E /* chart-data.json */; };
+		367406E0191AF55D00D78C8E /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406DF191AF55D00D78C8E /* LCLineChartView.m */; };
+		367406E5191AF57100D78C8E /* LCInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E2191AF57100D78C8E /* LCInfoView.m */; };
+		367406E6191AF57100D78C8E /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E4191AF57100D78C8E /* LCLegendView.m */; };
+		367406EA191AF87B00D78C8E /* RWChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E9191AF87B00D78C8E /* RWChartDataItem.m */; };
 		36C624F21901C3F60014F082 /* RWPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F11901C3F60014F082 /* RWPost.m */; };
 		36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F41901C46A0014F082 /* RWVideoPost.m */; };
 		36C624F81901C4770014F082 /* RWArticlePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F71901C4770014F082 /* RWArticlePost.m */; };
@@ -140,6 +148,20 @@
 		363BA3EF1918489B00277708 /* LaunchImageIPhone35Inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageIPhone35Inch.png; sourceTree = "<group>"; };
 		365895E119118D18005FAD8A /* tabBarButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarButtonBackground.png; sourceTree = "<group>"; };
 		365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBarButtonBackground@2x.png"; sourceTree = "<group>"; };
+		367406D4191AF0FE00D78C8E /* RWChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartsViewController.h; sourceTree = "<group>"; };
+		367406D5191AF0FE00D78C8E /* RWChartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartsViewController.m; sourceTree = "<group>"; };
+		367406D7191AF17100D78C8E /* ChartsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChartsIcon.png; sourceTree = "<group>"; };
+		367406D8191AF17100D78C8E /* ChartsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChartsIcon@2x.png"; sourceTree = "<group>"; };
+		367406DB191AF51100D78C8E /* chart-data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chart-data.json"; sourceTree = "<group>"; };
+		367406DE191AF55D00D78C8E /* LCLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLineChartView.h; sourceTree = "<group>"; };
+		367406DF191AF55D00D78C8E /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
+		367406E1191AF57100D78C8E /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
+		367406E2191AF57100D78C8E /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
+		367406E3191AF57100D78C8E /* LCLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLegendView.h; sourceTree = "<group>"; };
+		367406E4191AF57100D78C8E /* LCLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLegendView.m; sourceTree = "<group>"; };
+		367406E7191AF58B00D78C8E /* LineChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
+		367406E8191AF87B00D78C8E /* RWChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartDataItem.h; sourceTree = "<group>"; };
+		367406E9191AF87B00D78C8E /* RWChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataItem.m; sourceTree = "<group>"; };
 		36C624F01901C3F60014F082 /* RWPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPost.h; sourceTree = "<group>"; };
 		36C624F11901C3F60014F082 /* RWPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPost.m; sourceTree = "<group>"; };
 		36C624F31901C46A0014F082 /* RWVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideoPost.h; sourceTree = "<group>"; };
@@ -270,6 +292,8 @@
 				36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */,
 				36C6251E19096A1F0014F082 /* ForumIcon.png */,
 				36C6251F19096A1F0014F082 /* ForumIcon@2x.png */,
+				367406D7191AF17100D78C8E /* ChartsIcon.png */,
+				367406D8191AF17100D78C8E /* ChartsIcon@2x.png */,
 				365895E119118D18005FAD8A /* tabBarButtonBackground.png */,
 				365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */,
 			);
@@ -328,6 +352,20 @@
 			path = hpple;
 			sourceTree = "<group>";
 		};
+		367406DD191AF55300D78C8E /* ios-linechart */ = {
+			isa = PBXGroup;
+			children = (
+				367406E7191AF58B00D78C8E /* LineChart.h */,
+				367406E1191AF57100D78C8E /* LCInfoView.h */,
+				367406E2191AF57100D78C8E /* LCInfoView.m */,
+				367406E3191AF57100D78C8E /* LCLegendView.h */,
+				367406E4191AF57100D78C8E /* LCLegendView.m */,
+				367406DE191AF55D00D78C8E /* LCLineChartView.h */,
+				367406DF191AF55D00D78C8E /* LCLineChartView.m */,
+			);
+			name = "ios-linechart";
+			sourceTree = "<group>";
+		};
 		36C624EF1901C3E40014F082 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +379,8 @@
 				36C624FA1901C4880014F082 /* RWNewsPost.m */,
 				36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */,
 				36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */,
+				367406E8191AF87B00D78C8E /* RWChartDataItem.h */,
+				367406E9191AF87B00D78C8E /* RWChartDataItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -368,6 +408,7 @@
 		36CB28D718DA456C00476E15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				367406DD191AF55300D78C8E /* ios-linechart */,
 				362048F71909C4CC00A1C10C /* Reachability.h */,
 				362048F81909C4CC00A1C10C /* Reachability.m */,
 				3607870718F3656F0045AF0F /* Accounts.framework */,
@@ -442,6 +483,9 @@
 			children = (
 				3607869918E684BD0045AF0F /* Navigation */,
 				3607869818E684A10045AF0F /* WebSections */,
+				367406D4191AF0FE00D78C8E /* RWChartsViewController.h */,
+				367406D5191AF0FE00D78C8E /* RWChartsViewController.m */,
+				367406DB191AF51100D78C8E /* chart-data.json */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -548,6 +592,7 @@
 				36C6251B1908721C0014F082 /* Icon@2x.png in Resources */,
 				363BA3F01918489B00277708 /* LaunchImageIPad.png in Resources */,
 				36C6251C1908721C0014F082 /* iTunesArtwork.png in Resources */,
+				367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */,
 				36C625111908721C0014F082 /* Icon-60@2x.png in Resources */,
 				36C625191908721C0014F082 /* Icon-Small@2x.png in Resources */,
 				36C625101908721C0014F082 /* Icon-60.png in Resources */,
@@ -557,6 +602,7 @@
 				36C625181908721C0014F082 /* Icon-Small.png in Resources */,
 				36C6252019096A1F0014F082 /* ForumIcon.png in Resources */,
 				363BA3F11918489B00277708 /* LaunchImageIPad@2x.png in Resources */,
+				367406DA191AF17100D78C8E /* ChartsIcon@2x.png in Resources */,
 				36C625171908721C0014F082 /* Icon-Small-50@2x.png in Resources */,
 				36C624FD190858210014F082 /* ocraextended.ttf in Resources */,
 				36C6252119096A1F0014F082 /* ForumIcon@2x.png in Resources */,
@@ -569,6 +615,7 @@
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
 				365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */,
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,
+				367406DC191AF51100D78C8E /* chart-data.json in Resources */,
 				36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */,
 				36CB28EB18DA456C00476E15 /* Images.xcassets in Resources */,
 				36CB291A18DB934A00476E15 /* VideosIcon.png in Resources */,
@@ -629,15 +676,20 @@
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
+				367406E0191AF55D00D78C8E /* LCLineChartView.m in Sources */,
 				36C624F21901C3F60014F082 /* RWPost.m in Sources */,
 				3607870A18F365EC0045AF0F /* FBMissingSymbols.m in Sources */,
 				3607869C18E685450045AF0F /* RWNavigationController.m in Sources */,
 				360786E718E8B3CE0045AF0F /* RWXPathStripper.m in Sources */,
 				36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */,
+				367406E6191AF57100D78C8E /* LCLegendView.m in Sources */,
 				36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */,
+				367406D6191AF0FE00D78C8E /* RWChartsViewController.m in Sources */,
 				360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */,
+				367406EA191AF87B00D78C8E /* RWChartDataItem.m in Sources */,
 				36C624F81901C4770014F082 /* RWArticlePost.m in Sources */,
 				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,
+				367406E5191AF57100D78C8E /* LCInfoView.m in Sources */,
 				362048F91909C4CC00A1C10C /* Reachability.m in Sources */,
 				360786D518E8B2640045AF0F /* TFHpple.m in Sources */,
 				36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */,
@@ -792,7 +844,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = MoneyAndTech;
-				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
+				PROVISIONING_PROFILE = "14BE7380-CCE4-470A-8C8B-28C57FC98C08";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -829,7 +881,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = MoneyAndTech;
-				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
+				PROVISIONING_PROFILE = "14BE7380-CCE4-470A-8C8B-28C57FC98C08";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

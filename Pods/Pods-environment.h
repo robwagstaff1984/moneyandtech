@@ -48,3 +48,21 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// Reachability
+#define COCOAPODS_POD_AVAILABLE_Reachability
+#define COCOAPODS_VERSION_MAJOR_Reachability 3
+#define COCOAPODS_VERSION_MINOR_Reachability 1
+#define COCOAPODS_VERSION_PATCH_Reachability 1
+
+// ios-versioncheck
+#define COCOAPODS_POD_AVAILABLE_ios_versioncheck
+#define COCOAPODS_VERSION_MAJOR_ios_versioncheck 1
+#define COCOAPODS_VERSION_MINOR_ios_versioncheck 0
+#define COCOAPODS_VERSION_PATCH_ios_versioncheck 0
+
+// uikit-utils
+#define COCOAPODS_POD_AVAILABLE_uikit_utils
+#define COCOAPODS_VERSION_MAJOR_uikit_utils 0
+#define COCOAPODS_VERSION_MINOR_uikit_utils 5
+#define COCOAPODS_VERSION_PATCH_uikit_utils 0
+

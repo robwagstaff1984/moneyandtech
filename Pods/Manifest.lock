@@ -18,11 +18,20 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - ios-versioncheck (1.0.0)
+  - Reachability (3.1.1)
+  - uikit-utils (0.5.0):
+    - ios-versioncheck
 
 DEPENDENCIES:
   - AFNetworking
+  - Reachability
+  - uikit-utils
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  ios-versioncheck: 9e5a71698152c9b66ede56571cccdda37105f68d
+  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
+  uikit-utils: 94a8da139b0fc9a20fddfe90321fce8233362d1d
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

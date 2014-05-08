@@ -11,6 +11,7 @@
 #import "RWNewsViewController.h"
 #import "RWVideosViewController.h"
 #import "RWForumViewController.h"
+#import "RWChartsViewController.h"
 
 @interface RWTabBarController ()
 
@@ -48,16 +49,19 @@
     RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
     RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
     RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
+    RWChartsViewController *chartsViewController= [[RWChartsViewController alloc] init];
     
     [self addTabBarItemToViewController:videosViewController withTitle:@"Videos"];
     [self addTabBarItemToViewController:articlesViewController withTitle:@"Articles"];
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
     [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
+    [self addTabBarItemToViewController:chartsViewController withTitle:@"Charts"];
     
-    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController];
+    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController, chartsViewController];
     articlesViewController.view = articlesViewController.view;
     newsViewController.view = newsViewController.view;
     forumViewController.view = forumViewController.view;
+    chartsViewController.view = chartsViewController.view;
 }
 
 -(void) addTabBarItemToViewController:(UIViewController*)viewController withTitle:(NSString*)title {

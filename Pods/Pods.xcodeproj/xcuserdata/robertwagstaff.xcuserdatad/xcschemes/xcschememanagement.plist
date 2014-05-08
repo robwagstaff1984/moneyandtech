@@ -4,34 +4,55 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
 		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
+		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ios-versioncheck.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-uikit-utils.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2B02F63A1CD94F9F82B77407</key>
+		<key>1414FB82432243DF8CE049F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41393F7D1FD04CBE9E6BD607</key>
+		<key>7F60E01E7A5A48C29BCB4D4B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8639E4E6B110454A9BC73CDB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>89FB159E7B3D4D4787E63462</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD597C70060C4490B066086E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
