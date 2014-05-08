@@ -41,11 +41,11 @@
 		367406D6191AF0FE00D78C8E /* RWChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406D5191AF0FE00D78C8E /* RWChartsViewController.m */; };
 		367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 367406D7191AF17100D78C8E /* ChartsIcon.png */; };
 		367406DA191AF17100D78C8E /* ChartsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367406D8191AF17100D78C8E /* ChartsIcon@2x.png */; };
-		367406DC191AF51100D78C8E /* chart-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 367406DB191AF51100D78C8E /* chart-data.json */; };
 		367406E0191AF55D00D78C8E /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406DF191AF55D00D78C8E /* LCLineChartView.m */; };
 		367406E5191AF57100D78C8E /* LCInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E2191AF57100D78C8E /* LCInfoView.m */; };
 		367406E6191AF57100D78C8E /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E4191AF57100D78C8E /* LCLegendView.m */; };
 		367406EA191AF87B00D78C8E /* RWChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E9191AF87B00D78C8E /* RWChartDataItem.m */; };
+		367406F2191B119C00D78C8E /* RWChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406F1191B119C00D78C8E /* RWChart.m */; };
 		36C624F21901C3F60014F082 /* RWPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F11901C3F60014F082 /* RWPost.m */; };
 		36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F41901C46A0014F082 /* RWVideoPost.m */; };
 		36C624F81901C4770014F082 /* RWArticlePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F71901C4770014F082 /* RWArticlePost.m */; };
@@ -152,7 +152,6 @@
 		367406D5191AF0FE00D78C8E /* RWChartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartsViewController.m; sourceTree = "<group>"; };
 		367406D7191AF17100D78C8E /* ChartsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChartsIcon.png; sourceTree = "<group>"; };
 		367406D8191AF17100D78C8E /* ChartsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChartsIcon@2x.png"; sourceTree = "<group>"; };
-		367406DB191AF51100D78C8E /* chart-data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chart-data.json"; sourceTree = "<group>"; };
 		367406DE191AF55D00D78C8E /* LCLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLineChartView.h; sourceTree = "<group>"; };
 		367406DF191AF55D00D78C8E /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
 		367406E1191AF57100D78C8E /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
@@ -162,6 +161,8 @@
 		367406E7191AF58B00D78C8E /* LineChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
 		367406E8191AF87B00D78C8E /* RWChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartDataItem.h; sourceTree = "<group>"; };
 		367406E9191AF87B00D78C8E /* RWChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataItem.m; sourceTree = "<group>"; };
+		367406F0191B119C00D78C8E /* RWChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChart.h; sourceTree = "<group>"; };
+		367406F1191B119C00D78C8E /* RWChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChart.m; sourceTree = "<group>"; };
 		36C624F01901C3F60014F082 /* RWPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPost.h; sourceTree = "<group>"; };
 		36C624F11901C3F60014F082 /* RWPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPost.m; sourceTree = "<group>"; };
 		36C624F31901C46A0014F082 /* RWVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideoPost.h; sourceTree = "<group>"; };
@@ -366,9 +367,30 @@
 			name = "ios-linechart";
 			sourceTree = "<group>";
 		};
+		367406EE191B0F1300D78C8E /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				367406D4191AF0FE00D78C8E /* RWChartsViewController.h */,
+				367406D5191AF0FE00D78C8E /* RWChartsViewController.m */,
+			);
+			name = Charts;
+			sourceTree = "<group>";
+		};
+		367406EF191B118B00D78C8E /* charts */ = {
+			isa = PBXGroup;
+			children = (
+				367406F0191B119C00D78C8E /* RWChart.h */,
+				367406F1191B119C00D78C8E /* RWChart.m */,
+				367406E8191AF87B00D78C8E /* RWChartDataItem.h */,
+				367406E9191AF87B00D78C8E /* RWChartDataItem.m */,
+			);
+			name = charts;
+			sourceTree = "<group>";
+		};
 		36C624EF1901C3E40014F082 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				367406EF191B118B00D78C8E /* charts */,
 				36C624F01901C3F60014F082 /* RWPost.h */,
 				36C624F11901C3F60014F082 /* RWPost.m */,
 				36C624F31901C46A0014F082 /* RWVideoPost.h */,
@@ -379,8 +401,6 @@
 				36C624FA1901C4880014F082 /* RWNewsPost.m */,
 				36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */,
 				36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */,
-				367406E8191AF87B00D78C8E /* RWChartDataItem.h */,
-				367406E9191AF87B00D78C8E /* RWChartDataItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -481,11 +501,9 @@
 		36CB290718DA45EE00476E15 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				367406EE191B0F1300D78C8E /* Charts */,
 				3607869918E684BD0045AF0F /* Navigation */,
 				3607869818E684A10045AF0F /* WebSections */,
-				367406D4191AF0FE00D78C8E /* RWChartsViewController.h */,
-				367406D5191AF0FE00D78C8E /* RWChartsViewController.m */,
-				367406DB191AF51100D78C8E /* chart-data.json */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -615,7 +633,6 @@
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
 				365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */,
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,
-				367406DC191AF51100D78C8E /* chart-data.json in Resources */,
 				36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */,
 				36CB28EB18DA456C00476E15 /* Images.xcassets in Resources */,
 				36CB291A18DB934A00476E15 /* VideosIcon.png in Resources */,
@@ -672,6 +689,7 @@
 			files = (
 				360786DC18E8B2640045AF0F /* XPathQuery.m in Sources */,
 				36C624FB1901C4880014F082 /* RWNewsPost.m in Sources */,
+				367406F2191B119C00D78C8E /* RWChart.m in Sources */,
 				360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,

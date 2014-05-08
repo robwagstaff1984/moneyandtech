@@ -10,4 +10,6 @@
 
 @interface RWChartsViewController : UIViewController
 
+@property (nonatomic, strong) NSMutableArray* charts;
+
 @end

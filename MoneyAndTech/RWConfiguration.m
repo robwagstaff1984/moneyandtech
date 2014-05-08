@@ -47,7 +47,7 @@
     [[RWConfiguration sharedConfiguration] setNewsBodyXPath: parseConfiguration[@"newsBodyXPath"]];
     [[RWConfiguration sharedConfiguration] setForumPageXPath: parseConfiguration[@"forumPageXPath"]];
     
-        NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
+//        NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
 }
 
 @end

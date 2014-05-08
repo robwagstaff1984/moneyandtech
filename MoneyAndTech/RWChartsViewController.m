@@ -11,16 +11,17 @@
 #import "RWChartDataItem.h"
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
+#import "RWChart.h"
 
+#define MARKET_PRICE_USD_TITLE @"MARKET PRICE (USD)"
 #define MARKET_PRICE_USD_URL [NSURL URLWithString:@"https://blockchain.info/charts/market-price?format=json"]
 
+#define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?format=json"]
+#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"NUMBER OF TRANSACTIONS_PER_DAY"
+
+#define NUMBER_OF_CHARTS 2
 
 @interface RWChartsViewController ()
-
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) NSArray* chartValues;
-@property (nonatomic, strong) LCLineChartData* marketPriceUSDData;
-@property (nonatomic, strong) NSMutableArray* chartDataItems;
 
 @end
 
@@ -32,9 +33,7 @@
     self = [super init];
     if (self) {
         self.title = @"Charts";
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        [self.dateFormatter setDateFormat:@"MMMM d yyyy"];
-        self.chartDataItems = [[NSMutableArray alloc] init];
+        self.charts = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -42,58 +41,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self retrieveDataWithSuccessBlock:^{
-        [self setupChartData];
-        [self setupChart];
-    }];
+    [self retrieveData];
 }
 #pragma mark retrieve data
--(void) retrieveDataWithSuccessBlock:(void(^)(void))successBlock {
+-(void) retrieveData {
 
-    NSURLRequest* marketPriceUSDRequest= [[NSURLRequest alloc] initWithURL:MARKET_PRICE_USD_URL];
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:marketPriceUSDRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
-       self.chartValues = (NSArray*)responseObject[@"values"];
-        successBlock();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure %@", error);
-    }];
-    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperation:operation];
-}
-
-#pragma mark - chart data
-
--(void) setupChartData {
-    [self formatChartData];
-    self.marketPriceUSDData = [LCLineChartData new];
-    self.marketPriceUSDData.xMin = [self minDate];
-    self.marketPriceUSDData.xMax = [self maxDate];
-    self.marketPriceUSDData.title = @"Market Price (USD)";
-    self.marketPriceUSDData.color = [UIColor blueColor];
-    self.marketPriceUSDData.itemCount = [self.chartValues count];
-    
-    __weak typeof(self) weakSelf = self;
-    self.marketPriceUSDData.getData = ^(NSUInteger item) {
-        RWChartDataItem* currentChartDataItem = weakSelf.chartDataItems[item];
-        return [LCLineChartDataItem dataItemWithX:currentChartDataItem.x y:currentChartDataItem.y xLabel:currentChartDataItem.xLabel dataLabel:currentChartDataItem.yLabel];
+    NSLog(@"start load chart");
+    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE URL:MARKET_PRICE_USD_URL];
+    marketPriceUSDChart.successBlock = ^{
+        [self addChart:marketPriceUSDChart];
     };
+    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
+    numberOfTransactionsPerDayChart.successBlock = ^{
+        [self addChart:numberOfTransactionsPerDayChart];
+    };
+    
+    AFHTTPRequestOperation* marketPriceUSDOperation = marketPriceUSDChart.dataRequestOperation;
+    AFHTTPRequestOperation* numberOfTransactionsPerDayOperation = numberOfTransactionsPerDayChart.dataRequestOperation;
+    [numberOfTransactionsPerDayOperation addDependency:marketPriceUSDOperation];
+    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[marketPriceUSDOperation,numberOfTransactionsPerDayOperation ] waitUntilFinished:NO];
 }
 
--(void) formatChartData {
-
-    for(NSUInteger i = 0; i < [self.chartValues count]; ++i) {
-        RWChartDataItem* chartDataItem = [[RWChartDataItem alloc] init];
-        chartDataItem.x = [self.chartValues[i][@"x"] intValue];
-        chartDataItem.y = [self.chartValues[i][@"y"] floatValue];
-        chartDataItem.xLabel = [self formattedDate:[NSDate dateWithTimeIntervalSince1970:chartDataItem.x]];
-        chartDataItem.yLabel = [NSString stringWithFormat:@"$%.2f", chartDataItem.y];
-        [self.chartDataItems addObject:chartDataItem];
+-(void) addChart:(RWChart*)chart {
+    [self.charts addObject:chart];
+    if ([self.charts count] == NUMBER_OF_CHARTS) {
+        [self setupChartView];
     }
 }
 
-#pragma mark - chart view
--(void) setupChart {
 
-    int roundedMaxPrice = 100*(([[self maxPrice] intValue]+50)/100);
+//#pragma mark - chart view
+-(void) setupChartView {
+
+//    int roundedMaxPrice = 100*(([[self maxPrice] intValue]+50)/100);
+    int roundedMaxPrice = 100*(([[((RWChart*)self.charts[0]) maxPrice] intValue]+50)/100);
     float roundedQuarterPrice = roundedMaxPrice * 0.25;
     float roundedHalfPrice = roundedMaxPrice * 0.5;
     float roundedThreeQuarterPrice = roundedMaxPrice * 0.75;
@@ -102,33 +83,14 @@
     LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
     chartView.yMin = 0;
     chartView.yMax = roundedFiveQuarterPrice;
+    
     chartView.ySteps = @[@"$0",[NSString stringWithFormat:@"$%.0f", roundedQuarterPrice], [NSString stringWithFormat:@"$%.0f", roundedHalfPrice], [NSString stringWithFormat:@"$%.0f", roundedThreeQuarterPrice], [NSString stringWithFormat:@"$%d", roundedMaxPrice], [NSString stringWithFormat:@"$%.0f", roundedFiveQuarterPrice]];
-    chartView.data = @[self.marketPriceUSDData];
+    chartView.data = @[((RWChart*)self.charts[0]).lineChartData];
     chartView.drawsDataPoints = NO;
+    chartView.axisLabelColor = [UIColor blackColor];
     
     [self.view addSubview:chartView];
 }
-
-#pragma mark - predicate helpers
--(NSNumber*) maxPrice {
-    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", self.chartValues];
-    return [self.chartValues filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
-}
--(int) minDate {
-    NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", self.chartValues];
-    return [[self.chartValues filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
-}
--(int) maxDate {
-    NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", self.chartValues];
-    return [[self.chartValues filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
-}
-
--(NSString*) formattedDate:(NSDate*)date {
-    return [self.dateFormatter stringFromDate:date];
-}
-
-
-
 
 
 
