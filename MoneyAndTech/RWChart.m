@@ -24,6 +24,7 @@
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateFormat:@"MMMM d yyyy"];
         self.chartDataItems = [[NSMutableArray alloc] init];
+        self.labelPrefix = @"";
     }
     return self;
 }

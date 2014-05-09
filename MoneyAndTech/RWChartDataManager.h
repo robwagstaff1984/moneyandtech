@@ -16,6 +16,11 @@
 
 @interface RWChartDataManager : NSObject
 
+@property (nonatomic, strong) NSString* currentPrice;
+@property (nonatomic, strong) NSString* marketCap;
+@property (nonatomic, strong) NSString* hashRate;
+@property (nonatomic, strong) NSString* blockTime;
+
 @property (nonatomic, strong) NSMutableArray* charts;
 @property (nonatomic, assign) id<RWChartDataManagerDelegate> delegate;
 
