@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RWChartDataManager.h"
 
-@interface RWChartsViewController : UIViewController
-
-@property (nonatomic, strong) NSMutableArray* charts;
+@interface RWChartsViewController : UIViewController <RWChartDataManagerDelegate>
 
 @end

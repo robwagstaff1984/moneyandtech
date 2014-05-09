@@ -12,14 +12,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWChart.h"
+#import "RWChartDataManager.h"
 
-#define MARKET_PRICE_USD_TITLE @"Market Price (USD)"
-#define MARKET_PRICE_USD_URL [NSURL URLWithString:@"https://blockchain.info/charts/market-price?format=json"]
-
-#define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?format=json"]
-#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions Per Day"
-
-#define NUMBER_OF_CHARTS 2
 
 @interface RWChartsViewController ()
 
@@ -36,7 +30,6 @@
     self = [super init];
     if (self) {
         self.title = @"Charts";
-        self.charts = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -44,37 +37,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self retrieveData];
+    [RWChartDataManager sharedChartDataManager].delegate = self;
+    [[RWChartDataManager sharedChartDataManager] retrieveData];
 }
 #pragma mark retrieve data
--(void) retrieveData {
 
-    NSLog(@"start load chart");
-    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE URL:MARKET_PRICE_USD_URL];
-    marketPriceUSDChart.labelPrefix = @"$";
-    marketPriceUSDChart.successBlock = ^{
-        [self addChart:marketPriceUSDChart];
-    };
-    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
-    numberOfTransactionsPerDayChart.labelPrefix = @"";
-    numberOfTransactionsPerDayChart.successBlock = ^{
-        [self addChart:numberOfTransactionsPerDayChart];
-    };
-    
-    AFHTTPRequestOperation* marketPriceUSDOperation = marketPriceUSDChart.dataRequestOperation;
-    AFHTTPRequestOperation* numberOfTransactionsPerDayOperation = numberOfTransactionsPerDayChart.dataRequestOperation;
-    [numberOfTransactionsPerDayOperation addDependency:marketPriceUSDOperation];
-    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[marketPriceUSDOperation,numberOfTransactionsPerDayOperation ] waitUntilFinished:NO];
+-(void) didFinishDownloadingChartData {
+    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
+    [self setupChartView];
 }
-
--(void) addChart:(RWChart*)chart {
-    [self.charts addObject:chart];
-    if ([self.charts count] == NUMBER_OF_CHARTS) {
-        self.currentChart = self.charts[0];
-        [self setupChartView];
-    }
-}
-
 
 #pragma mark - chart view
 -(void) setupChartView {
@@ -98,7 +69,7 @@
 
 -(void) switchCharts:(UIButton*)sender {
     NSLog(@"Switch charts to %d", sender.tag);
-    self.currentChart = self.charts[sender.tag];
+    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[sender.tag];
     [self updateChartData];
 }
 

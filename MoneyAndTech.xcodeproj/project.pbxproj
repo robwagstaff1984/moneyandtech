@@ -46,6 +46,7 @@
 		367406E6191AF57100D78C8E /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E4191AF57100D78C8E /* LCLegendView.m */; };
 		367406EA191AF87B00D78C8E /* RWChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406E9191AF87B00D78C8E /* RWChartDataItem.m */; };
 		367406F2191B119C00D78C8E /* RWChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406F1191B119C00D78C8E /* RWChart.m */; };
+		367406F5191D7DE000D78C8E /* RWChartDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406F4191D7DE000D78C8E /* RWChartDataManager.m */; };
 		36C624F21901C3F60014F082 /* RWPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F11901C3F60014F082 /* RWPost.m */; };
 		36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F41901C46A0014F082 /* RWVideoPost.m */; };
 		36C624F81901C4770014F082 /* RWArticlePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F71901C4770014F082 /* RWArticlePost.m */; };
@@ -163,6 +164,8 @@
 		367406E9191AF87B00D78C8E /* RWChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataItem.m; sourceTree = "<group>"; };
 		367406F0191B119C00D78C8E /* RWChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChart.h; sourceTree = "<group>"; };
 		367406F1191B119C00D78C8E /* RWChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChart.m; sourceTree = "<group>"; };
+		367406F3191D7DE000D78C8E /* RWChartDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartDataManager.h; sourceTree = "<group>"; };
+		367406F4191D7DE000D78C8E /* RWChartDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataManager.m; sourceTree = "<group>"; };
 		36C624F01901C3F60014F082 /* RWPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPost.h; sourceTree = "<group>"; };
 		36C624F11901C3F60014F082 /* RWPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPost.m; sourceTree = "<group>"; };
 		36C624F31901C46A0014F082 /* RWVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideoPost.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				367406F1191B119C00D78C8E /* RWChart.m */,
 				367406E8191AF87B00D78C8E /* RWChartDataItem.h */,
 				367406E9191AF87B00D78C8E /* RWChartDataItem.m */,
+				367406F3191D7DE000D78C8E /* RWChartDataManager.h */,
+				367406F4191D7DE000D78C8E /* RWChartDataManager.m */,
 			);
 			name = charts;
 			sourceTree = "<group>";
@@ -692,6 +697,7 @@
 				367406F2191B119C00D78C8E /* RWChart.m in Sources */,
 				360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
+				367406F5191D7DE000D78C8E /* RWChartDataManager.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
 				367406E0191AF55D00D78C8E /* LCLineChartView.m in Sources */,

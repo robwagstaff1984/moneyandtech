@@ -28,21 +28,6 @@
     return self;
 }
 
--(AFHTTPRequestOperation*) dataRequestOperation {
-    NSURLRequest* marketPriceUSDRequest= [[NSURLRequest alloc] initWithURL:self.url];
-    
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:marketPriceUSDRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success!");
-        self.chartRawValues = (NSArray*)responseObject[@"values"];
-        [self setupChartData];
-        self.successBlock();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure %@", error);
-    }];
-    return operation;
-}
-
-
 -(void) setupChartData {
     [self formatChartData];
     self.lineChartData = [LCLineChartData new];

@@ -13,18 +13,19 @@
 @interface RWChart : NSObject
 
 - (RWChart*)initWithTitle:(NSString*)title URL:(NSURL*)url;
-- (AFHTTPRequestOperation*) dataRequestOperation;
 
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSURL* url;
 @property (nonatomic, strong) LCLineChartData* lineChartData;
 @property (nonatomic, strong) NSArray* chartRawValues;
 @property (nonatomic, strong) NSMutableArray* chartDataItems;
-@property (nonatomic, copy) void (^successBlock)(void);
+@property (nonatomic, copy) void (^successBlock)(RWChart*);
 @property (nonatomic, strong) NSString* labelPrefix;
 
+-(void) setupChartData;
 -(NSNumber*) maxPrice;
 -(NSArray*) ySteps;
 -(float) yMax;
+
 @end
 
