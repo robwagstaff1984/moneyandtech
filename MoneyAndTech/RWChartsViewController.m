@@ -13,15 +13,18 @@
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWChart.h"
 
-#define MARKET_PRICE_USD_TITLE @"MARKET PRICE (USD)"
+#define MARKET_PRICE_USD_TITLE @"Market Price (USD)"
 #define MARKET_PRICE_USD_URL [NSURL URLWithString:@"https://blockchain.info/charts/market-price?format=json"]
 
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?format=json"]
-#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"NUMBER OF TRANSACTIONS_PER_DAY"
+#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions Per Day"
 
 #define NUMBER_OF_CHARTS 2
 
 @interface RWChartsViewController ()
+
+@property (nonatomic, strong) LCLineChartView* chartView;
+@property (nonatomic, strong) RWChart* currentChart;
 
 @end
 
@@ -48,10 +51,12 @@
 
     NSLog(@"start load chart");
     RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE URL:MARKET_PRICE_USD_URL];
+    marketPriceUSDChart.labelPrefix = @"$";
     marketPriceUSDChart.successBlock = ^{
         [self addChart:marketPriceUSDChart];
     };
     RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
+    numberOfTransactionsPerDayChart.labelPrefix = @"";
     numberOfTransactionsPerDayChart.successBlock = ^{
         [self addChart:numberOfTransactionsPerDayChart];
     };
@@ -65,33 +70,54 @@
 -(void) addChart:(RWChart*)chart {
     [self.charts addObject:chart];
     if ([self.charts count] == NUMBER_OF_CHARTS) {
+        self.currentChart = self.charts[0];
         [self setupChartView];
     }
 }
 
 
-//#pragma mark - chart view
+#pragma mark - chart view
 -(void) setupChartView {
 
-//    int roundedMaxPrice = 100*(([[self maxPrice] intValue]+50)/100);
-    int roundedMaxPrice = 100*(([[((RWChart*)self.charts[0]) maxPrice] intValue]+50)/100);
-    float roundedQuarterPrice = roundedMaxPrice * 0.25;
-    float roundedHalfPrice = roundedMaxPrice * 0.5;
-    float roundedThreeQuarterPrice = roundedMaxPrice * 0.75;
-    float roundedFiveQuarterPrice = roundedMaxPrice * 1.25;
-    
-    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
-    chartView.yMin = 0;
-    chartView.yMax = roundedFiveQuarterPrice;
-    
-    chartView.ySteps = @[@"$0",[NSString stringWithFormat:@"$%.0f", roundedQuarterPrice], [NSString stringWithFormat:@"$%.0f", roundedHalfPrice], [NSString stringWithFormat:@"$%.0f", roundedThreeQuarterPrice], [NSString stringWithFormat:@"$%d", roundedMaxPrice], [NSString stringWithFormat:@"$%.0f", roundedFiveQuarterPrice]];
-    chartView.data = @[((RWChart*)self.charts[0]).lineChartData];
-    chartView.drawsDataPoints = NO;
-    chartView.axisLabelColor = [UIColor blackColor];
-    
-    [self.view addSubview:chartView];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
+    self.chartView.yMin = 0;
+    self.chartView.drawsDataPoints = NO;
+    self.chartView.axisLabelColor = [UIColor blackColor];
+
+    [self updateChartData];
+
+    [self.view addSubview:self.chartView];
+    [self addAlternateChartButtons];
 }
 
+-(void) updateChartData {
+    self.chartView.yMax = self.currentChart.yMax;
+    self.chartView.ySteps = self.currentChart.ySteps;
+    self.chartView.data = @[self.currentChart.lineChartData];
+}
+
+-(void) switchCharts:(UIButton*)sender {
+    NSLog(@"Switch charts to %d", sender.tag);
+    self.currentChart = self.charts[sender.tag];
+    [self updateChartData];
+}
+
+
+-(void) addAlternateChartButtons {
+    UIButton* marketPriceButton = [[UIButton alloc] initWithFrame:CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height + 40, 150, 44)];
+    [marketPriceButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [marketPriceButton setTitle:@"Market Price" forState:UIControlStateNormal];
+    marketPriceButton.tag = 0;
+    [marketPriceButton addTarget:self action:@selector(switchCharts:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:marketPriceButton];
+    
+    UIButton* numberOfTransactionsPerDayButton = [[UIButton alloc] initWithFrame:CGRectMake(20, marketPriceButton.frame.origin.y + marketPriceButton.frame.size.height + 40, 180, 44)];
+    [numberOfTransactionsPerDayButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [numberOfTransactionsPerDayButton setTitle:@"Transactions Per Day" forState:UIControlStateNormal];
+    numberOfTransactionsPerDayButton.tag = 1;
+    [numberOfTransactionsPerDayButton addTarget:self action:@selector(switchCharts:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:numberOfTransactionsPerDayButton];
+}
 
 
 @end

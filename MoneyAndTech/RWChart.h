@@ -21,7 +21,10 @@
 @property (nonatomic, strong) NSArray* chartRawValues;
 @property (nonatomic, strong) NSMutableArray* chartDataItems;
 @property (nonatomic, copy) void (^successBlock)(void);
+@property (nonatomic, strong) NSString* labelPrefix;
 
 -(NSNumber*) maxPrice;
+-(NSArray*) ySteps;
+-(float) yMax;
 @end
 

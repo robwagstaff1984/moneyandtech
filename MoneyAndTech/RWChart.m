@@ -49,7 +49,7 @@
     self.lineChartData.xMin = [self minDate];
     self.lineChartData.xMax = [self maxDate];
     self.lineChartData.title = self.title;
-    self.lineChartData.color = [UIColor blueColor];
+    self.lineChartData.color = [UIColor colorWithRed:0 green:0 blue:182/255.0 alpha:1.0];
     self.lineChartData.itemCount = [self.chartDataItems count];
     
     __weak typeof(self) weakSelf = self;
@@ -87,5 +87,23 @@
 -(NSString*) formattedDate:(NSDate*)date {
     return [self.dateFormatter stringFromDate:date];
 }
+
+-(NSArray*) ySteps {
+    
+    int roundedMaxPrice = 100*(([self.maxPrice intValue]+50)/100);
+    float roundedQuarterPrice = roundedMaxPrice * 0.25;
+    float roundedHalfPrice = roundedMaxPrice * 0.5;
+    float roundedThreeQuarterPrice = roundedMaxPrice * 0.75;
+    float roundedFiveQuarterPrice = roundedMaxPrice * 1.25;
+    
+    return @[[NSString stringWithFormat:@"%@0",self.labelPrefix], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedQuarterPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedHalfPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedThreeQuarterPrice], [NSString stringWithFormat:@"%@%d", self.labelPrefix, roundedMaxPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedFiveQuarterPrice]];
+}
+
+-(float) yMax {
+    int roundedMaxPrice = 100*(([self.maxPrice intValue]+50)/100);
+    float roundedFiveQuarterPrice = roundedMaxPrice * 1.25;
+    return roundedFiveQuarterPrice;
+}
+
 
 @end
