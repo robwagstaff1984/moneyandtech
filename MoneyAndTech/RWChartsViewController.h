@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "RWChartDataManager.h"
 
-@interface RWChartsViewController : UIViewController <RWChartDataManagerDelegate>
+@interface RWChartsViewController : UIViewController <RWChartDataManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @end

@@ -26,7 +26,6 @@
 
 @implementation RWChartsViewController
 
-
 - (id)init
 {
     self = [super init];
@@ -121,11 +120,6 @@
     self.chartView.data = @[self.currentChart.lineChartData];
 }
 
--(void) switchCharts:(UIButton*)sender {
-    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[sender.tag];
-    [self updateChartView];
-}
-
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
@@ -160,20 +154,29 @@
 }
 
 -(void) addAlternateChartButtons {
-    UIButton* marketPriceButton = [[UIButton alloc] initWithFrame:CGRectMake(20, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height + 10, 180, 25)];
-    [marketPriceButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [marketPriceButton setTitle:@"Market Price" forState:UIControlStateNormal];
-    marketPriceButton.tag = 0;
-    [marketPriceButton addTarget:self action:@selector(switchCharts:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:marketPriceButton];
-    
-    UIButton* numberOfTransactionsPerDayButton = [[UIButton alloc] initWithFrame:CGRectMake(20, marketPriceButton.frame.origin.y + marketPriceButton.frame.size.height, 180, 25)];
-    [numberOfTransactionsPerDayButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [numberOfTransactionsPerDayButton setTitle:@"Transactions Per Day" forState:UIControlStateNormal];
-    numberOfTransactionsPerDayButton.tag = 1;
-    [numberOfTransactionsPerDayButton addTarget:self action:@selector(switchCharts:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:numberOfTransactionsPerDayButton];
+    UIPickerView* pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(20, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height, 280, 10 )];
+    pickerView.dataSource = self;
+    pickerView.delegate = self;
+    [self.view addSubview:pickerView];
 }
 
+#pragma mark - UIPickerView
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 2;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[row];
+    return chart.title;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[row];
+    [self updateChartView];
+}
 
 @end
