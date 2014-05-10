@@ -16,11 +16,14 @@
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?timespan=all&format=json"]
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions Per Day"
 
+#define USD_EXCHANGE_TRADE_VOLUME_URL [NSURL URLWithString:@"https://blockchain.info/charts/trade-volume?timespan=all&format=json"]
+#define USD_EXCHANGE_TRADE_VOLUME_TITLE @"USD Exchange Trade Volume"
+
 #define STATS_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/stats?format=json"]]
 #define MARKET_CAP_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/marketcap"]]
 
 
-#define NUMBER_OF_CHARTS 2
+#define NUMBER_OF_CHARTS 3
 
 @implementation RWChartDataManager
 
@@ -39,18 +42,21 @@
     NSLog(@"start load chart");
     RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE URL:MARKET_PRICE_USD_URL];
     marketPriceUSDChart.labelPrefix = @"$";
-    
     RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
+    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE URL:USD_EXCHANGE_TRADE_VOLUME_URL];
 
     AFHTTPRequestOperation* statsOperation = [self dataRequestOperationForStats];
     AFHTTPRequestOperation* marketCapOperation = [self dataRequestOperationForMarketCap];
     AFHTTPRequestOperation* marketPriceUSDOperation = [self dataRequestOperationForChart:marketPriceUSDChart];
     AFHTTPRequestOperation* numberOfTransactionsPerDayOperation = [self dataRequestOperationForChart:numberOfTransactionsPerDayChart];
+    AFHTTPRequestOperation* usdExchangeVolumeOperation = [self dataRequestOperationForChart:usdExchangeVolumeChart];
 
     [marketCapOperation addDependency:statsOperation];
     [marketPriceUSDOperation addDependency:marketCapOperation];
     [numberOfTransactionsPerDayOperation addDependency:marketPriceUSDOperation];
-    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[statsOperation, marketCapOperation, marketPriceUSDOperation,numberOfTransactionsPerDayOperation ] waitUntilFinished:NO];
+    [usdExchangeVolumeOperation addDependency:numberOfTransactionsPerDayOperation];
+    
+    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[statsOperation, marketCapOperation, marketPriceUSDOperation,numberOfTransactionsPerDayOperation, usdExchangeVolumeOperation] waitUntilFinished:NO];
 }
 
 

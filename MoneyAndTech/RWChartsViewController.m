@@ -131,26 +131,23 @@
 }
 
 -(void) switchDataPeriods:(id)sender{
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    DataPeriod selectedDataPeriod;
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-            selectedDataPeriod = DataPeriodWeek;
-            break;
-        case 1:
-            selectedDataPeriod = DataPeriodMonth;
-            break;
-        case 2:
-            selectedDataPeriod = DataPeriodSixMonth;
-            break;
-        case 3:
-            selectedDataPeriod = DataPeriodYear;
-            break;
-        default:
-            selectedDataPeriod = DataPeriodAllTime;
-    }
-    self.currentChart.dataPeriod = selectedDataPeriod;
+    self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
     [self updateChartView];
+}
+
+-(DataPeriod) currentlySelectedDataPeriod {
+    switch (self.datePeriodSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            return DataPeriodWeek;
+        case 1:
+            return DataPeriodMonth;
+        case 2:
+            return DataPeriodSixMonth;
+        case 3:
+            return DataPeriodYear;
+        default:
+            return DataPeriodAllTime;
+    }
 }
 
 -(void) addAlternateChartButtons {
@@ -166,7 +163,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 2;
+    return 3;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
@@ -176,6 +173,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[row];
+    self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
     [self updateChartView];
 }
 

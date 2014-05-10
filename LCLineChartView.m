@@ -269,12 +269,12 @@
                 
                 CGContextAddPath(c, path);
                 CGContextSetStrokeColorWithColor(c, [self.backgroundColor CGColor]);
-                CGContextSetLineWidth(c, 5);
+                CGContextSetLineWidth(c, 2.5);
                 CGContextStrokePath(c);
                 
                 CGContextAddPath(c, path);
                 CGContextSetStrokeColorWithColor(c, [data.color CGColor]);
-                CGContextSetLineWidth(c, 2);
+                CGContextSetLineWidth(c, 1);
                 CGContextStrokePath(c);
                 
                 CGPathRelease(path);
