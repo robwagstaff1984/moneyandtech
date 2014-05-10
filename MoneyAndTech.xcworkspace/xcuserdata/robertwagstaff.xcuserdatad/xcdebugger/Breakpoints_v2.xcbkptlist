@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartsViewController.m"
-            timestampString = "421371096.63228"
+            timestampString = "421373741.134676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-setupChartView"
             landmarkType = "5">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartsViewController.m"
-            timestampString = "421371096.63228"
+            timestampString = "421373741.134676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "-switchCharts:"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartsViewController.m"
-            timestampString = "421371096.63228"
+            timestampString = "421373741.134676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "-switchCharts:"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
+            timestampString = "421373741.134676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-didFinishDownloadingOnePieceOfChartData"
             landmarkType = "5">
          </BreakpointContent>
@@ -490,43 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
+            timestampString = "421373741.134676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-dataRequestOperationForCurrentPrice"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-dataRequestOperationForCurrentPrice"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-didFinishDownloadingOnePieceOfChartData"
             landmarkType = "5">
          </BreakpointContent>
@@ -538,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
+            timestampString = "421373010.579595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "-dataRequestOperationForChart:"
             landmarkType = "5">
          </BreakpointContent>
@@ -554,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
+            timestampString = "421373010.579595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "-dataRequestOperationForChart:"
             landmarkType = "5">
          </BreakpointContent>
@@ -569,13 +537,93 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyAndTech/RWChartDataManager.m"
-            timestampString = "421371033.071188"
+            filePath = "MoneyAndTech/RWChartsViewController.m"
+            timestampString = "421371838.643283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "-dataRequestOperationForMarketCap"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-setupActivityIndicator"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyAndTech/RWWebSectionViewController.m"
+            timestampString = "421371836.034632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "-setupActivityIndicator"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyAndTech/RWChartDataManager.m"
+            timestampString = "421373741.134676"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "-dataRequestOperationForStats"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyAndTech/RWChartDataManager.m"
+            timestampString = "421373741.134676"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-formatHashRate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyAndTech/RWChartDataManager.m"
+            timestampString = "421373741.134676"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "-formatBlockTime:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyAndTech/RWChartDataManager.m"
+            timestampString = "421373362.04137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-dataRequestOperationForStats"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

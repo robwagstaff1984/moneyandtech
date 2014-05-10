@@ -22,7 +22,7 @@
         self.title = title;
         self.url = url;
         self.dateFormatter = [[NSDateFormatter alloc] init];
-        [self.dateFormatter setDateFormat:@"MMMM d yyyy"];
+        [self.dateFormatter setDateFormat:@"MMM d yyyy"];
         self.chartDataItems = [[NSMutableArray alloc] init];
         self.labelPrefix = @"";
     }

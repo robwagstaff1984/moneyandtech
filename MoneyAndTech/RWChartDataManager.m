@@ -16,10 +16,9 @@
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?format=json"]
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions Per Day"
 
-#define CURRENT_PRICE_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/ticker"]]
+#define STATS_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/stats?format=json"]]
 #define MARKET_CAP_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/marketcap"]]
-#define HASH_RATE_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/hashrate"]]
-#define BLOCK_TIME_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/interval"]]
+
 
 #define NUMBER_OF_CHARTS 2
 
@@ -43,19 +42,15 @@
     
     RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
 
-    AFHTTPRequestOperation* currentPriceOperation = [self dataRequestOperationForCurrentPrice];
+    AFHTTPRequestOperation* statsOperation = [self dataRequestOperationForStats];
     AFHTTPRequestOperation* marketCapOperation = [self dataRequestOperationForMarketCap];
-    AFHTTPRequestOperation* hashRateOperation = [self dataRequestOperationForHashRate];
-    AFHTTPRequestOperation* blockTimeOperation = [self dataRequestOperationForBlockTime];
     AFHTTPRequestOperation* marketPriceUSDOperation = [self dataRequestOperationForChart:marketPriceUSDChart];
     AFHTTPRequestOperation* numberOfTransactionsPerDayOperation = [self dataRequestOperationForChart:numberOfTransactionsPerDayChart];
 
-    [marketCapOperation addDependency:currentPriceOperation];
-    [hashRateOperation addDependency:marketCapOperation];
-    [blockTimeOperation addDependency:hashRateOperation];
-    [marketPriceUSDOperation addDependency:blockTimeOperation];
+    [marketCapOperation addDependency:statsOperation];
+    [marketPriceUSDOperation addDependency:marketCapOperation];
     [numberOfTransactionsPerDayOperation addDependency:marketPriceUSDOperation];
-    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[currentPriceOperation, marketCapOperation,  hashRateOperation, blockTimeOperation, marketPriceUSDOperation,numberOfTransactionsPerDayOperation ] waitUntilFinished:NO];
+    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[statsOperation, marketCapOperation, marketPriceUSDOperation,numberOfTransactionsPerDayOperation ] waitUntilFinished:NO];
 }
 
 
@@ -73,13 +68,18 @@
     return operation;
 }
 
--(AFHTTPRequestOperation*) dataRequestOperationForCurrentPrice {
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:CURRENT_PRICE_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
+-(AFHTTPRequestOperation*) dataRequestOperationForStats {
+
+    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:STATS_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        self.currentPrice = [NSString stringWithFormat: @"$%@", responseObject[@"USD"][@"15m"]];
+        self.currentPrice = [NSString stringWithFormat: @"$%@", responseObject[@"market_price_usd"]];
+        self.tradeVolume = [self formatTradeVolume:[responseObject[@"trade_volume_btc"] doubleValue]];
+        self.hashRate = [self formatHashRate:[responseObject[@"hash_rate"] doubleValue]];
+        self.blockTime = [self formatBlockTime:[responseObject[@"minutes_between_blocks"] doubleValue]];
+        
         [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure for current price %@", error);
+        NSLog(@"failure for stats: %@", error);
     }];
     return operation;
 }
@@ -87,11 +87,7 @@
 -(AFHTTPRequestOperation*) dataRequestOperationForMarketCap {
     
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:MARKET_CAP_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSString *marketCapValue = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:marketCapValue];
-        float marketCapInBillions = [decNumber floatValue] / 1000000000;
-        self.marketCap = [NSString stringWithFormat:@"$%.2f B", marketCapInBillions];
+        self.marketCap = [self formatMarketCap:responseObject];
         [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure for market cap %@", error);
@@ -99,43 +95,34 @@
     return operation;
 }
 
--(AFHTTPRequestOperation*) dataRequestOperationForHashRate {
-
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:HASH_RATE_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.hashRate = [self formatHashRate:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure for hash rate cap %@", error);
-    }];
-    return operation;
+-(NSString*) formatMarketCap:(id)marketCapData {
+    NSString *marketCapValue = [[NSString alloc] initWithData:marketCapData encoding:NSUTF8StringEncoding];
+    NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:marketCapValue];
+    float marketCapInBillions = [decNumber floatValue] / 1000000000;
+    return [NSString stringWithFormat:@"$%.2f B", marketCapInBillions];
 }
 
--(AFHTTPRequestOperation*) dataRequestOperationForBlockTime {
-    
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:BLOCK_TIME_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.blockTime = [self formatBlockTime:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure for block time %@", error);
-    }];
-    return operation;
-}
-
--(NSString*) formatHashRate:(id)hashRateData {
+-(NSString*) formatHashRate:(double)hashRate {
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setNumberStyle:NSNumberFormatterDecimalStyle];
     [fmt setMaximumFractionDigits:0];
     
-    NSString *hashRate = [[NSString alloc] initWithData:hashRateData encoding:NSUTF8StringEncoding];
-    NSString *result = [fmt stringFromNumber:[NSDecimalNumber decimalNumberWithString:hashRate]];
+    NSString *result = [fmt stringFromNumber:[NSNumber numberWithDouble:hashRate]];
     return [NSString stringWithFormat:@"%@ GH/s", result];
 }
 
--(NSString*) formatBlockTime:(id)blockTimeData {
-    NSString *blockTime = [[NSString alloc] initWithData:blockTimeData encoding:NSUTF8StringEncoding];
-    NSDecimalNumber* blockTimeNumber =  [NSDecimalNumber decimalNumberWithString:blockTime];
-    return [NSString stringWithFormat:@"%.2f Min", [blockTimeNumber floatValue] / 60.0];
+-(NSString*) formatBlockTime:(double)blockTime {
+    return [NSString stringWithFormat:@"%.2f Min", blockTime];
 }
+
+-(NSString*) formatTradeVolume:(double)tradeVolume {
+    return [NSString stringWithFormat:@"%.2f BTC", tradeVolume];
+
+}
+
 -(void) didFinishDownloadingOnePieceOfChartData {
-    if ([self.charts count] == NUMBER_OF_CHARTS && [self.currentPrice length] && [self.marketCap length] && [self.blockTime length]) {
+    if ([self.charts count] == NUMBER_OF_CHARTS && [self.currentPrice length] &&
+        [self.marketCap length] && [self.blockTime length] && [self.hashRate length] && [self.tradeVolume length]) {
         [self.delegate didFinishDownloadingChartData];
     }
 }
