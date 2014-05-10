@@ -32,17 +32,23 @@
 -(void) setupChartData {
     [self formatChartData];
     self.lineChartData = [LCLineChartData new];
+    self.dataPeriod = DataPeriodMonth;
+    self.lineChartData.color = [UIColor colorWithRed:0 green:0 blue:182/255.0 alpha:1.0];
+
+    __weak typeof(self) weakSelf = self;
+    self.lineChartData.getData = ^(NSUInteger item) {
+        int dataPeriodLength = MIN([weakSelf.chartDataItems count], weakSelf.dataPeriod);
+        int itemNumber = [weakSelf.chartDataItems count] - dataPeriodLength + item;
+        RWChartDataItem* currentChartDataItem = weakSelf.chartDataItems[itemNumber];
+        return [LCLineChartDataItem dataItemWithX:currentChartDataItem.x y:currentChartDataItem.y xLabel:currentChartDataItem.xLabel dataLabel:currentChartDataItem.yLabel];
+    };
+}
+
+-(void) updateLineChartData {
+    self.lineChartData.itemCount = MIN([self.chartDataItems count], self.dataPeriod);
     self.lineChartData.xMin = [self minDate];
     self.lineChartData.xMax = [self maxDate];
     self.lineChartData.title = self.title;
-    self.lineChartData.color = [UIColor colorWithRed:0 green:0 blue:182/255.0 alpha:1.0];
-    self.lineChartData.itemCount = [self.chartDataItems count];
-    
-    __weak typeof(self) weakSelf = self;
-    self.lineChartData.getData = ^(NSUInteger item) {
-        RWChartDataItem* currentChartDataItem = weakSelf.chartDataItems[item];
-        return [LCLineChartDataItem dataItemWithX:currentChartDataItem.x y:currentChartDataItem.y xLabel:currentChartDataItem.xLabel dataLabel:currentChartDataItem.yLabel];
-    };
 }
 
 -(void) formatChartData {
@@ -58,16 +64,27 @@
 }
 
 -(NSNumber*) maxPrice {
-    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", self.chartRawValues];
-    return [self.chartRawValues filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", [self currentDataPeriodRawValue]];
+    return [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
 }
+
+-(NSNumber*) minPrice {
+    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@min.y", [self currentDataPeriodRawValue]];
+    return [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+}
+
 -(int) minDate {
-    NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", self.chartRawValues];
-    return [[self.chartRawValues filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
+    NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", [self currentDataPeriodRawValue]];
+    return [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
 }
 -(int) maxDate {
-    NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", self.chartRawValues];
-    return [[self.chartRawValues filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
+    NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", [self currentDataPeriodRawValue]];
+    return [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
+}
+
+-(NSArray*) currentDataPeriodRawValue {
+    int dataPeriodLength = MIN([self.chartRawValues  count], self.dataPeriod);
+    return [self.chartRawValues subarrayWithRange:NSMakeRange([self.chartRawValues count] - dataPeriodLength, dataPeriodLength)];
 }
 
 -(NSString*) formattedDate:(NSDate*)date {
@@ -76,20 +93,28 @@
 
 -(NSArray*) ySteps {
     
-    int roundedMaxPrice = 100*(([self.maxPrice intValue]+50)/100);
-    float roundedQuarterPrice = roundedMaxPrice * 0.25;
-    float roundedHalfPrice = roundedMaxPrice * 0.5;
-    float roundedThreeQuarterPrice = roundedMaxPrice * 0.75;
-    float roundedFiveQuarterPrice = roundedMaxPrice * 1.25;
+    int roundToValue = 10;
     
-    return @[[NSString stringWithFormat:@"%@0",self.labelPrefix], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedQuarterPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedHalfPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedThreeQuarterPrice], [NSString stringWithFormat:@"%@%d", self.labelPrefix, roundedMaxPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedFiveQuarterPrice]];
+    int roundedMinPrice = roundToValue*(([self.minPrice intValue]+(roundToValue/2))/roundToValue);
+    int roundedMaxPrice = roundToValue*(([self.maxPrice intValue]+(roundToValue/2))/roundToValue);
+    int spreadOfValues = roundedMaxPrice - roundedMinPrice;
+    
+    float roundedQuarterPrice = roundedMinPrice + (spreadOfValues * 0.25);
+    float roundedHalfPrice = roundedMinPrice + (spreadOfValues * 0.5);
+    float roundedThreeQuarterPrice = roundedMinPrice + (spreadOfValues * 0.75);
+    float roundedFiveQuarterPrice = roundedMinPrice + (spreadOfValues * 1.25);
+    
+    self.yMin = (float)roundedMinPrice;
+    self.yMax = roundedFiveQuarterPrice;
+    
+    return @[[NSString stringWithFormat:@"%@%.0f", self.labelPrefix, (float)roundedMinPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedQuarterPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedHalfPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedThreeQuarterPrice], [NSString stringWithFormat:@"%@%d", self.labelPrefix, roundedMaxPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedFiveQuarterPrice]];
 }
 
--(float) yMax {
-    int roundedMaxPrice = 100*(([self.maxPrice intValue]+50)/100);
-    float roundedFiveQuarterPrice = roundedMaxPrice * 1.25;
-    return roundedFiveQuarterPrice;
+-(void) setDataPeriod:(DataPeriod)dataPeriod {
+    _dataPeriod = dataPeriod;
+    [self updateLineChartData];
 }
+
 
 
 @end

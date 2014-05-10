@@ -20,6 +20,7 @@
 @property (nonatomic, strong) LCLineChartView* chartView;
 @property (nonatomic, strong) RWChart* currentChart;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UISegmentedControl *datePeriodSegmentedControl;
 
 @end
 
@@ -104,7 +105,7 @@
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
 
-    [self updateChartData];
+    [self updateChartView];
 
     [self.view addSubview:self.chartView];
     [self addAlternateDataPeriodButtons];
@@ -112,31 +113,61 @@
 
 }
 
--(void) updateChartData {
-    self.chartView.yMax = self.currentChart.yMax;
+-(void) updateChartView {
+
     self.chartView.ySteps = self.currentChart.ySteps;
+    self.chartView.yMin = self.currentChart.yMin;
+    self.chartView.yMax = self.currentChart.yMax;
     self.chartView.data = @[self.currentChart.lineChartData];
 }
 
 -(void) switchCharts:(UIButton*)sender {
-    NSLog(@"Switch charts to %d", sender.tag);
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[sender.tag];
-    [self updateChartData];
+    [self updateChartView];
 }
 
 -(void) addAlternateDataPeriodButtons {
-    
+    self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
+
+    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height, 280, 28);
+    self.datePeriodSegmentedControl.selectedSegmentIndex = 1;
+    [self.datePeriodSegmentedControl addTarget:self action:@selector(switchDataPeriods:) forControlEvents:UIControlEventValueChanged];
+    [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:11.0], NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];
+	[self.view addSubview:self.datePeriodSegmentedControl];
+}
+
+-(void) switchDataPeriods:(id)sender{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    DataPeriod selectedDataPeriod;
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+            selectedDataPeriod = DataPeriodWeek;
+            break;
+        case 1:
+            selectedDataPeriod = DataPeriodMonth;
+            break;
+        case 2:
+            selectedDataPeriod = DataPeriodSixMonth;
+            break;
+        case 3:
+            selectedDataPeriod = DataPeriodYear;
+            break;
+        default:
+            selectedDataPeriod = DataPeriodAllTime;
+    }
+    self.currentChart.dataPeriod = selectedDataPeriod;
+    [self updateChartView];
 }
 
 -(void) addAlternateChartButtons {
-    UIButton* marketPriceButton = [[UIButton alloc] initWithFrame:CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height, 180, 44)];
+    UIButton* marketPriceButton = [[UIButton alloc] initWithFrame:CGRectMake(20, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height + 10, 180, 25)];
     [marketPriceButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [marketPriceButton setTitle:@"Market Price" forState:UIControlStateNormal];
     marketPriceButton.tag = 0;
     [marketPriceButton addTarget:self action:@selector(switchCharts:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:marketPriceButton];
     
-    UIButton* numberOfTransactionsPerDayButton = [[UIButton alloc] initWithFrame:CGRectMake(20, marketPriceButton.frame.origin.y + marketPriceButton.frame.size.height, 180, 44)];
+    UIButton* numberOfTransactionsPerDayButton = [[UIButton alloc] initWithFrame:CGRectMake(20, marketPriceButton.frame.origin.y + marketPriceButton.frame.size.height, 180, 25)];
     [numberOfTransactionsPerDayButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [numberOfTransactionsPerDayButton setTitle:@"Transactions Per Day" forState:UIControlStateNormal];
     numberOfTransactionsPerDayButton.tag = 1;
