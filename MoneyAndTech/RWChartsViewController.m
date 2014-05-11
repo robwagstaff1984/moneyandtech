@@ -17,9 +17,11 @@
 
 @interface RWChartsViewController ()
 
+@property (nonatomic, strong) UILabel* chartTitle;
 @property (nonatomic, strong) LCLineChartView* chartView;
 @property (nonatomic, strong) RWChart* currentChart;
 @property (nonatomic, strong) UISegmentedControl *datePeriodSegmentedControl;
+@property (nonatomic, strong) UIPickerView* pickerView;
 
 @end
 
@@ -49,26 +51,27 @@
 #pragma mark retrieve data
 
 -(void) didFinishDownloadingChartData {
-    NSLog(@"didFinishDownloadingChartData CHARTS;\n");
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
+    [self setupChartTitle];
     [self setupChartView];
+
+    [self addAlternateDataPeriodButtons];
+    [self addAlternateChartButtons];
     [self stopSpinner];
 }
 
 #pragma mark - chart view
 -(void) setupChartView {
 
-    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 120, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
 
     [self updateChartView];
+    [self updateChartTitle];
 
     [self.view addSubview:self.chartView];
-    [self addAlternateDataPeriodButtons];
-    [self addAlternateChartButtons];
-
 }
 
 -(void) updateChartView {
@@ -79,6 +82,17 @@
     self.chartView.data = @[self.currentChart.lineChartData];
 }
 
+#pragma mark - chart title
+
+-(void) setupChartTitle {
+    self.chartTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 40)];
+    [self.chartTitle  setFont: [UIFont fontWithName:@"OCR A Extended" size:20.0]];
+    [self.chartTitle  setTextColor:[UIColor blueColor]];
+    [self.chartTitle setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:self.chartTitle];
+}
+
+#pragma mark - alternateDataPerios
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
@@ -110,10 +124,10 @@
 }
 
 -(void) addAlternateChartButtons {
-    UIPickerView* pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(20, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height, 280, 10 )];
-    pickerView.dataSource = self;
-    pickerView.delegate = self;
-    [self.view addSubview:pickerView];
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 216 - TAB_BAR_HEIGHT, 280, 216 )];
+    self.pickerView.dataSource = self;
+    self.pickerView.delegate = self;
+    [self.view addSubview:self.pickerView];
 }
 
 #pragma mark - UIPickerView
@@ -134,6 +148,11 @@
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[row];
     self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
     [self updateChartView];
+    [self updateChartTitle];
 }
 
+-(void) updateChartTitle {
+    RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[[self.pickerView selectedRowInComponent:0]];
+    [self.chartTitle setText:chart.title];
+}
 @end

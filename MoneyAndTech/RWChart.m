@@ -48,7 +48,6 @@
     self.lineChartData.itemCount = MIN([self.chartDataItems count], self.dataPeriod);
     self.lineChartData.xMin = [self minDate];
     self.lineChartData.xMax = [self maxDate];
-    self.lineChartData.title = self.title;
 }
 
 -(void) formatChartData {
