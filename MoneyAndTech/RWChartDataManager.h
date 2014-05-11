@@ -8,12 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol RWChartDataManagerDelegate <NSObject>
-
-@required
--(void) didFinishDownloadingChartData;
-@end
-
 @interface RWChartDataManager : NSObject
 
 @property (nonatomic, strong) NSString* currentPrice;
@@ -23,7 +17,6 @@
 @property (nonatomic, strong) NSString* blockTime;
 
 @property (nonatomic, strong) NSMutableArray* charts;
-@property (nonatomic, assign) id<RWChartDataManagerDelegate> delegate;
 
 +(RWChartDataManager*) sharedChartDataManager;
 -(void) retrieveData;

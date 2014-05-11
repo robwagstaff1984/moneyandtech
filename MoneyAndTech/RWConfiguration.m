@@ -21,7 +21,6 @@
 }
 
 -(void) setupParse {
-//    [Parse setApplicationId:@"sfgZq1Me3Z6AXgVktP3Yb6RFaW0AhxwI3Yv9wtk8" clientKey:@"IAhDDnpjSOvb2tu6UneXvwhDV9Yz5tObRxHhThmB"];
     [Parse setApplicationId:@"e1WXxLCtiKp2IF154aisbcGTj3U0MHccuLFmn1OY"
                   clientKey:@"D2M2PTK48jf9N3VXqMtBFCclgsJLPox9t44EXcoB"];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
@@ -47,7 +46,11 @@
     [[RWConfiguration sharedConfiguration] setNewsBodyXPath: parseConfiguration[@"newsBodyXPath"]];
     [[RWConfiguration sharedConfiguration] setForumPageXPath: parseConfiguration[@"forumPageXPath"]];
     
-//        NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
+    [self printParseConfiguration];
+}
+
+-(void) printParseConfiguration {
+    NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
 }
 
 @end

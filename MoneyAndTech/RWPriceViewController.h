@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RWChartDataManager.h"
 
-@interface RWPriceViewController : UIViewController <RWChartDataManagerDelegate>
+@interface RWPriceViewController : UIViewController
 
 @property (nonatomic, strong) NSString* currentPrice;
 @property (nonatomic, strong) NSString* marketCap;

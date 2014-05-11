@@ -45,18 +45,9 @@
     RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
     RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE URL:USD_EXCHANGE_TRADE_VOLUME_URL];
 
-    AFHTTPRequestOperation* statsOperation = [self dataRequestOperationForStats];
-    AFHTTPRequestOperation* marketCapOperation = [self dataRequestOperationForMarketCap];
-    AFHTTPRequestOperation* marketPriceUSDOperation = [self dataRequestOperationForChart:marketPriceUSDChart];
-    AFHTTPRequestOperation* numberOfTransactionsPerDayOperation = [self dataRequestOperationForChart:numberOfTransactionsPerDayChart];
-    AFHTTPRequestOperation* usdExchangeVolumeOperation = [self dataRequestOperationForChart:usdExchangeVolumeChart];
+    NSArray* dataRequestOperations = @[[self dataRequestOperationForStats], [self dataRequestOperationForMarketCap], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
 
-    [marketCapOperation addDependency:statsOperation];
-    [marketPriceUSDOperation addDependency:marketCapOperation];
-    [numberOfTransactionsPerDayOperation addDependency:marketPriceUSDOperation];
-    [usdExchangeVolumeOperation addDependency:numberOfTransactionsPerDayOperation];
-    
-    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[statsOperation, marketCapOperation, marketPriceUSDOperation,numberOfTransactionsPerDayOperation, usdExchangeVolumeOperation] waitUntilFinished:NO];
+    [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:dataRequestOperations waitUntilFinished:NO];
 }
 
 

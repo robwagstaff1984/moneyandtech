@@ -15,7 +15,6 @@
 
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) BOOL needsInfiniteScrollTurnedOff;
 @property (nonatomic) int openRequestsCount;
 
@@ -41,7 +40,7 @@
 - (void)viewDidLoad
 {
     [self setupWebView];
-    [self setupActivityIndicator];
+    [self startSpinner];
     [self testNetworkWithSuccessBlock:^(void){
          [self beginLoadingWebSections];
     }];
@@ -80,13 +79,6 @@
     [self.view addSubview:self.webView];
 }
 
--(void) setupActivityIndicator {
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [self.view addSubview:self.activityIndicator];
-    self.activityIndicator.center = self.view.center;
-}
-
 #pragma mark - AFNetworking
 -(AFHTTPRequestOperation*) httpRequestOperationForWebSection {
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:[self urlRequestForFirstPage] success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -94,24 +86,24 @@
         NSString* strippedHTML = [NSString stringWithFormat:@"<html><body style=\"background-color:#F7F9F6\">%@</body></html>", [self strippedHTMLFromData:responseObject]];
         self.webView.hidden = NO;
         [self.webView loadHTMLString:strippedHTML baseURL:nil];
-        [self.activityIndicator stopAnimating];
+        [self stopSpinner];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
-        [self.activityIndicator stopAnimating];
+        [self stopSpinner];
     }];
     [operation setQueuePriority:[self queuePriority]];
-    [self.activityIndicator startAnimating];
+    [self startSpinner];
     return operation;
 }
 
 -(void) loadNextPage {
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:[self urlRequestForNextPage] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self appendNextPageToDOM:responseObject];
-        
+        [self stopSpinner];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load section: %@  %@", self.title, error);
-        [self.activityIndicator stopAnimating];
+        [self stopSpinner];
         [[self.webView.scrollView infiniteScrollingViewForPosition:SVInfiniteScrollingPositionBottom] stopAnimating];
         [self.infinteScrollPaginationTimer invalidate];
     }];

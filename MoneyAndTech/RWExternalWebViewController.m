@@ -11,7 +11,6 @@
 @interface RWExternalWebViewController ()
 @property(nonatomic,strong) UIWebView* webView;
 @property(nonatomic,strong) NSURLRequest* request;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation RWExternalWebViewController
@@ -29,8 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self startSpinner];
     [self setupWebView];
-    [self setupActivityIndicator];
 }
 
 #pragma mark - setup
@@ -39,14 +38,6 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     [self.webView loadRequest:self.request];
-}
-
--(void) setupActivityIndicator {
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [self.view addSubview:self.activityIndicator];
-    self.activityIndicator.center = self.view.center;
-    [self.activityIndicator startAnimating];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -59,7 +50,7 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSLog(@"webViewDidFinishLoad");
-    [self.activityIndicator stopAnimating];
+    [self stopSpinner];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     

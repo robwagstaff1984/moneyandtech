@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong) LCLineChartView* chartView;
 @property (nonatomic, strong) RWChart* currentChart;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UISegmentedControl *datePeriodSegmentedControl;
 
 @end
@@ -38,21 +37,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupActivityIndicator];
-   // [RWChartDataManager sharedChartDataManager].delegate = self;
+    [self startSpinner];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didFinishDownloadingChartData)
                                                  name:BITCOIN_STATISTICS_DOWNLOADED
                                                object:nil];
     [[RWChartDataManager sharedChartDataManager] retrieveData];
     
-}
--(void) setupActivityIndicator {
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [self.view addSubview:self.activityIndicator];
-    self.activityIndicator.center = self.view.center;
-    [self.activityIndicator startAnimating];
 }
 
 #pragma mark retrieve data
@@ -61,7 +52,7 @@
     NSLog(@"didFinishDownloadingChartData CHARTS;\n");
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
     [self setupChartView];
-    [self.activityIndicator stopAnimating];
+    [self stopSpinner];
 }
 
 #pragma mark - chart view

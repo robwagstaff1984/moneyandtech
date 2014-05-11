@@ -95,6 +95,7 @@
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
+		36F5394319202B1600CC2442 /* UIViewController+ActivitySpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5394219202B1600CC2442 /* UIViewController+ActivitySpinner.m */; };
 		8290320DE6544096B77AB564 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 373E7C6795DD43FAB03D8DF2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -230,6 +231,8 @@
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
 		36F5393E1920214A00CC2442 /* PriceIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PriceIcon@2x.png"; sourceTree = "<group>"; };
+		36F5394119202B1600CC2442 /* UIViewController+ActivitySpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ActivitySpinner.h"; sourceTree = "<group>"; };
+		36F5394219202B1600CC2442 /* UIViewController+ActivitySpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ActivitySpinner.m"; sourceTree = "<group>"; };
 		373E7C6795DD43FAB03D8DF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9E8A68522D44D5817CE441 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -532,6 +535,8 @@
 				360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */,
 				360786E518E8B3CE0045AF0F /* RWXPathStripper.h */,
 				360786E618E8B3CE0045AF0F /* RWXPathStripper.m */,
+				36F5394119202B1600CC2442 /* UIViewController+ActivitySpinner.h */,
+				36F5394219202B1600CC2442 /* UIViewController+ActivitySpinner.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -726,6 +731,7 @@
 				360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */,
 				367406EA191AF87B00D78C8E /* RWChartDataItem.m in Sources */,
 				36C624F81901C4770014F082 /* RWArticlePost.m in Sources */,
+				36F5394319202B1600CC2442 /* UIViewController+ActivitySpinner.m in Sources */,
 				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,
 				367406E5191AF57100D78C8E /* LCInfoView.m in Sources */,
 				362048F91909C4CC00A1C10C /* Reachability.m in Sources */,
