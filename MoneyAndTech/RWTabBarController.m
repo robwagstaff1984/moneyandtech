@@ -12,6 +12,7 @@
 #import "RWVideosViewController.h"
 #import "RWForumViewController.h"
 #import "RWChartsViewController.h"
+#import "RWPriceViewController.h"
 
 @interface RWTabBarController ()
 
@@ -50,17 +51,21 @@
     RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
     RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
     RWChartsViewController *chartsViewController= [[RWChartsViewController alloc] init];
+    RWPriceViewController *priceViewController = [[RWPriceViewController alloc] init];
     
     [self addTabBarItemToViewController:videosViewController withTitle:@"Videos"];
     [self addTabBarItemToViewController:articlesViewController withTitle:@"Articles"];
     [self addTabBarItemToViewController:newsViewController withTitle:@"News"];
-    [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
+  //  [self addTabBarItemToViewController:forumViewController withTitle:@"Forum"];
+    [self addTabBarItemToViewController:priceViewController withTitle:@"Price"];
     [self addTabBarItemToViewController:chartsViewController withTitle:@"Charts"];
     
-    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController, chartsViewController];
+//    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, forumViewController, priceViewController, chartsViewController];
+    self.viewControllers = @[videosViewController, articlesViewController, newsViewController, priceViewController, chartsViewController];
     articlesViewController.view = articlesViewController.view;
     newsViewController.view = newsViewController.view;
-    forumViewController.view = forumViewController.view;
+//    forumViewController.view = forumViewController.view;
+    priceViewController.view = priceViewController.view;
     chartsViewController.view = chartsViewController.view;
 }
 
