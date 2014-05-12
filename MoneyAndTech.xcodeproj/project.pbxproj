@@ -36,6 +36,10 @@
 		363BA3F11918489B00277708 /* LaunchImageIPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3ED1918489B00277708 /* LaunchImageIPad@2x.png */; };
 		363BA3F21918489B00277708 /* LaunchImageIPhone4inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3EE1918489B00277708 /* LaunchImageIPhone4inch.png */; };
 		363BA3F31918489B00277708 /* LaunchImageIPhone35Inch.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3EF1918489B00277708 /* LaunchImageIPhone35Inch.png */; };
+		365282F71921816E00D50F0A /* LeftChartArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F31921816E00D50F0A /* LeftChartArrow.png */; };
+		365282F81921816E00D50F0A /* LeftChartArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F41921816E00D50F0A /* LeftChartArrow@2x.png */; };
+		365282F91921816E00D50F0A /* RightChartArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F51921816E00D50F0A /* RightChartArrow.png */; };
+		365282FA1921816E00D50F0A /* RightChartArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F61921816E00D50F0A /* RightChartArrow@2x.png */; };
 		365895E319118D18005FAD8A /* tabBarButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E119118D18005FAD8A /* tabBarButtonBackground.png */; };
 		365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */; };
 		367406D6191AF0FE00D78C8E /* RWChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406D5191AF0FE00D78C8E /* RWChartsViewController.m */; };
@@ -151,6 +155,10 @@
 		363BA3ED1918489B00277708 /* LaunchImageIPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImageIPad@2x.png"; sourceTree = "<group>"; };
 		363BA3EE1918489B00277708 /* LaunchImageIPhone4inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageIPhone4inch.png; sourceTree = "<group>"; };
 		363BA3EF1918489B00277708 /* LaunchImageIPhone35Inch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageIPhone35Inch.png; sourceTree = "<group>"; };
+		365282F31921816E00D50F0A /* LeftChartArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LeftChartArrow.png; sourceTree = "<group>"; };
+		365282F41921816E00D50F0A /* LeftChartArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LeftChartArrow@2x.png"; sourceTree = "<group>"; };
+		365282F51921816E00D50F0A /* RightChartArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightChartArrow.png; sourceTree = "<group>"; };
+		365282F61921816E00D50F0A /* RightChartArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RightChartArrow@2x.png"; sourceTree = "<group>"; };
 		365895E119118D18005FAD8A /* tabBarButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarButtonBackground.png; sourceTree = "<group>"; };
 		365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBarButtonBackground@2x.png"; sourceTree = "<group>"; };
 		367406D4191AF0FE00D78C8E /* RWChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartsViewController.h; sourceTree = "<group>"; };
@@ -312,6 +320,10 @@
 				36F5393E1920214A00CC2442 /* PriceIcon@2x.png */,
 				365895E119118D18005FAD8A /* tabBarButtonBackground.png */,
 				365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */,
+				365282F31921816E00D50F0A /* LeftChartArrow.png */,
+				365282F41921816E00D50F0A /* LeftChartArrow@2x.png */,
+				365282F51921816E00D50F0A /* RightChartArrow.png */,
+				365282F61921816E00D50F0A /* RightChartArrow@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -639,6 +651,7 @@
 				36C6251A1908721C0014F082 /* Icon.png in Resources */,
 				36C6251D1908721C0014F082 /* iTunesArtwork@2x.png in Resources */,
 				36C625151908721C0014F082 /* Icon-76@2x.png in Resources */,
+				365282F91921816E00D50F0A /* RightChartArrow.png in Resources */,
 				36C625181908721C0014F082 /* Icon-Small.png in Resources */,
 				36C6252019096A1F0014F082 /* ForumIcon.png in Resources */,
 				363BA3F11918489B00277708 /* LaunchImageIPad@2x.png in Resources */,
@@ -646,11 +659,13 @@
 				36C625171908721C0014F082 /* Icon-Small-50@2x.png in Resources */,
 				36C624FD190858210014F082 /* ocraextended.ttf in Resources */,
 				36C6252119096A1F0014F082 /* ForumIcon@2x.png in Resources */,
+				365282F81921816E00D50F0A /* LeftChartArrow@2x.png in Resources */,
 				363BA3F31918489B00277708 /* LaunchImageIPhone35Inch.png in Resources */,
 				36C625121908721C0014F082 /* Icon-72.png in Resources */,
 				365895E319118D18005FAD8A /* tabBarButtonBackground.png in Resources */,
 				36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */,
 				36C6250F1908721C0014F082 /* Icon-40@2x.png in Resources */,
+				365282F71921816E00D50F0A /* LeftChartArrow.png in Resources */,
 				36C6250E1908721C0014F082 /* Icon-40.png in Resources */,
 				36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */,
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
@@ -658,6 +673,7 @@
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,
 				36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */,
 				36CB28EB18DA456C00476E15 /* Images.xcassets in Resources */,
+				365282FA1921816E00D50F0A /* RightChartArrow@2x.png in Resources */,
 				36CB291A18DB934A00476E15 /* VideosIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

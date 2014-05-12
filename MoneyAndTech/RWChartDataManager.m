@@ -10,14 +10,14 @@
 #import "RWChart.h"
 
 
-#define MARKET_PRICE_USD_TITLE @"Market Price (USD)"
+#define MARKET_PRICE_USD_TITLE @"Market Price\n(USD)"
 #define MARKET_PRICE_USD_URL [NSURL URLWithString:@"https://blockchain.info/charts/market-price?timespan=all&format=json"]
 
 #define NUMBER_OF_TRANSACTIONS_PER_DAY_URL [NSURL URLWithString:@"https://blockchain.info/charts/n-transactions?timespan=all&format=json"]
-#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions Per Day"
+#define NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE @"Transactions\nPer Day"
 
 #define USD_EXCHANGE_TRADE_VOLUME_URL [NSURL URLWithString:@"https://blockchain.info/charts/trade-volume?timespan=all&format=json"]
-#define USD_EXCHANGE_TRADE_VOLUME_TITLE @"USD Exchange Trade Volume"
+#define USD_EXCHANGE_TRADE_VOLUME_TITLE @"USD Exchange\nTrade Volume"
 
 #define STATS_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/stats?format=json"]]
 #define MARKET_CAP_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/marketcap"]]

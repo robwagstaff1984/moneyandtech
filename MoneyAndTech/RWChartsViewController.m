@@ -13,7 +13,8 @@
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWChart.h"
 #import "RWChartDataManager.h"
-#define TITLE_PICKER_WIDTH 270
+#define TITLE_PICKER_WIDTH 320
+#define ARROWS_AND_SPACE_WIDTH 32
 
 
 @interface RWChartsViewController ()
@@ -21,7 +22,9 @@
 @property (nonatomic, strong) LCLineChartView* chartView;
 @property (nonatomic, strong) RWChart* currentChart;
 @property (nonatomic, strong) UISegmentedControl *datePeriodSegmentedControl;
-@property (nonatomic, strong) V8HorizontalPickerView* pickerView;
+@property (nonatomic, strong) V8HorizontalPickerView* horizontalPickerView;
+@property (nonatomic, strong) UIButton* leftChartArrow;
+@property (nonatomic, strong) UIButton* rightChartArrow;
 
 @end
 
@@ -52,7 +55,8 @@
 
 -(void) didFinishDownloadingChartData {
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
-    [self addAlternateChartsPickerView];
+    [self addHorizontalChartsPickerView];
+    [self addChartSwitchArrows];
     [self setupChartView];
 
     [self addAlternateDataPeriodButtons];
@@ -60,10 +64,60 @@
     [self stopSpinner];
 }
 
+#pragma mark - charts chooser
+-(void) addHorizontalChartsPickerView {
+    
+    self.horizontalPickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10, TITLE_PICKER_WIDTH, 80)];
+	self.horizontalPickerView.delegate    = self;
+	self.horizontalPickerView.dataSource  = self;
+	self.horizontalPickerView.selectionPoint = CGPointMake(60, 0);
+    [self.horizontalPickerView setBackgroundColor:[UIColor whiteColor]];
+    [self.horizontalPickerView setSelectedTextColor:[UIColor blueColor]];
+    [self.horizontalPickerView setSelectionPoint:CGPointMake(TITLE_PICKER_WIDTH/2, 10)];
+    
+    [self.view addSubview:self.horizontalPickerView];
+    [self.horizontalPickerView scrollToElement:0 animated:NO];
+}
+
+- (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
+    return 3;
+}
+
+-(void) addChartSwitchArrows {
+    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(8, 40, 16, 23)];
+    [self.leftChartArrow setBackgroundImage:[UIImage imageNamed:@"LeftChartArrow.png"] forState:UIControlStateNormal];
+    [self.leftChartArrow addTarget:self action:@selector(leftChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 24, 40, 16, 23)];
+    [self.rightChartArrow setBackgroundImage:[UIImage imageNamed:@"RightChartArrow.png"] forState:UIControlStateNormal];
+        [self.rightChartArrow addTarget:self action:@selector(rightChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self hideAndShowAppropriateArrows];
+    [self.view addSubview:self.leftChartArrow];
+    [self.view addSubview:self.rightChartArrow];
+}
+
+-(void) leftChartArrowTapped {
+    int newIndex = self.horizontalPickerView.currentSelectedIndex - 1;
+    [self.horizontalPickerView scrollToElement:newIndex animated:YES];
+    [self hideAndShowAppropriateArrows];
+}
+
+-(void) rightChartArrowTapped {
+    int newIndex = self.horizontalPickerView.currentSelectedIndex + 1;
+    [self.horizontalPickerView scrollToElement:newIndex animated:YES];
+    [self hideAndShowAppropriateArrows];
+}
+
+-(void) hideAndShowAppropriateArrows {
+    self.leftChartArrow.hidden = self.horizontalPickerView.currentSelectedIndex == 0;
+    self.rightChartArrow.hidden = self.horizontalPickerView.currentSelectedIndex == self.horizontalPickerView.numberOfElements - 1;
+}
+
 #pragma mark - chart view
 -(void) setupChartView {
 
-    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.pickerView.frame.origin.y + self.pickerView.frame.size.height + 10, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.horizontalPickerView.frame.origin.y + self.horizontalPickerView.frame.size.height + 10, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
@@ -112,23 +166,7 @@
     }
 }
 
--(void) addAlternateChartsPickerView {
-    
-    self.pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10, TITLE_PICKER_WIDTH, 80)];
-	self.pickerView.delegate    = self;
-	self.pickerView.dataSource  = self;
-	self.pickerView.selectionPoint = CGPointMake(60, 0);
-    [self.pickerView setBackgroundColor:[UIColor whiteColor]];
-    [self.pickerView setSelectedTextColor:[UIColor blueColor]];
-    [self.pickerView setSelectionPoint:CGPointMake(TITLE_PICKER_WIDTH/2, 10)];
-    
-    [self.view addSubview:self.pickerView];
-    [self.pickerView scrollToElement:0 animated:NO];
-}
 
-- (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
-    return 3;
-}
 
 
 #pragma mark - V8HorizontalPickerViewDelegate
@@ -137,6 +175,7 @@
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
     self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
     [self updateChartView];
+    [self hideAndShowAppropriateArrows];
 }
 
 - (UIView *)horizontalPickerView:(V8HorizontalPickerView *)picker viewForElementAtIndex:(NSInteger)index {
@@ -159,7 +198,7 @@
 
 -(void) populatePickerViewLabel:(V8HorizontalPickerLabel*)pickerViewLabel atIndex:(NSInteger)index {
     
-    if(self.pickerView.currentSelectedIndex == index) {
+    if(self.horizontalPickerView.currentSelectedIndex == index) {
         [pickerViewLabel setSelectedElement:YES];
     }
     RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[index];
