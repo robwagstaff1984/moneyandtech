@@ -32,7 +32,7 @@
     static RWChartDataManager* _sharedChartDataManager;
     if(!_sharedChartDataManager) {
         _sharedChartDataManager = [self new];
-        _sharedChartDataManager.charts = [[NSMutableArray alloc] init];
+        _sharedChartDataManager.charts = [NSMutableArray arrayWithCapacity: NUMBER_OF_CHARTS];
     }
     return _sharedChartDataManager;
 }
@@ -40,10 +40,10 @@
 -(void) retrieveData {
     
     NSLog(@"start load chart");
-    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE URL:MARKET_PRICE_USD_URL];
+    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE chartNumber:2 URL:MARKET_PRICE_USD_URL];
     marketPriceUSDChart.labelPrefix = @"$";
-    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
-    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE URL:USD_EXCHANGE_TRADE_VOLUME_URL];
+    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE chartNumber:1 URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
+    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:0 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
 
     NSArray* dataRequestOperations = @[[self dataRequestOperationForStats], [self dataRequestOperationForMarketCap], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
 
@@ -118,8 +118,9 @@
 }
 
 -(void) didFinishDownloadingOnePieceOfChartData {
+    NSLog(@"got one piece of stats data");
     if ([self isAllBitcoinStatisticsDataDownloaded]) {
-//        [self.delegate didFinishDownloadingChartData];
+        [self.charts sortUsingDescriptors: @[[NSSortDescriptor sortDescriptorWithKey:@"chartNumber" ascending:YES]]];
         [self broadcastBitcoinStatisticsDownloaded];
     }
 }

@@ -84,11 +84,11 @@
 }
 
 -(void) addChartSwitchArrows {
-    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(8, 40, 16, 23)];
+    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(8, 41, 16, 23)];
     [self.leftChartArrow setBackgroundImage:[UIImage imageNamed:@"LeftChartArrow.png"] forState:UIControlStateNormal];
     [self.leftChartArrow addTarget:self action:@selector(leftChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
-    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 24, 40, 16, 23)];
+    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 24, 41, 16, 23)];
     [self.rightChartArrow setBackgroundImage:[UIImage imageNamed:@"RightChartArrow.png"] forState:UIControlStateNormal];
         [self.rightChartArrow addTarget:self action:@selector(rightChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
@@ -165,9 +165,6 @@
             return DataPeriodAllTime;
     }
 }
-
-
-
 
 #pragma mark - V8HorizontalPickerViewDelegate
 

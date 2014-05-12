@@ -15,11 +15,12 @@
 
 @implementation RWChart
 
-- (RWChart*)initWithTitle:(NSString*)title URL:(NSURL*)url
+- (RWChart*)initWithTitle:(NSString*)title chartNumber:(int)chartNumber URL:(NSURL*)url
 {
     self = [super init];
     if (self) {
         self.title = title;
+        self.chartNumber = chartNumber;
         self.url = url;
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateFormat:@"MMM d yyyy"];

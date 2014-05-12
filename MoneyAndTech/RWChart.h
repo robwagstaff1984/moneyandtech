@@ -20,9 +20,10 @@ typedef enum {
 
 @interface RWChart : NSObject
 
-- (RWChart*)initWithTitle:(NSString*)title URL:(NSURL*)url;
+- (RWChart*)initWithTitle:(NSString*)title chartNumber:(int)chartNumber URL:(NSURL*)url;
 
 @property (nonatomic, strong) NSString* title;
+@property (nonatomic, assign) int chartNumber;
 @property (nonatomic, strong) NSURL* url;
 @property (nonatomic, strong) LCLineChartData* lineChartData;
 @property (nonatomic, strong) NSArray* chartRawValues;
