@@ -40,10 +40,11 @@
 -(void) retrieveData {
     
     NSLog(@"start load chart");
-    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE chartNumber:2 URL:MARKET_PRICE_USD_URL];
+    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE chartNumber:0 URL:MARKET_PRICE_USD_URL];
     marketPriceUSDChart.labelPrefix = @"$";
     RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE chartNumber:1 URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
-    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:0 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
+    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:2 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
+    usdExchangeVolumeChart.labelPrefix = @"$";
 
     NSArray* dataRequestOperations = @[[self dataRequestOperationForStats], [self dataRequestOperationForMarketCap], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
 

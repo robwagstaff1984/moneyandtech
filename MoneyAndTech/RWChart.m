@@ -11,6 +11,9 @@
 
 @interface RWChart()
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSNumberFormatter *labelNumberFormatter;
+@property (nonatomic, strong) NSNumberFormatter *axisNumberFormatter;
+
 @end
 
 @implementation RWChart
@@ -24,6 +27,12 @@
         self.url = url;
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateFormat:@"MMM d yyyy"];
+        self.labelNumberFormatter = [[NSNumberFormatter alloc] init];
+        [self.labelNumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [self.labelNumberFormatter setMaximumFractionDigits:0];
+        self.axisNumberFormatter = [[NSNumberFormatter alloc] init];
+        [self.axisNumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [self.axisNumberFormatter setMaximumFractionDigits:0];
         self.chartDataItems = [[NSMutableArray alloc] init];
         self.labelPrefix = @"";
     }
@@ -52,13 +61,13 @@
 }
 
 -(void) formatChartData {
-    
     for(NSUInteger i = 0; i < [self.chartRawValues count]; ++i) {
         RWChartDataItem* chartDataItem = [[RWChartDataItem alloc] init];
         chartDataItem.x = [self.chartRawValues[i][@"x"] intValue];
         chartDataItem.y = [self.chartRawValues[i][@"y"] floatValue];
         chartDataItem.xLabel = [self formattedDate:[NSDate dateWithTimeIntervalSince1970:chartDataItem.x]];
-        chartDataItem.yLabel = [NSString stringWithFormat:@"$%.2f", chartDataItem.y];
+
+        chartDataItem.yLabel = [self displayLabelForValue:chartDataItem.y];
         [self.chartDataItems addObject:chartDataItem];
     }
 }
@@ -107,14 +116,31 @@
     self.yMin = (float)roundedMinPrice;
     self.yMax = roundedFiveQuarterPrice;
     
-    return @[[NSString stringWithFormat:@"%@%.0f", self.labelPrefix, (float)roundedMinPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedQuarterPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedHalfPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedThreeQuarterPrice], [NSString stringWithFormat:@"%@%d", self.labelPrefix, roundedMaxPrice], [NSString stringWithFormat:@"%@%.0f", self.labelPrefix, roundedFiveQuarterPrice]];
+    return @[[self displayAxisForValue:(float)roundedMinPrice], [self displayAxisForValue:roundedQuarterPrice], [self displayAxisForValue:roundedHalfPrice], [self displayAxisForValue:roundedThreeQuarterPrice], [self displayAxisForValue:roundedMaxPrice], [self displayAxisForValue:roundedFiveQuarterPrice]];
+
 }
 
+-(NSString*) displayLabelForValue:(float)value {
+    if([self.labelPrefix isEqualToString:@"$"] && value < 1000000 ) {
+        [self.labelNumberFormatter setMinimumFractionDigits:2];
+        [self.labelNumberFormatter setMaximumFractionDigits:2];
+    }
+    return [NSString stringWithFormat:@"%@%@", self.labelPrefix, [self.labelNumberFormatter stringFromNumber:@(value)]];
+}
+
+-(NSString*) displayAxisForValue:(float)value {
+    return [NSString stringWithFormat:@"%@%@", self.labelPrefix, [self.axisNumberFormatter stringFromNumber:@(value)]];
+}
+
+#pragma mark - override setters
 -(void) setDataPeriod:(DataPeriod)dataPeriod {
     _dataPeriod = dataPeriod;
     [self updateLineChartData];
 }
 
+-(void) setLabelPrefix:(NSString *)labelPrefix {
+    _labelPrefix = labelPrefix;
 
+}
 
 @end
