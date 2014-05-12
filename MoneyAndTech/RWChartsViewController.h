@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RWChartDataManager.h"
+#import "V8HorizontalPickerView.h"
 
-@interface RWChartsViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface RWChartsViewController : UIViewController <V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate>
 
 @end

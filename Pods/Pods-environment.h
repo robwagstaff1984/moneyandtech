@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_Reachability 1
 #define COCOAPODS_VERSION_PATCH_Reachability 1
 
+// V8HorizontalPickerView
+#define COCOAPODS_POD_AVAILABLE_V8HorizontalPickerView
+#define COCOAPODS_VERSION_MAJOR_V8HorizontalPickerView 1
+#define COCOAPODS_VERSION_MINOR_V8HorizontalPickerView 0
+#define COCOAPODS_VERSION_PATCH_V8HorizontalPickerView 0
+
 // ios-versioncheck
 #define COCOAPODS_POD_AVAILABLE_ios_versioncheck
 #define COCOAPODS_VERSION_MAJOR_ios_versioncheck 1

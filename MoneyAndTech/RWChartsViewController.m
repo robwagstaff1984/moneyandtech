@@ -13,15 +13,15 @@
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWChart.h"
 #import "RWChartDataManager.h"
+#define TITLE_PICKER_WIDTH 270
 
 
 @interface RWChartsViewController ()
 
-@property (nonatomic, strong) UILabel* chartTitle;
 @property (nonatomic, strong) LCLineChartView* chartView;
 @property (nonatomic, strong) RWChart* currentChart;
 @property (nonatomic, strong) UISegmentedControl *datePeriodSegmentedControl;
-@property (nonatomic, strong) UIPickerView* pickerView;
+@property (nonatomic, strong) V8HorizontalPickerView* pickerView;
 
 @end
 
@@ -52,24 +52,23 @@
 
 -(void) didFinishDownloadingChartData {
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
-    [self setupChartTitle];
+    [self addAlternateChartsPickerView];
     [self setupChartView];
 
     [self addAlternateDataPeriodButtons];
-    [self addAlternateChartButtons];
+
     [self stopSpinner];
 }
 
 #pragma mark - chart view
 -(void) setupChartView {
 
-    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_WIDTH * 0.6)];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.pickerView.frame.origin.y + self.pickerView.frame.size.height + 10, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
 
     [self updateChartView];
-    [self updateChartTitle];
 
     [self.view addSubview:self.chartView];
 }
@@ -82,21 +81,11 @@
     self.chartView.data = @[self.currentChart.lineChartData];
 }
 
-#pragma mark - chart title
-
--(void) setupChartTitle {
-    self.chartTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 40)];
-    [self.chartTitle  setFont: [UIFont fontWithName:@"OCR A Extended" size:20.0]];
-    [self.chartTitle  setTextColor:[UIColor blueColor]];
-    [self.chartTitle setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:self.chartTitle];
-}
-
 #pragma mark - alternateDataPerios
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
-    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height, 280, 28);
+    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height + 20, 280, 28);
     self.datePeriodSegmentedControl.selectedSegmentIndex = 1;
     [self.datePeriodSegmentedControl addTarget:self action:@selector(switchDataPeriods:) forControlEvents:UIControlEventValueChanged];
     [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:11.0], NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];
@@ -123,36 +112,62 @@
     }
 }
 
--(void) addAlternateChartButtons {
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 216 - TAB_BAR_HEIGHT, 280, 216 )];
-    self.pickerView.dataSource = self;
-    self.pickerView.delegate = self;
+-(void) addAlternateChartsPickerView {
+    
+    self.pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10, TITLE_PICKER_WIDTH, 80)];
+	self.pickerView.delegate    = self;
+	self.pickerView.dataSource  = self;
+	self.pickerView.selectionPoint = CGPointMake(60, 0);
+    [self.pickerView setBackgroundColor:[UIColor whiteColor]];
+    [self.pickerView setSelectedTextColor:[UIColor blueColor]];
+    [self.pickerView setSelectionPoint:CGPointMake(TITLE_PICKER_WIDTH/2, 10)];
+    
     [self.view addSubview:self.pickerView];
+    [self.pickerView scrollToElement:0 animated:NO];
 }
 
-#pragma mark - UIPickerView
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
     return 3;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[row];
-    return chart.title;
-}
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[row];
+#pragma mark - V8HorizontalPickerViewDelegate
+
+- (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
+    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
     self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
     [self updateChartView];
-    [self updateChartTitle];
 }
 
--(void) updateChartTitle {
-    RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[[self.pickerView selectedRowInComponent:0]];
-    [self.chartTitle setText:chart.title];
+- (UIView *)horizontalPickerView:(V8HorizontalPickerView *)picker viewForElementAtIndex:(NSInteger)index {
+    
+    V8HorizontalPickerLabel* pickerViewLabel = [self createPickerViewLabel];
+    [self populatePickerViewLabel:pickerViewLabel atIndex:index];
+    
+    return pickerViewLabel;
 }
+
+-(V8HorizontalPickerLabel*) createPickerViewLabel {
+    V8HorizontalPickerLabel* pickerViewLabel = [[V8HorizontalPickerLabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_PICKER_WIDTH,80)];
+    [pickerViewLabel  setFont: [UIFont fontWithName:@"OCR A Extended" size:28.0]];
+    [pickerViewLabel setTextAlignment:NSTextAlignmentCenter];
+    pickerViewLabel.numberOfLines = 2;
+    [pickerViewLabel setSelectedStateColor:[UIColor blueColor]];
+    [pickerViewLabel setNormalStateColor:[UIColor grayColor]];
+    return pickerViewLabel;
+}
+
+-(void) populatePickerViewLabel:(V8HorizontalPickerLabel*)pickerViewLabel atIndex:(NSInteger)index {
+    
+    if(self.pickerView.currentSelectedIndex == index) {
+        [pickerViewLabel setSelectedElement:YES];
+    }
+    RWChart* chart = [RWChartDataManager sharedChartDataManager].charts[index];
+    [pickerViewLabel setText:chart.title];
+}
+
+- (NSInteger)horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
+    return TITLE_PICKER_WIDTH;
+}
+
 @end

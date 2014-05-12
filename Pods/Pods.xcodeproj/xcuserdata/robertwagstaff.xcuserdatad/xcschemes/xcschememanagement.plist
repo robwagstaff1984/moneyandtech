@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-V8HorizontalPickerView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ios-versioncheck.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1414FB82432243DF8CE049F7</key>
+		<key>8D804C49DAE8492A97A27E69</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F60E01E7A5A48C29BCB4D4B</key>
+		<key>A36BB3573B5549EF982E3C17</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8639E4E6B110454A9BC73CDB</key>
+		<key>ABCCC129538040268A268BF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>89FB159E7B3D4D4787E63462</key>
+		<key>BC4AE6F29A8D4618A578454E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD597C70060C4490B066086E</key>
+		<key>E6A8CA961A7F4C5685E9E6D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F15BE9F39A2249DCA4F3C5C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
