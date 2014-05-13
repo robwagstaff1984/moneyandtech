@@ -45,7 +45,7 @@
 -(void) setupChartData {
     [self formatChartData];
     self.lineChartData = [LCLineChartData new];
-    self.dataPeriod = DataPeriodMonth;
+    self.dataPeriod = DataPeriodSixMonth;
     self.lineChartData.color = [UIColor colorWithRed:0 green:0 blue:182/255.0 alpha:1.0];
 
     __weak typeof(self) weakSelf = self;

@@ -56,15 +56,22 @@
 #pragma mark retrieve data
 
 -(void) didFinishDownloadingChartData {
+    
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
     [self addHorizontalChartsPickerView];
     [self addChartSwitchArrows];
+    [self addAlternateDataPeriodButtons];
     [self setupChartView];
     [self setupChartXAxis];
-
-    [self addAlternateDataPeriodButtons];
+    [self setDefaultChart];
 
     [self stopSpinner];
+}
+
+-(void) setDefaultChart {
+
+    self.datePeriodSegmentedControl.selectedSegmentIndex = 2;
+    [self.horizontalPickerView scrollToElement:0 animated:NO];
 }
 
 #pragma mark - charts chooser
@@ -79,7 +86,7 @@
     [self.horizontalPickerView setSelectionPoint:CGPointMake(TITLE_PICKER_WIDTH/2, 10)];
     
     [self.view addSubview:self.horizontalPickerView];
-    [self.horizontalPickerView scrollToElement:0 animated:NO];
+
 }
 
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
@@ -120,7 +127,7 @@
 #pragma mark - chart view
 -(void) setupChartView {
 
-    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.horizontalPickerView.frame.origin.y + self.horizontalPickerView.frame.size.height + 10, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height + 25, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
@@ -145,6 +152,7 @@
     self.chartXAxis = [[RWXAxisView alloc] initWithFrame:CGRectMake(0, self.chartView.frame.origin.y + self.chartView.frame.size.height + 1, SCREEN_WIDTH, 40)];
 
     self.chartXAxis.backgroundColor = [UIColor whiteColor];
+    self.chartXAxis.dataLabels = [self.currentChart xSteps];
     [self.view addSubview:self.chartXAxis];
 }
 
@@ -152,8 +160,7 @@
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
-    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartXAxis.frame.origin.y + self.chartXAxis.frame.size.height + 10, 280, 28);
-    self.datePeriodSegmentedControl.selectedSegmentIndex = 1;
+    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.horizontalPickerView.frame.origin.y + self.horizontalPickerView.frame.size.height + 15, 280, 28);
     [self.datePeriodSegmentedControl addTarget:self action:@selector(switchDataPeriods:) forControlEvents:UIControlEventValueChanged];
     [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:11.0], NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];
 	[self.view addSubview:self.datePeriodSegmentedControl];
@@ -198,11 +205,11 @@
 
 -(V8HorizontalPickerLabel*) createPickerViewLabel {
     V8HorizontalPickerLabel* pickerViewLabel = [[V8HorizontalPickerLabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_PICKER_WIDTH,80)];
-    [pickerViewLabel  setFont: [UIFont fontWithName:@"OCR A Extended" size:28.0]];
+    [pickerViewLabel  setFont:[UIFont boldSystemFontOfSize:28]];
     [pickerViewLabel setTextAlignment:NSTextAlignmentCenter];
     pickerViewLabel.numberOfLines = 2;
-    [pickerViewLabel setSelectedStateColor:[UIColor blueColor]];
-    [pickerViewLabel setNormalStateColor:[UIColor grayColor]];
+    [pickerViewLabel setSelectedStateColor:[UIColor colorWithRed:28.0/255.0 green:8.0/255.0 blue:180.0/255.0 alpha:1.0]];
+    [pickerViewLabel setNormalStateColor:[UIColor colorWithRed:28.0/255.0 green:8.0/255.0 blue:180.0/255.0 alpha:1.0]];
     return pickerViewLabel;
 }
 
