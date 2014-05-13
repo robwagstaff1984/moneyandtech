@@ -59,5 +59,6 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 @property (nonatomic,strong) UIColor *axisLabelColor;
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
+- (CGFloat)yAxisLabelsWidth;
 
 @end

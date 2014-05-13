@@ -60,7 +60,7 @@
 
 
 #define X_AXIS_SPACE 15
-#define PADDING 10
+#define PADDING 8
 
 
 @implementation LCLineChartView

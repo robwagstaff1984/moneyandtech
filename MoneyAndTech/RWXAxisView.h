@@ -10,5 +10,6 @@
 
 @interface RWXAxisView : UIView
 @property (nonatomic, strong) NSArray* dataLabels;
+@property (nonatomic) float startPoint;
 
 @end

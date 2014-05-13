@@ -49,7 +49,7 @@
     RWVideosViewController* videosViewController = [[RWVideosViewController alloc] init];
     RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
     RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
-    RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
+//    RWForumViewController *forumViewController= [[RWForumViewController alloc] init];
     RWChartsViewController *chartsViewController= [[RWChartsViewController alloc] init];
     RWPriceViewController *priceViewController = [[RWPriceViewController alloc] init];
     

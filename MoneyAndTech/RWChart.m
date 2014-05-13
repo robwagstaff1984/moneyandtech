@@ -50,8 +50,8 @@
 
     __weak typeof(self) weakSelf = self;
     self.lineChartData.getData = ^(NSUInteger item) {
-        int dataPeriodLength = MIN([weakSelf.chartDataItems count], weakSelf.dataPeriod);
-        int itemNumber = [weakSelf.chartDataItems count] - dataPeriodLength + item;
+        NSInteger dataPeriodLength = MIN([weakSelf.chartDataItems count], weakSelf.dataPeriod);
+        NSInteger itemNumber = [weakSelf.chartDataItems count] - dataPeriodLength + item;
         RWChartDataItem* currentChartDataItem = weakSelf.chartDataItems[itemNumber];
         return [LCLineChartDataItem dataItemWithX:currentChartDataItem.x y:currentChartDataItem.y xLabel:currentChartDataItem.xLabel dataLabel:currentChartDataItem.yLabel];
     };
@@ -95,7 +95,7 @@
 }
 
 -(NSArray*) currentDataPeriodRawValue {
-    int dataPeriodLength = MIN([self.chartRawValues  count], self.dataPeriod);
+    NSInteger dataPeriodLength = MIN([self.chartRawValues  count], self.dataPeriod);
     return [self.chartRawValues subarrayWithRange:NSMakeRange([self.chartRawValues count] - dataPeriodLength, dataPeriodLength)];
 }
 

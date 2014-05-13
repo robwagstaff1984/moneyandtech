@@ -19,11 +19,12 @@
 
 @implementation RWXAxisView
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
-        self.dataLabels = [[NSArray alloc] init];
+        _dataLabels = [[NSArray alloc] init];
+        [self setupLabels];
     }
     return self;
 }
@@ -50,30 +51,24 @@
     CGContextAddLines(context, xAxisLines, 11);
 
     CGContextStrokePath(context);
-    [self setupLabels];
+    [self updateLabels];
 }
 
 -(void) setupLabels {
-    self.quarterPointLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.quarterPoint - 30, DISTANCE_OF_NOTCH, 60, 15)];
+    self.quarterPointLabel = [UILabel new];
     [self.quarterPointLabel setTextAlignment:NSTextAlignmentCenter];
     [self.quarterPointLabel setFont:[UIFont systemFontOfSize:10.0]];
     [self addSubview:self.quarterPointLabel];
     
-    self.halfPointLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.halfPoint - 30, DISTANCE_OF_NOTCH, 60, 15)];
+    self.halfPointLabel = [UILabel new];
     [self.halfPointLabel setTextAlignment:NSTextAlignmentCenter];
     [self.halfPointLabel setFont:[UIFont systemFontOfSize:10.0]];
     [self addSubview:self.halfPointLabel];
     
-    self.threeQuarterPointLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.threeQuarterPoint - 30, DISTANCE_OF_NOTCH, 60, 15)];
+    self.threeQuarterPointLabel = [UILabel new];
     [self.threeQuarterPointLabel setTextAlignment:NSTextAlignmentCenter];
     [self.threeQuarterPointLabel setFont:[UIFont systemFontOfSize:10.0]];
     [self addSubview:self.threeQuarterPointLabel];
-
-    [self updateLabels];
-}
-
--(float) startPoint {
-    return 44.0;
 }
 
 -(float) endPoint {
@@ -98,8 +93,14 @@
 }
 
 -(void) updateLabels {
+    
+    self.quarterPointLabel.frame = CGRectMake(self.quarterPoint - 30, DISTANCE_OF_NOTCH, 60, 15);
     self.quarterPointLabel.text = self.dataLabels[1];
+    
+    self.halfPointLabel.frame = CGRectMake(self.halfPoint - 30, DISTANCE_OF_NOTCH, 60, 15);
     self.halfPointLabel.text = self.dataLabels[2];
+    
+    self.threeQuarterPointLabel.frame = CGRectMake(self.threeQuarterPoint - 30, DISTANCE_OF_NOTCH, 60, 15);
     self.threeQuarterPointLabel.text = self.dataLabels[3];
 }
 

@@ -108,14 +108,12 @@
 }
 
 -(void) leftChartArrowTapped {
-    int newIndex = self.horizontalPickerView.currentSelectedIndex - 1;
-    [self.horizontalPickerView scrollToElement:newIndex animated:YES];
+    [self.horizontalPickerView scrollToElement:self.horizontalPickerView.currentSelectedIndex - 1 animated:YES];
     [self hideAndShowAppropriateArrows];
 }
 
 -(void) rightChartArrowTapped {
-    int newIndex = self.horizontalPickerView.currentSelectedIndex + 1;
-    [self.horizontalPickerView scrollToElement:newIndex animated:YES];
+    [self.horizontalPickerView scrollToElement:self.horizontalPickerView.currentSelectedIndex + 1 animated:YES];
     [self hideAndShowAppropriateArrows];
 }
 
@@ -145,6 +143,8 @@
     self.chartView.data = @[self.currentChart.lineChartData];
     
     self.chartXAxis.dataLabels = [self.currentChart xSteps];
+    self.chartXAxis.startPoint = self.chartView.yAxisLabelsWidth + 8;
+    [self.chartXAxis setNeedsDisplay];
 }
 
 #pragma mark - chartXAxis
@@ -153,6 +153,7 @@
 
     self.chartXAxis.backgroundColor = [UIColor whiteColor];
     self.chartXAxis.dataLabels = [self.currentChart xSteps];
+    self.chartXAxis.startPoint = self.chartView.yAxisLabelsWidth + 8;
     [self.view addSubview:self.chartXAxis];
 }
 
