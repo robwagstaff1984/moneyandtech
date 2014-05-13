@@ -13,6 +13,7 @@
 #import "RWAFHTTPRequestOperationManager.h"
 #import "RWChart.h"
 #import "RWChartDataManager.h"
+#import "RWXAxisView.h"
 #define TITLE_PICKER_WIDTH 320
 #define ARROWS_AND_SPACE_WIDTH 32
 
@@ -25,6 +26,7 @@
 @property (nonatomic, strong) V8HorizontalPickerView* horizontalPickerView;
 @property (nonatomic, strong) UIButton* leftChartArrow;
 @property (nonatomic, strong) UIButton* rightChartArrow;
+@property (nonatomic, strong) RWXAxisView* chartXAxis;
 
 @end
 
@@ -58,6 +60,7 @@
     [self addHorizontalChartsPickerView];
     [self addChartSwitchArrows];
     [self setupChartView];
+    [self setupChartXAxis];
 
     [self addAlternateDataPeriodButtons];
 
@@ -133,13 +136,23 @@
     self.chartView.yMin = self.currentChart.yMin;
     self.chartView.yMax = self.currentChart.yMax;
     self.chartView.data = @[self.currentChart.lineChartData];
+    
+    self.chartXAxis.dataLabels = [self.currentChart xSteps];
+}
+
+#pragma mark - chartXAxis
+-(void) setupChartXAxis {
+    self.chartXAxis = [[RWXAxisView alloc] initWithFrame:CGRectMake(0, self.chartView.frame.origin.y + self.chartView.frame.size.height + 1, SCREEN_WIDTH, 40)];
+
+    self.chartXAxis.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.chartXAxis];
 }
 
 #pragma mark - alternateDataPerios
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
-    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartView.frame.origin.y + self.chartView.frame.size.height + 20, 280, 28);
+    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.chartXAxis.frame.origin.y + self.chartXAxis.frame.size.height + 10, 280, 28);
     self.datePeriodSegmentedControl.selectedSegmentIndex = 1;
     [self.datePeriodSegmentedControl addTarget:self action:@selector(switchDataPeriods:) forControlEvents:UIControlEventValueChanged];
     [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:11.0], NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];

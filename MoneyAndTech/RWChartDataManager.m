@@ -130,13 +130,9 @@
     return [self.charts count] == NUMBER_OF_CHARTS && [self.currentPrice length] && [self.marketCap length] && [self.blockTime length] && [self.hashRate length] && [self.tradeVolume length];
 }
 
-
 -(void) broadcastBitcoinStatisticsDownloaded {
     NSLog(@"got all data");
-    [[NSNotificationCenter defaultCenter] postNotificationName:BITCOIN_STATISTICS_DOWNLOADED
-                                                        object:self
-                                                      userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BITCOIN_STATISTICS_DOWNLOADED object:self userInfo:nil];
 }
-
 
 @end

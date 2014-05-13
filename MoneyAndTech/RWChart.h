@@ -35,9 +35,11 @@ typedef enum {
 @property (nonatomic, assign) float yMin;
 @property (nonatomic, assign) float yMax;
 
+
 -(void) setupChartData;
 -(NSNumber*) maxPrice;
 -(NSArray*) ySteps;
+-(NSArray*) xSteps;
 
 
 @end

@@ -11,6 +11,7 @@
 
 @interface RWChart()
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSDateFormatter *shortDateFormatter;
 @property (nonatomic, strong) NSNumberFormatter *labelNumberFormatter;
 @property (nonatomic, strong) NSNumberFormatter *axisNumberFormatter;
 
@@ -27,6 +28,8 @@
         self.url = url;
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateFormat:@"MMM d yyyy"];
+        self.shortDateFormatter = [[NSDateFormatter alloc] init];
+        [self.shortDateFormatter setDateFormat:@"MMM d"];
         self.labelNumberFormatter = [[NSNumberFormatter alloc] init];
         [self.labelNumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         [self.labelNumberFormatter setMaximumFractionDigits:0];
@@ -65,7 +68,7 @@
         RWChartDataItem* chartDataItem = [[RWChartDataItem alloc] init];
         chartDataItem.x = [self.chartRawValues[i][@"x"] intValue];
         chartDataItem.y = [self.chartRawValues[i][@"y"] floatValue];
-        chartDataItem.xLabel = [self formattedDate:[NSDate dateWithTimeIntervalSince1970:chartDataItem.x]];
+        chartDataItem.xLabel = [self formattedDate:chartDataItem.x];
 
         chartDataItem.yLabel = [self displayLabelForValue:chartDataItem.y];
         [self.chartDataItems addObject:chartDataItem];
@@ -96,11 +99,31 @@
     return [self.chartRawValues subarrayWithRange:NSMakeRange([self.chartRawValues count] - dataPeriodLength, dataPeriodLength)];
 }
 
--(NSString*) formattedDate:(NSDate*)date {
-    return [self.dateFormatter stringFromDate:date];
+-(NSString*) formattedDate:(int)date {
+    return [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:date]];
 }
 
--(NSArray*) ySteps {
+-(NSString*) formattedShortDate:(int)date {
+    if(self.dataPeriod != DataPeriodAllTime) {
+        return [self.shortDateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:date]];
+    }
+    return [self formattedDate:date];
+}
+
+-(NSArray*) xSteps {
+    
+    int minDate = [self minDate];
+    int maxDate = [self maxDate];
+    float quarterDate = minDate + ((maxDate - minDate)*0.25);
+    float halfDate = minDate + ((maxDate - minDate)*0.5);
+    float threeQuarterDate = minDate + ((maxDate - minDate)*0.75);
+
+    NSArray* xSteps = @[[self formattedShortDate:minDate],  [self formattedShortDate:quarterDate], [self formattedShortDate:halfDate],  [self formattedShortDate:threeQuarterDate], [self formattedShortDate:maxDate]];
+    
+    return xSteps;
+}
+
+-(NSArray*) ySteps {//TODO needs work. dynamic round value and sometimes data is below 0;
     
     int roundToValue = 10;
     
@@ -120,6 +143,7 @@
 
 }
 
+#pragma mark - helpers
 -(NSString*) displayLabelForValue:(float)value {
     if([self.labelPrefix isEqualToString:@"$"] && value < 1000000 ) {
         [self.labelNumberFormatter setMinimumFractionDigits:2];

@@ -40,6 +40,7 @@
 		365282F81921816E00D50F0A /* LeftChartArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F41921816E00D50F0A /* LeftChartArrow@2x.png */; };
 		365282F91921816E00D50F0A /* RightChartArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F51921816E00D50F0A /* RightChartArrow.png */; };
 		365282FA1921816E00D50F0A /* RightChartArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365282F61921816E00D50F0A /* RightChartArrow@2x.png */; };
+		365282FD19219BD300D50F0A /* RWXAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365282FC19219BD300D50F0A /* RWXAxisView.m */; };
 		365895E319118D18005FAD8A /* tabBarButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E119118D18005FAD8A /* tabBarButtonBackground.png */; };
 		365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */; };
 		367406D6191AF0FE00D78C8E /* RWChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406D5191AF0FE00D78C8E /* RWChartsViewController.m */; };
@@ -159,6 +160,8 @@
 		365282F41921816E00D50F0A /* LeftChartArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LeftChartArrow@2x.png"; sourceTree = "<group>"; };
 		365282F51921816E00D50F0A /* RightChartArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightChartArrow.png; sourceTree = "<group>"; };
 		365282F61921816E00D50F0A /* RightChartArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RightChartArrow@2x.png"; sourceTree = "<group>"; };
+		365282FB19219BD300D50F0A /* RWXAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWXAxisView.h; sourceTree = "<group>"; };
+		365282FC19219BD300D50F0A /* RWXAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWXAxisView.m; sourceTree = "<group>"; };
 		365895E119118D18005FAD8A /* tabBarButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarButtonBackground.png; sourceTree = "<group>"; };
 		365895E219118D18005FAD8A /* tabBarButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBarButtonBackground@2x.png"; sourceTree = "<group>"; };
 		367406D4191AF0FE00D78C8E /* RWChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartsViewController.h; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				367406D5191AF0FE00D78C8E /* RWChartsViewController.m */,
 				36F5393A19201FF900CC2442 /* RWPriceViewController.h */,
 				36F5393B19201FF900CC2442 /* RWPriceViewController.m */,
+				365282FB19219BD300D50F0A /* RWXAxisView.h */,
+				365282FC19219BD300D50F0A /* RWXAxisView.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				360786DC18E8B2640045AF0F /* XPathQuery.m in Sources */,
 				36C624FB1901C4880014F082 /* RWNewsPost.m in Sources */,
 				367406F2191B119C00D78C8E /* RWChart.m in Sources */,
+				365282FD19219BD300D50F0A /* RWXAxisView.m in Sources */,
 				36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */,
 				360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
