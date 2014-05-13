@@ -125,22 +125,35 @@
 
 -(NSArray*) ySteps {//TODO needs work. dynamic round value and sometimes data is below 0;
     
-    int roundToValue = 10;
+    int roundToValue = [self roundToValue];
     
-    int roundedMinPrice = roundToValue*(([self.minPrice intValue]+(roundToValue/2))/roundToValue);
-    int roundedMaxPrice = roundToValue*(([self.maxPrice intValue]+(roundToValue/2))/roundToValue);
+    int roundedMinPrice = roundToValue * floorf(([self.minPrice intValue]/roundToValue)+0.5);
+    int roundedMaxPrice = roundToValue * ceilf(([self.maxPrice intValue]/roundToValue)+0.5);
     int spreadOfValues = roundedMaxPrice - roundedMinPrice;
     
     float roundedQuarterPrice = roundedMinPrice + (spreadOfValues * 0.25);
     float roundedHalfPrice = roundedMinPrice + (spreadOfValues * 0.5);
     float roundedThreeQuarterPrice = roundedMinPrice + (spreadOfValues * 0.75);
-    float roundedFiveQuarterPrice = roundedMinPrice + (spreadOfValues * 1.25);
     
     self.yMin = (float)roundedMinPrice;
-    self.yMax = roundedFiveQuarterPrice;
+    self.yMax = roundedMaxPrice;
     
-    return @[[self displayAxisForValue:(float)roundedMinPrice], [self displayAxisForValue:roundedQuarterPrice], [self displayAxisForValue:roundedHalfPrice], [self displayAxisForValue:roundedThreeQuarterPrice], [self displayAxisForValue:roundedMaxPrice], [self displayAxisForValue:roundedFiveQuarterPrice]];
+    return @[[self displayAxisForValue:(float)roundedMinPrice], [self displayAxisForValue:roundedQuarterPrice], [self displayAxisForValue:roundedHalfPrice], [self displayAxisForValue:roundedThreeQuarterPrice], [self displayAxisForValue:roundedMaxPrice]];
 
+}
+
+-(int) roundToValue {
+    if([self.maxPrice intValue] < 1000) {
+        return 10;
+    } else if ([self.maxPrice intValue] < 10000) {
+        return 100;
+    } else if ([self.maxPrice intValue] < 100000) {
+        return 1000;
+    } else if ([self.maxPrice intValue] < 1000000) {
+        return 10000;
+    } else {
+        return 100000;
+    }
 }
 
 #pragma mark - helpers
