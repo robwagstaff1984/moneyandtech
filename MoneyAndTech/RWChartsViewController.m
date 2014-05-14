@@ -14,6 +14,7 @@
 #import "RWChart.h"
 #import "RWChartDataManager.h"
 #import "RWXAxisView.h"
+#import "UIViewController+ActivitySpinner.h"
 #define TITLE_PICKER_WIDTH 320
 #define ARROWS_AND_SPACE_WIDTH 32
 
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) UIButton* leftChartArrow;
 @property (nonatomic, strong) UIButton* rightChartArrow;
 @property (nonatomic, strong) RWXAxisView* chartXAxis;
+@property (nonatomic, strong) UIActivityIndicatorView* chartActivityIndicatorView;
+
 
 @end
 
@@ -129,22 +132,33 @@
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
-
-    [self updateChartView];
-
+    
     [self.view addSubview:self.chartView];
+    [self setupSpinner];
+    
+    [self updateChartView];
+}
+
+-(void) setupSpinner {
+    self.chartActivityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    self.chartActivityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.chartActivityIndicatorView.color = [UIColor blackColor];
+    [self.view addSubview:self.chartActivityIndicatorView];
+    
+    self.chartActivityIndicatorView.center = self.view.center;
 }
 
 -(void) updateChartView {
-
     self.chartView.ySteps = self.currentChart.ySteps;
     self.chartView.yMin = self.currentChart.yMin;
     self.chartView.yMax = self.currentChart.yMax;
+    
     self.chartView.data = @[self.currentChart.lineChartData];
     
     self.chartXAxis.dataLabels = [self.currentChart xSteps];
     self.chartXAxis.startPoint = self.chartView.yAxisLabelsWidth + 8;
     [self.chartXAxis setNeedsDisplay];
+    [self.chartActivityIndicatorView stopAnimating];
 }
 
 #pragma mark - chartXAxis
@@ -168,8 +182,12 @@
 }
 
 -(void) switchDataPeriods:(id)sender{
-    self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
-    [self updateChartView];
+    [self.chartActivityIndicatorView startAnimating];
+    dispatch_after(0.01, dispatch_get_main_queue(), ^{
+        self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
+        [self updateChartView];
+    });
+
 }
 
 -(DataPeriod) currentlySelectedDataPeriod {
@@ -190,10 +208,14 @@
 #pragma mark - V8HorizontalPickerViewDelegate
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
-    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
-    self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
-    [self updateChartView];
-    [self hideAndShowAppropriateArrows];
+    
+    [self.chartActivityIndicatorView startAnimating];
+    dispatch_after(0.01, dispatch_get_main_queue(), ^{
+        self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
+        self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
+        [self updateChartView];
+        [self hideAndShowAppropriateArrows];
+    });
 }
 
 - (UIView *)horizontalPickerView:(V8HorizontalPickerView *)picker viewForElementAtIndex:(NSInteger)index {

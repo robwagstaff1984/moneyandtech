@@ -14,6 +14,9 @@
 @property (nonatomic, strong) NSDateFormatter *shortDateFormatter;
 @property (nonatomic, strong) NSNumberFormatter *labelNumberFormatter;
 @property (nonatomic, strong) NSNumberFormatter *axisNumberFormatter;
+@property (nonatomic) DataPeriod cachedDataPeriod;
+@property (nonatomic, strong) NSNumber* cachedMinPrice;
+@property (nonatomic, strong) NSNumber* cachedMaxPrice;
 
 @end
 
@@ -76,22 +79,55 @@
 }
 
 -(NSNumber*) maxPrice {
-    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", [self currentDataPeriodRawValue]];
-    return [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+    if(self.cachedDataPeriod != self.dataPeriod) {
+        self.cachedDataPeriod = self.dataPeriod;
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", [self currentDataPeriodRawValue]];
+            self.cachedMaxPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+            dispatch_semaphore_signal(sema);
+
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    }
+    return self.cachedMaxPrice;
 }
 
 -(NSNumber*) minPrice {
-    NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@min.y", [self currentDataPeriodRawValue]];
-    return [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+    
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block NSNumber* minPrice;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSPredicate *minPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@min.y", [self currentDataPeriodRawValue]];
+        minPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minPricePredicate][0][@"y"];
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return minPrice;
 }
 
 -(int) minDate {
-    NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", [self currentDataPeriodRawValue]];
-    return [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block int minDate;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", [self currentDataPeriodRawValue]];
+        minDate = [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return minDate;
 }
 -(int) maxDate {
-    NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", [self currentDataPeriodRawValue]];
-    return [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block int maxDate;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", [self currentDataPeriodRawValue]];
+        maxDate = [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return maxDate;
 }
 
 -(NSArray*) currentDataPeriodRawValue {
@@ -139,7 +175,6 @@
     self.yMax = roundedMaxPrice;
     
     return @[[self displayAxisForValue:(float)roundedMinPrice], [self displayAxisForValue:roundedQuarterPrice], [self displayAxisForValue:roundedHalfPrice], [self displayAxisForValue:roundedThreeQuarterPrice], [self displayAxisForValue:roundedMaxPrice]];
-
 }
 
 -(int) roundToValue {
