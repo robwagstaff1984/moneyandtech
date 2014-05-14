@@ -61,6 +61,7 @@
 -(void) didFinishDownloadingChartData {
     
     self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
+    self.view.backgroundColor = MONEY_AND_TECH_GREY;
     [self addHorizontalChartsPickerView];
     [self addChartSwitchArrows];
     [self addAlternateDataPeriodButtons];
@@ -84,7 +85,7 @@
 	self.horizontalPickerView.delegate    = self;
 	self.horizontalPickerView.dataSource  = self;
 	self.horizontalPickerView.selectionPoint = CGPointMake(60, 0);
-    [self.horizontalPickerView setBackgroundColor:[UIColor whiteColor]];
+    [self.horizontalPickerView setBackgroundColor:MONEY_AND_TECH_GREY];
     [self.horizontalPickerView setSelectedTextColor:[UIColor blueColor]];
     [self.horizontalPickerView setSelectionPoint:CGPointMake(TITLE_PICKER_WIDTH/2, 10)];
     
@@ -132,6 +133,7 @@
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
+    self.chartView.backgroundColor = MONEY_AND_TECH_GREY;
     
     [self.view addSubview:self.chartView];
     [self setupSpinner];
@@ -165,7 +167,7 @@
 -(void) setupChartXAxis {
     self.chartXAxis = [[RWXAxisView alloc] initWithFrame:CGRectMake(0, self.chartView.frame.origin.y + self.chartView.frame.size.height + 1, SCREEN_WIDTH, 40)];
 
-    self.chartXAxis.backgroundColor = [UIColor whiteColor];
+    self.chartXAxis.backgroundColor = MONEY_AND_TECH_GREY;
     self.chartXAxis.dataLabels = [self.currentChart xSteps];
     self.chartXAxis.startPoint = self.chartView.yAxisLabelsWidth + 8;
     [self.view addSubview:self.chartXAxis];

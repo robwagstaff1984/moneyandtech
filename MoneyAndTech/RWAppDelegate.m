@@ -19,7 +19,7 @@
 
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = MONEY_AND_TECH_GREY;
     [self.window makeKeyAndVisible];
     [[RWConfiguration sharedConfiguration] setupParse];
     [self.window setRootViewController:[self createRootViewController]];

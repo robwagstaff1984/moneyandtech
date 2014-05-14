@@ -53,6 +53,7 @@
 		367406F2191B119C00D78C8E /* RWChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406F1191B119C00D78C8E /* RWChart.m */; };
 		367406F5191D7DE000D78C8E /* RWChartDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 367406F4191D7DE000D78C8E /* RWChartDataManager.m */; };
 		367CE891192301010078B8F5 /* RWChartDataStatsExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 367CE890192301010078B8F5 /* RWChartDataStatsExtractor.m */; };
+		367CE8941923184E0078B8F5 /* RWStatisticsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367CE8931923184E0078B8F5 /* RWStatisticsView.m */; };
 		36C624F21901C3F60014F082 /* RWPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F11901C3F60014F082 /* RWPost.m */; };
 		36C624F51901C46A0014F082 /* RWVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F41901C46A0014F082 /* RWVideoPost.m */; };
 		36C624F81901C4770014F082 /* RWArticlePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C624F71901C4770014F082 /* RWArticlePost.m */; };
@@ -184,6 +185,8 @@
 		367406F4191D7DE000D78C8E /* RWChartDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataManager.m; sourceTree = "<group>"; };
 		367CE88F192301010078B8F5 /* RWChartDataStatsExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWChartDataStatsExtractor.h; sourceTree = "<group>"; };
 		367CE890192301010078B8F5 /* RWChartDataStatsExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWChartDataStatsExtractor.m; sourceTree = "<group>"; };
+		367CE8921923184E0078B8F5 /* RWStatisticsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWStatisticsView.h; sourceTree = "<group>"; };
+		367CE8931923184E0078B8F5 /* RWStatisticsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWStatisticsView.m; sourceTree = "<group>"; };
 		36C624F01901C3F60014F082 /* RWPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPost.h; sourceTree = "<group>"; };
 		36C624F11901C3F60014F082 /* RWPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPost.m; sourceTree = "<group>"; };
 		36C624F31901C46A0014F082 /* RWVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVideoPost.h; sourceTree = "<group>"; };
@@ -413,6 +416,8 @@
 				36F5393B19201FF900CC2442 /* RWPriceViewController.m */,
 				365282FB19219BD300D50F0A /* RWXAxisView.h */,
 				365282FC19219BD300D50F0A /* RWXAxisView.m */,
+				367CE8921923184E0078B8F5 /* RWStatisticsView.h */,
+				367CE8931923184E0078B8F5 /* RWStatisticsView.m */,
 			);
 			name = Charts;
 			sourceTree = "<group>";
@@ -767,6 +772,7 @@
 				36CB291018DA468000476E15 /* RWVideosViewController.m in Sources */,
 				3607869418E607040045AF0F /* RWForumViewController.m in Sources */,
 				36CB28E918DA456C00476E15 /* RWAppDelegate.m in Sources */,
+				367CE8941923184E0078B8F5 /* RWStatisticsView.m in Sources */,
 				36CB290D18DA461F00476E15 /* RWNewsViewController.m in Sources */,
 				36CB290A18DA460200476E15 /* RWArticlesViewController.m in Sources */,
 				360786ED18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m in Sources */,
