@@ -8,6 +8,9 @@
 
 #import "RWPriceViewController.h"
 
+#define LABEL_LEFT_X 10
+#define LABEL_RIGHT_X 170
+
 @implementation RWPriceViewController
 
 - (id)init
@@ -33,39 +36,47 @@
 
 #pragma mark - statistics view
 -(void) setupStatisticsView {
-    UIView* statisticsView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, 300, 100)];
     
-    UILabel* latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 320, 100)];
+    [self addLatestPriceLabel];
+    
+    [self addLabelWithHeading:@"Market cap" value:[RWChartDataManager sharedChartDataManager].marketCap atPoint:CGPointMake(LABEL_LEFT_X, 180)];
+    [self addLabelWithHeading:@"Total Bitcoins" value:[RWChartDataManager sharedChartDataManager].totalBitcoinsInCirculation atPoint:CGPointMake(LABEL_RIGHT_X, 180)];
+    [self addLabelWithHeading:@"Trade Volume BTC" value:[RWChartDataManager sharedChartDataManager].tradeVolumeBTC atPoint:CGPointMake(LABEL_LEFT_X, 230)];
+    [self addLabelWithHeading:@"Trade Volume USD" value:[RWChartDataManager sharedChartDataManager].tradeVolumeUSD atPoint:CGPointMake(LABEL_RIGHT_X, 230)];
+    
+    [self addLabelWithHeading:@"Block Time" value:[RWChartDataManager sharedChartDataManager].blockTime atPoint:CGPointMake(LABEL_LEFT_X, 305)];
+    [self addLabelWithHeading:@"Number of Transactions" value:[RWChartDataManager sharedChartDataManager].numberOfTransactions atPoint:CGPointMake(LABEL_RIGHT_X, 305)];
+    [self addLabelWithHeading:@"Hash Rate" value:[RWChartDataManager sharedChartDataManager].hashRate atPoint:CGPointMake(LABEL_LEFT_X, 355)];
+    [self addLabelWithHeading:@"Difficulty" value:[RWChartDataManager sharedChartDataManager].difficulty atPoint:CGPointMake(LABEL_RIGHT_X, 355)];
+    [self addLabelWithHeading:@"Transaction Fees Per Day" value:[RWChartDataManager sharedChartDataManager].transactionFeesPerDay atPoint:CGPointMake(LABEL_LEFT_X, 405)];
+    [self addLabelWithHeading:@"Electricity Use Per Day" value:[RWChartDataManager sharedChartDataManager].electricityConsumputionPerDay atPoint:CGPointMake(LABEL_RIGHT_X, 405)];
+}
+
+-(void) addLatestPriceLabel {
+    UILabel* latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, SCREEN_WIDTH, 100)];
     [latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
-    [latestPriceLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:60.0]];
-    [latestPriceLabel setTextColor:[UIColor blueColor]];
+    [latestPriceLabel setFont: [UIFont boldSystemFontOfSize:60.0]];
+    [latestPriceLabel setTextAlignment:NSTextAlignmentCenter];
+    [latestPriceLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
+    [self.view addSubview:latestPriceLabel];
+}
+
+-(void) addLabelWithHeading:(NSString*)heading value:(NSString*)value atPoint:(CGPoint)point {
     
-    UILabel* marketCapLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 210, 190, 20)];
-    [marketCapLabel setText:[NSString stringWithFormat:@"Market cap: %@",[RWChartDataManager sharedChartDataManager].marketCap]];
-    [marketCapLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
-    [marketCapLabel setTextColor:[UIColor blueColor]];
+    UILabel* genericHeadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, 140, 20)];
+    [genericHeadingLabel setText:heading];
+    [genericHeadingLabel setFont: [UIFont systemFontOfSize:11.0]];
+    [genericHeadingLabel setTextAlignment:NSTextAlignmentCenter];
+    [genericHeadingLabel setTextColor:[UIColor darkGrayColor]];
     
-    UILabel* tradeVolumeLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 224, 190, 20)];
-    [tradeVolumeLabel setText:[NSString stringWithFormat:@"Trade volume: %@",[RWChartDataManager sharedChartDataManager].tradeVolumeBTC]];
-    [tradeVolumeLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
-    [tradeVolumeLabel setTextColor:[UIColor blueColor]];
+     UILabel* genericValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y + 16, 140, 20)];
+    [genericValueLabel setText:value];
+    [genericValueLabel setFont: [UIFont systemFontOfSize:11.0]];
+    [genericValueLabel setTextAlignment:NSTextAlignmentCenter];
+    [genericValueLabel setTextColor:[UIColor blackColor]];
     
-    UILabel* hashRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 248, 190, 20)];
-    [hashRateLabel setText:[NSString stringWithFormat:@"Hash rate: %@",[RWChartDataManager sharedChartDataManager].hashRate]];
-    [hashRateLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
-    [hashRateLabel setTextColor:[UIColor blueColor]];
-    
-    UILabel* blockRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 272, 190, 20)];
-    [blockRateLabel setText:[NSString stringWithFormat:@"Block Time: %@",[RWChartDataManager sharedChartDataManager].blockTime]];
-    [blockRateLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
-    [blockRateLabel setTextColor:[UIColor blueColor]];
-    
-    [statisticsView addSubview:latestPriceLabel];
-    [statisticsView addSubview:marketCapLabel];
-    [statisticsView addSubview:tradeVolumeLabel];
-    [statisticsView addSubview:hashRateLabel];
-    [statisticsView addSubview:blockRateLabel];
-    [self.view addSubview:statisticsView];
+    [self.view addSubview:genericHeadingLabel];
+    [self.view addSubview:genericValueLabel];
 }
 
 @end

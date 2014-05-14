@@ -86,6 +86,7 @@
 +(NSNumberFormatter*) twoDigitsNumberFormater {
     NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [numberFormatter setMinimumFractionDigits:2];
     [numberFormatter setMaximumFractionDigits:2];
     return numberFormatter;
 }

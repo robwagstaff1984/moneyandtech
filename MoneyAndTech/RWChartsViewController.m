@@ -231,8 +231,8 @@
     [pickerViewLabel  setFont:[UIFont boldSystemFontOfSize:28]];
     [pickerViewLabel setTextAlignment:NSTextAlignmentCenter];
     pickerViewLabel.numberOfLines = 2;
-    [pickerViewLabel setSelectedStateColor:[UIColor colorWithRed:28.0/255.0 green:8.0/255.0 blue:180.0/255.0 alpha:1.0]];
-    [pickerViewLabel setNormalStateColor:[UIColor colorWithRed:28.0/255.0 green:8.0/255.0 blue:180.0/255.0 alpha:1.0]];
+    [pickerViewLabel setSelectedStateColor:MONEY_AND_TECH_DARK_BLUE];
+    [pickerViewLabel setNormalStateColor:MONEY_AND_TECH_DARK_BLUE];
     return pickerViewLabel;
 }
 
