@@ -10,11 +10,24 @@
 
 @interface RWChartDataManager : NSObject
 
-@property (nonatomic, strong) NSString* currentPrice;
+//PRICE
+@property (nonatomic, strong) NSString* openingPrice;
+@property (nonatomic, strong) NSString* latestPrice;
+@property (nonatomic, strong) NSString* percentChange;
+
+//MARKET
 @property (nonatomic, strong) NSString* marketCap;
-@property (nonatomic, strong) NSString* tradeVolume;
-@property (nonatomic, strong) NSString* hashRate;
+@property (nonatomic, strong) NSString* totalBitcoinsInCirculation;
+@property (nonatomic, strong) NSString* tradeVolumeBTC;
+@property (nonatomic, strong) NSString* tradeVolumeUSD;
+
+//NETWORK
 @property (nonatomic, strong) NSString* blockTime;
+@property (nonatomic, strong) NSString* numberOfTransactions;
+@property (nonatomic, strong) NSString* hashRate;
+@property (nonatomic, strong) NSString* difficulty;
+@property (nonatomic, strong) NSString* transactionFeesPerDay;
+@property (nonatomic, strong) NSString* electricityConsumputionPerDay;
 
 @property (nonatomic, strong) NSMutableArray* charts;
 

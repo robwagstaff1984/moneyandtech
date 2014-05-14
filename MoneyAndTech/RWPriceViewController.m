@@ -21,10 +21,7 @@
 
 - (void)viewDidLoad
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didFinishDownloadingChartData)
-                                                 name:BITCOIN_STATISTICS_DOWNLOADED
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishDownloadingChartData) name:BITCOIN_STATISTICS_DOWNLOADED object:nil];
     [self startSpinner];
 }
 
@@ -38,10 +35,10 @@
 -(void) setupStatisticsView {
     UIView* statisticsView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, 300, 100)];
     
-    UILabel* currentPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 320, 100)];
-    [currentPriceLabel setText:[RWChartDataManager sharedChartDataManager].currentPrice];
-    [currentPriceLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:60.0]];
-    [currentPriceLabel setTextColor:[UIColor blueColor]];
+    UILabel* latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 320, 100)];
+    [latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
+    [latestPriceLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:60.0]];
+    [latestPriceLabel setTextColor:[UIColor blueColor]];
     
     UILabel* marketCapLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 210, 190, 20)];
     [marketCapLabel setText:[NSString stringWithFormat:@"Market cap: %@",[RWChartDataManager sharedChartDataManager].marketCap]];
@@ -49,7 +46,7 @@
     [marketCapLabel setTextColor:[UIColor blueColor]];
     
     UILabel* tradeVolumeLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 224, 190, 20)];
-    [tradeVolumeLabel setText:[NSString stringWithFormat:@"Trade volume: %@",[RWChartDataManager sharedChartDataManager].tradeVolume]];
+    [tradeVolumeLabel setText:[NSString stringWithFormat:@"Trade volume: %@",[RWChartDataManager sharedChartDataManager].tradeVolumeBTC]];
     [tradeVolumeLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
     [tradeVolumeLabel setTextColor:[UIColor blueColor]];
     
@@ -63,7 +60,7 @@
     [blockRateLabel setFont: [UIFont fontWithName:@"OCR A Extended" size:11.0]];
     [blockRateLabel setTextColor:[UIColor blueColor]];
     
-    [statisticsView addSubview:currentPriceLabel];
+    [statisticsView addSubview:latestPriceLabel];
     [statisticsView addSubview:marketCapLabel];
     [statisticsView addSubview:tradeVolumeLabel];
     [statisticsView addSubview:hashRateLabel];

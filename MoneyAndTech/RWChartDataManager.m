@@ -8,6 +8,7 @@
 
 #import "RWChartDataManager.h"
 #import "RWChart.h"
+#import "RWChartDataStatsExtractor.h"
 
 
 #define MARKET_PRICE_USD_TITLE @"Market Price\n(USD)"
@@ -19,8 +20,11 @@
 #define USD_EXCHANGE_TRADE_VOLUME_URL [NSURL URLWithString:@"https://blockchain.info/charts/trade-volume?timespan=all&format=json"]
 #define USD_EXCHANGE_TRADE_VOLUME_TITLE @"USD Exchange\nTrade Volume"
 
+#define CURRENT_PRICE_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/ticker?format=json"]]
 #define STATS_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/stats?format=json"]]
-#define MARKET_CAP_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/q/marketcap"]]
+
+
+
 
 
 #define NUMBER_OF_CHARTS 3
@@ -46,7 +50,7 @@
     RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:2 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
     usdExchangeVolumeChart.labelPrefix = @"$";
 
-    NSArray* dataRequestOperations = @[[self dataRequestOperationForStats], [self dataRequestOperationForMarketCap], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
+    NSArray* dataRequestOperations = @[[self dataRequestOperationForLatestPrice], [self dataRequestOperationForStats], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
 
     [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:dataRequestOperations waitUntilFinished:NO];
 }
@@ -66,56 +70,37 @@
     return operation;
 }
 
+-(AFHTTPRequestOperation*) dataRequestOperationForLatestPrice {
+    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:CURRENT_PRICE_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.latestPrice = [RWChartDataStatsExtractor extractLatestPrice:responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure for latest Price: %@", error);
+    }];
+    return operation;
+}
+
 -(AFHTTPRequestOperation*) dataRequestOperationForStats {
 
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:STATS_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        self.currentPrice = [NSString stringWithFormat: @"$%@", responseObject[@"market_price_usd"]];
-        self.tradeVolume = [self formatTradeVolume:[responseObject[@"trade_volume_btc"] doubleValue]];
-        self.hashRate = [self formatHashRate:[responseObject[@"hash_rate"] doubleValue]];
-        self.blockTime = [self formatBlockTime:[responseObject[@"minutes_between_blocks"] doubleValue]];
+        self.openingPrice = [RWChartDataStatsExtractor extractOpeningPrice:responseObject];
+        self.marketCap = [RWChartDataStatsExtractor extractMarketCap:responseObject];
+        self.totalBitcoinsInCirculation = [RWChartDataStatsExtractor extractTotalBitcoinsInCirculation:responseObject];
+        self.tradeVolumeBTC = [RWChartDataStatsExtractor extractTradeVolumeBTC:responseObject];
+        self.tradeVolumeUSD = [RWChartDataStatsExtractor extractTradeVolumeUSD:responseObject];
+        
+        self.blockTime = [RWChartDataStatsExtractor extractBlockTime:responseObject];
+        self.numberOfTransactions = [RWChartDataStatsExtractor extractNumberOfTransaction:responseObject];
+        self.hashRate = [RWChartDataStatsExtractor extractHashRate:responseObject];
+        self.difficulty = [RWChartDataStatsExtractor extractDifficulty:responseObject];
+        self.transactionFeesPerDay = [RWChartDataStatsExtractor extractTransactionFreesPerDay:responseObject];
+        self.electricityConsumputionPerDay = [RWChartDataStatsExtractor extractElectricityConsumputionPerDay:responseObject];
         
         [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure for stats: %@", error);
     }];
     return operation;
-}
-
--(AFHTTPRequestOperation*) dataRequestOperationForMarketCap {
-    
-    AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedRequestOperationManager] HTTPRequestOperationWithRequest:MARKET_CAP_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.marketCap = [self formatMarketCap:responseObject];
-        [self didFinishDownloadingOnePieceOfChartData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure for market cap %@", error);
-    }];
-    return operation;
-}
-
--(NSString*) formatMarketCap:(id)marketCapData {
-    NSString *marketCapValue = [[NSString alloc] initWithData:marketCapData encoding:NSUTF8StringEncoding];
-    NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:marketCapValue];
-    float marketCapInBillions = [decNumber floatValue] / 1000000000;
-    return [NSString stringWithFormat:@"$%.2f B", marketCapInBillions];
-}
-
--(NSString*) formatHashRate:(double)hashRate {
-    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
-    [fmt setNumberStyle:NSNumberFormatterDecimalStyle];
-    [fmt setMaximumFractionDigits:0];
-    
-    NSString *result = [fmt stringFromNumber:[NSNumber numberWithDouble:hashRate]];
-    return [NSString stringWithFormat:@"%@ GH/s", result];
-}
-
--(NSString*) formatBlockTime:(double)blockTime {
-    return [NSString stringWithFormat:@"%.2f Min", blockTime];
-}
-
--(NSString*) formatTradeVolume:(double)tradeVolume {
-    return [NSString stringWithFormat:@"%.2f BTC", tradeVolume];
-
 }
 
 -(void) didFinishDownloadingOnePieceOfChartData {
@@ -127,12 +112,17 @@
 }
 
 -(BOOL) isAllBitcoinStatisticsDataDownloaded {
-    return [self.charts count] == NUMBER_OF_CHARTS && [self.currentPrice length] && [self.marketCap length] && [self.blockTime length] && [self.hashRate length] && [self.tradeVolume length];
+    return [self.charts count] == NUMBER_OF_CHARTS && [self.latestPrice length] && [self.openingPrice length];
 }
 
 -(void) broadcastBitcoinStatisticsDownloaded {
     NSLog(@"got all data");
     [[NSNotificationCenter defaultCenter] postNotificationName:BITCOIN_STATISTICS_DOWNLOADED object:self userInfo:nil];
 }
+
+-(NSString*) calculatePercentChange:(id)responseObject {
+    return @"TEMP %";
+}
+
 
 @end
