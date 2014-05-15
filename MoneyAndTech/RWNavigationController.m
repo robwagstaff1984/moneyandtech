@@ -37,4 +37,17 @@
     [super viewDidLoad];
 }
 
+
+- (NSUInteger)supportedInterfaceOrientations {
+    if ([self.topViewController isMemberOfClass:[RWNavigationController class]]){
+        return UIInterfaceOrientationMaskPortrait;
+    }else{
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    }
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 @end

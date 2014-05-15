@@ -79,6 +79,4 @@
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:tabBarImage selectedImage:tabBarImageSel];
 }
 
-
-
 @end
