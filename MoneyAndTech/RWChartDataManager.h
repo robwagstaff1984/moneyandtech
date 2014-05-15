@@ -33,4 +33,5 @@
 
 +(RWChartDataManager*) sharedChartDataManager;
 -(void) retrieveData;
+-(void) retrieveLatestPrice;
 @end

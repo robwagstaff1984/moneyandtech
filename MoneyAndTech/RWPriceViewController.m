@@ -8,7 +8,12 @@
 
 #import "RWPriceViewController.h"
 #import "RWStatisticsView.h"
-#import "UIScrollView+S"
+#import "UIScrollView+SVPullToRefresh.h"
+
+@interface RWPriceViewController()
+@property (nonatomic, strong) UIScrollView* scrollView;
+@property (nonatomic, strong) RWStatisticsView* statisticsView;
+@end
 
 @implementation RWPriceViewController
 
@@ -29,34 +34,36 @@
 
 -(void) didFinishDownloadingChartData {
     NSLog(@"didFinishDownloadingChartData Price;\n");
+    
     [self setupStatisticsView];
     [self stopSpinner];
 }
 
 #pragma mark - statistics view
 -(void) setupStatisticsView {
-    
-    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 300)];
-    scrollView.backgroundColor = [UIColor redColor];
-    scrollView.userInteractionEnabled = YES;
-    scrollView.alwaysBounceVertical = YES;
-    
-    RWStatisticsView* statisticsView = [[RWStatisticsView alloc] initWithFrame:self.view.frame];
-    [scrollView addSubview:statisticsView];
-    
-    [scrollView addPullToRefreshWithActionHandler];
-    
-    [scrollView addInfiniteScrollingWithActionHandler:^{
-        [self didTriggerRefresh];
-    } forPosition:SVInfiniteScrollingPositionBottom];
-    
-    [self.view addSubview:scrollView];
-    
+    if (!self.scrollView) {
+        self.statisticsView = [[RWStatisticsView alloc] initWithFrame:self.view.frame];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+        self.scrollView.backgroundColor = MONEY_AND_TECH_GREY;
+        self.scrollView.userInteractionEnabled = YES;
+        self.scrollView.alwaysBounceVertical = YES;
+        [self.scrollView addSubview:self.statisticsView];
+        __weak typeof(self) weakSelf = self;
+        [self.scrollView addPullToRefreshWithActionHandler:^{
+            [weakSelf didTriggerRefresh:weakSelf.scrollView];
+        }];
+        
+        [self.view addSubview:self.scrollView];
+    } else {
+        [self.statisticsView updatePrice];
+    }
 }
 
 
--(void)didTriggerRefresh {
-    NSLog(@"refrest");
+-(void)didTriggerRefresh:(UIScrollView*)scrollView {
+    [[RWChartDataManager sharedChartDataManager] retrieveLatestPrice];
+//    self.statisticsView
+    [scrollView.pullToRefreshView stopAnimating];
 }
 
 @end

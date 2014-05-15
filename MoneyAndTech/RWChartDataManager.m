@@ -55,6 +55,9 @@
     [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:dataRequestOperations waitUntilFinished:NO];
 }
 
+-(void) retrieveLatestPrice {
+     [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:@[[self dataRequestOperationForLatestPrice]] waitUntilFinished:NO];
+}
 
 -(AFHTTPRequestOperation*) dataRequestOperationForChart:(RWChart*)chart {
     NSURLRequest* chartURLRequest= [[NSURLRequest alloc] initWithURL:chart.url];
@@ -73,6 +76,7 @@
 -(AFHTTPRequestOperation*) dataRequestOperationForLatestPrice {
     AFHTTPRequestOperation* operation = [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager] HTTPRequestOperationWithRequest:CURRENT_PRICE_URL_REQUEST success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.latestPrice = [RWChartDataStatsExtractor extractLatestPrice:responseObject];
+        [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure for latest Price: %@", error);
     }];

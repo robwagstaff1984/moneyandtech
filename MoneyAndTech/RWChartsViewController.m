@@ -60,16 +60,18 @@
 
 -(void) didFinishDownloadingChartData {
     
-    self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
-    self.view.backgroundColor = MONEY_AND_TECH_GREY;
-    [self addHorizontalChartsPickerView];
-    [self addChartSwitchArrows];
-    [self addAlternateDataPeriodButtons];
-    [self setupChartView];
-    [self setupChartXAxis];
-    [self setDefaultChart];
-
-    [self stopSpinner];
+    if (!self.currentChart) {
+        self.currentChart = [RWChartDataManager sharedChartDataManager].charts[0];
+        self.view.backgroundColor = MONEY_AND_TECH_GREY;
+        [self addHorizontalChartsPickerView];
+        [self addChartSwitchArrows];
+        [self addAlternateDataPeriodButtons];
+        [self setupChartView];
+        [self setupChartXAxis];
+        [self setDefaultChart];
+        
+        [self stopSpinner];
+    }
 }
 
 -(void) setDefaultChart {

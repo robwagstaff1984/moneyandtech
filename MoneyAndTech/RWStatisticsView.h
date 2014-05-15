@@ -10,5 +10,6 @@
 
 @interface RWStatisticsView : UIView
 
+-(void) updatePrice;
 
 @end

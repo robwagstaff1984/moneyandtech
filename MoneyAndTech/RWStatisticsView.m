@@ -22,6 +22,10 @@
 #define ROW_FOUR_Y 355
 #define ROW_FIVE_Y 405
 
+@interface RWStatisticsView()
+@property (nonatomic, strong) UILabel* latestPriceLabel;
+@end
+
 @implementation RWStatisticsView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -64,12 +68,12 @@
 }
 
 -(void) addLatestPriceLabel {
-    UILabel* latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 100)];
-    [latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
-    [latestPriceLabel setFont: [UIFont boldSystemFontOfSize:60.0]];
-    [latestPriceLabel setTextAlignment:NSTextAlignmentCenter];
-    [latestPriceLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
-    [self addSubview:latestPriceLabel];
+    self.latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 100)];
+    [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
+    [self.latestPriceLabel setFont: [UIFont boldSystemFontOfSize:60.0]];
+    [self.latestPriceLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.latestPriceLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
+    [self addSubview:self.latestPriceLabel];
 }
 
 -(void) addLabelWithHeading:(NSString*)heading value:(NSString*)value atPoint:(CGPoint)point {
@@ -88,6 +92,10 @@
     
     [self addSubview:genericHeadingLabel];
     [self addSubview:genericValueLabel];
+}
+
+-(void) updatePrice {
+    [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
 }
 
 @end

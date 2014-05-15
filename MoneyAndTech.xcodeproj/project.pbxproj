@@ -99,6 +99,7 @@
 		36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292018DBBF9E00476E15 /* NewsIcon.png */; };
 		36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */; };
 		36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */; };
+		36E5256219255D1800214899 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */; };
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
@@ -244,6 +245,8 @@
 		36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewsIcon@2x.png"; sourceTree = "<group>"; };
 		36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWConfiguration.h; sourceTree = "<group>"; };
 		36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWConfiguration.m; sourceTree = "<group>"; };
+		36E5256019255D1800214899 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		36F5393A19201FF900CC2442 /* RWPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPriceViewController.h; sourceTree = "<group>"; };
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				3607870918F365EC0045AF0F /* FBMissingSymbols.m */,
 				360786EB18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.h */,
 				360786EC18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m */,
+				36E5256019255D1800214899 /* UIScrollView+SVPullToRefresh.h */,
+				36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */,
 				360786E518E8B3CE0045AF0F /* RWXPathStripper.h */,
 				360786E618E8B3CE0045AF0F /* RWXPathStripper.m */,
 				36F5394119202B1600CC2442 /* UIViewController+ActivitySpinner.h */,
@@ -773,6 +778,7 @@
 				3607869418E607040045AF0F /* RWForumViewController.m in Sources */,
 				36CB28E918DA456C00476E15 /* RWAppDelegate.m in Sources */,
 				367CE8941923184E0078B8F5 /* RWStatisticsView.m in Sources */,
+				36E5256219255D1800214899 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				36CB290D18DA461F00476E15 /* RWNewsViewController.m in Sources */,
 				36CB290A18DA460200476E15 /* RWArticlesViewController.m in Sources */,
 				360786ED18F330240045AF0F /* UIScrollView+SVInfiniteScrolling.m in Sources */,
