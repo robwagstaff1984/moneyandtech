@@ -11,10 +11,4 @@
 
 @interface RWPriceViewController : UIViewController
 
-//@property (nonatomic, strong) NSString* currentPrice;
-//@property (nonatomic, strong) NSString* marketCap;
-//@property (nonatomic, strong) NSString* tradeVolume;
-//@property (nonatomic, strong) NSString* hashRate;
-//@property (nonatomic, strong) NSString* blockTime;
-
 @end

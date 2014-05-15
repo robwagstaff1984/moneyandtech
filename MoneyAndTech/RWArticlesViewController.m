@@ -59,5 +59,15 @@
 }
 
 
+- (NSString *)tabImageName
+{
+    return @"ArticlesIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"Articles";
+}
+
 
 @end

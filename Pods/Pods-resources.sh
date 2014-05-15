@@ -41,6 +41,7 @@ install_resource()
       ;;
   esac
 }
+install_resource "AKTabBarController/AKTabBarController/AKTabBarController.bundle"
 install_resource "uikit-utils/Resources/delete_button.png"
 install_resource "uikit-utils/Resources/delete_button@2x.png"
 

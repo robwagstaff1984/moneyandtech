@@ -12,6 +12,7 @@
 #import "RWExternalWebViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "Reachability.h"
+#import "RWVideosViewController.h"
 
 @interface RWWebSectionViewController ()
 @property (nonatomic, strong) UIWebView* webView;
@@ -62,8 +63,14 @@
 #pragma mark - setup
 
 -(void) setupWebView {
-    CGRect frameInsideTabBarController =  CGRectMake(0, 0, self.tabBarController.view.frame.size.width,
-                                                     self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height - NAV_BAR_HEIGHT);
+    
+    
+    CGRect frameInsideTabBarController =  CGRectMake(0, NAV_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAV_BAR_HEIGHT);
+    
+    if ([self isKindOfClass: [RWVideosViewController class]]) {
+        frameInsideTabBarController =  CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TAB_BAR_HEIGHT);
+    }
+    
     self.webView = [[UIWebView alloc] initWithFrame: frameInsideTabBarController];
     self.webView.hidden = YES;
     self.webView.delegate = self;

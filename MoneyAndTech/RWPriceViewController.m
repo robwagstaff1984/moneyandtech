@@ -42,8 +42,11 @@
 #pragma mark - statistics view
 -(void) setupStatisticsView {
     if (!self.scrollView) {
-        self.statisticsView = [[RWStatisticsView alloc] initWithFrame:self.view.frame];
-        self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+        
+        CGRect frameInsideTabBarController =  CGRectMake(0, NAV_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT);
+        
+        self.statisticsView = [[RWStatisticsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT)];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:frameInsideTabBarController];
         self.scrollView.backgroundColor = MONEY_AND_TECH_GREY;
         self.scrollView.userInteractionEnabled = YES;
         self.scrollView.alwaysBounceVertical = YES;
@@ -62,8 +65,17 @@
 
 -(void)didTriggerRefresh:(UIScrollView*)scrollView {
     [[RWChartDataManager sharedChartDataManager] retrieveLatestPrice];
-//    self.statisticsView
     [scrollView.pullToRefreshView stopAnimating];
+}
+
+- (NSString *)tabImageName
+{
+    return @"PriceIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"Price";
 }
 
 @end

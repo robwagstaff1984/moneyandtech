@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-AKTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Reachability.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>10E566AED10F463DA2FF596A</key>
+		<key>46F10D7B6BEF4D8B92ADE89A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3020FE8751C64B8DA79EE4C2</key>
+		<key>46F9F5125890497DAED7473E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E3FD687309B4A2DBF84EEF1</key>
+		<key>59F6C2F072A7414698E37C5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52616E5818D6454694B7E6C9</key>
+		<key>73CAEDF9E95E463486561BF8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>836EAE4BFC58436EA3E9ED7B</key>
+		<key>7FCF98DE3EB1435CB4760848</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>974489095B27493C990F1AB8</key>
+		<key>CC58A4709C9F43608961E179</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFC01A31250D4E7794083609</key>
 		<dict>
 			<key>primary</key>
 			<true/>

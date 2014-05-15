@@ -51,4 +51,14 @@
     return NSOperationQueuePriorityVeryHigh;
 }
 
+- (NSString *)tabImageName
+{
+    return @"VideosIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"Videos";
+}
+
 @end

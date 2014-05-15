@@ -51,4 +51,14 @@
     return NSOperationQueuePriorityLow;
 }
 
+- (NSString *)tabImageName
+{
+    return @"ForumIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"Forum";
+}
+
 @end

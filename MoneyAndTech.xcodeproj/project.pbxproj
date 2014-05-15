@@ -10,7 +10,6 @@
 		3607869418E607040045AF0F /* RWForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869318E607040045AF0F /* RWForumViewController.m */; };
 		3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869618E607E50045AF0F /* RWWebSectionViewController.m */; };
 		3607869C18E685450045AF0F /* RWNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869B18E685450045AF0F /* RWNavigationController.m */; };
-		3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607869E18E689A00045AF0F /* RWTabBarController.m */; };
 		360786A218E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786A118E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m */; };
 		360786D518E8B2640045AF0F /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786BC18E8B2640045AF0F /* TFHpple.m */; };
 		360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 360786BE18E8B2640045AF0F /* TFHppleElement.m */; };
@@ -100,6 +99,10 @@
 		36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */; };
 		36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */; };
 		36E5256219255D1800214899 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */; };
+		36E525671925720000214899 /* noise-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525631925720000214899 /* noise-dark-blue.png */; };
+		36E525681925720000214899 /* noise-dark-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525641925720000214899 /* noise-dark-blue@2x.png */; };
+		36E5256C1925776E00214899 /* noise-light-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256B1925776E00214899 /* noise-light-gray@2x.png */; };
+		36E5256E19257C8200214899 /* noise-light-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256D19257C8200214899 /* noise-light-gray.png */; };
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
@@ -124,8 +127,6 @@
 		3607869618E607E50045AF0F /* RWWebSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWWebSectionViewController.m; sourceTree = "<group>"; };
 		3607869A18E685450045AF0F /* RWNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWNavigationController.h; sourceTree = "<group>"; };
 		3607869B18E685450045AF0F /* RWNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWNavigationController.m; sourceTree = "<group>"; };
-		3607869D18E689A00045AF0F /* RWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTabBarController.h; sourceTree = "<group>"; };
-		3607869E18E689A00045AF0F /* RWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTabBarController.m; sourceTree = "<group>"; };
 		360786A018E7611D0045AF0F /* RWAFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWAFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
 		360786A118E7611D0045AF0F /* RWAFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWAFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
 		360786BB18E8B2640045AF0F /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -247,6 +248,10 @@
 		36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWConfiguration.m; sourceTree = "<group>"; };
 		36E5256019255D1800214899 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		36E525631925720000214899 /* noise-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue.png"; sourceTree = "<group>"; };
+		36E525641925720000214899 /* noise-dark-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue@2x.png"; sourceTree = "<group>"; };
+		36E5256B1925776E00214899 /* noise-light-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray@2x.png"; sourceTree = "<group>"; };
+		36E5256D19257C8200214899 /* noise-light-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray.png"; sourceTree = "<group>"; };
 		36F5393A19201FF900CC2442 /* RWPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPriceViewController.h; sourceTree = "<group>"; };
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
@@ -336,6 +341,10 @@
 				365282F41921816E00D50F0A /* LeftChartArrow@2x.png */,
 				365282F51921816E00D50F0A /* RightChartArrow.png */,
 				365282F61921816E00D50F0A /* RightChartArrow@2x.png */,
+				36E525631925720000214899 /* noise-dark-blue.png */,
+				36E525641925720000214899 /* noise-dark-blue@2x.png */,
+				36E5256D19257C8200214899 /* noise-light-gray.png */,
+				36E5256B1925776E00214899 /* noise-light-gray@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -362,8 +371,6 @@
 			children = (
 				3607869A18E685450045AF0F /* RWNavigationController.h */,
 				3607869B18E685450045AF0F /* RWNavigationController.m */,
-				3607869D18E689A00045AF0F /* RWTabBarController.h */,
-				3607869E18E689A00045AF0F /* RWTabBarController.m */,
 				360786E818EA1A9A0045AF0F /* RWExternalWebViewController.h */,
 				360786E918EA1A9A0045AF0F /* RWExternalWebViewController.m */,
 			);
@@ -671,6 +678,7 @@
 				36C6251A1908721C0014F082 /* Icon.png in Resources */,
 				36C6251D1908721C0014F082 /* iTunesArtwork@2x.png in Resources */,
 				36C625151908721C0014F082 /* Icon-76@2x.png in Resources */,
+				36E5256E19257C8200214899 /* noise-light-gray.png in Resources */,
 				365282F91921816E00D50F0A /* RightChartArrow.png in Resources */,
 				36C625181908721C0014F082 /* Icon-Small.png in Resources */,
 				36C6252019096A1F0014F082 /* ForumIcon.png in Resources */,
@@ -678,6 +686,7 @@
 				367406DA191AF17100D78C8E /* ChartsIcon@2x.png in Resources */,
 				36C625171908721C0014F082 /* Icon-Small-50@2x.png in Resources */,
 				36C624FD190858210014F082 /* ocraextended.ttf in Resources */,
+				36E5256C1925776E00214899 /* noise-light-gray@2x.png in Resources */,
 				36C6252119096A1F0014F082 /* ForumIcon@2x.png in Resources */,
 				365282F81921816E00D50F0A /* LeftChartArrow@2x.png in Resources */,
 				363BA3F31918489B00277708 /* LaunchImageIPhone35Inch.png in Resources */,
@@ -690,7 +699,9 @@
 				36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */,
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
 				365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */,
+				36E525671925720000214899 /* noise-dark-blue.png in Resources */,
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,
+				36E525681925720000214899 /* noise-dark-blue@2x.png in Resources */,
 				36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */,
 				36CB28EB18DA456C00476E15 /* Images.xcassets in Resources */,
 				365282FA1921816E00D50F0A /* RightChartArrow@2x.png in Resources */,
@@ -770,7 +781,6 @@
 				36C624F81901C4770014F082 /* RWArticlePost.m in Sources */,
 				367CE891192301010078B8F5 /* RWChartDataStatsExtractor.m in Sources */,
 				36F5394319202B1600CC2442 /* UIViewController+ActivitySpinner.m in Sources */,
-				3607869F18E689A00045AF0F /* RWTabBarController.m in Sources */,
 				367406E5191AF57100D78C8E /* LCInfoView.m in Sources */,
 				362048F91909C4CC00A1C10C /* Reachability.m in Sources */,
 				360786D518E8B2640045AF0F /* TFHpple.m in Sources */,

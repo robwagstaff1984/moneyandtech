@@ -83,7 +83,7 @@
 #pragma mark - charts chooser
 -(void) addHorizontalChartsPickerView {
     
-    self.horizontalPickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10, TITLE_PICKER_WIDTH, 80)];
+    self.horizontalPickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10 + NAV_BAR_HEIGHT, TITLE_PICKER_WIDTH, 80)];
 	self.horizontalPickerView.delegate    = self;
 	self.horizontalPickerView.dataSource  = self;
 	self.horizontalPickerView.selectionPoint = CGPointMake(60, 0);
@@ -251,6 +251,16 @@
 
 - (NSInteger)horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
     return TITLE_PICKER_WIDTH;
+}
+
+- (NSString *)tabImageName
+{
+    return @"ChartsIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"Charts";
 }
 
 @end

@@ -51,5 +51,15 @@
     return NSOperationQueuePriorityNormal;
 }
 
+- (NSString *)tabImageName
+{
+    return @"NewsIcon";
+}
+
+- (NSString *)tabTitle
+{
+    return @"News";
+}
+
 
 @end

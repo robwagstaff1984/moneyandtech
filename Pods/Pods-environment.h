@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// AKTabBarController
+#define COCOAPODS_POD_AVAILABLE_AKTabBarController
+#define COCOAPODS_VERSION_MAJOR_AKTabBarController 1
+#define COCOAPODS_VERSION_MINOR_AKTabBarController 1
+#define COCOAPODS_VERSION_PATCH_AKTabBarController 0
+
 // Reachability
 #define COCOAPODS_POD_AVAILABLE_Reachability
 #define COCOAPODS_VERSION_MAJOR_Reachability 3
