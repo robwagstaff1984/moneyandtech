@@ -8,6 +8,7 @@
 
 #import "RWPriceViewController.h"
 #import "RWStatisticsView.h"
+#import "UIScrollView+S"
 
 @implementation RWPriceViewController
 
@@ -34,8 +35,28 @@
 
 #pragma mark - statistics view
 -(void) setupStatisticsView {
+    
+    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 300)];
+    scrollView.backgroundColor = [UIColor redColor];
+    scrollView.userInteractionEnabled = YES;
+    scrollView.alwaysBounceVertical = YES;
+    
     RWStatisticsView* statisticsView = [[RWStatisticsView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:statisticsView];
+    [scrollView addSubview:statisticsView];
+    
+    [scrollView addPullToRefreshWithActionHandler];
+    
+    [scrollView addInfiniteScrollingWithActionHandler:^{
+        [self didTriggerRefresh];
+    } forPosition:SVInfiniteScrollingPositionBottom];
+    
+    [self.view addSubview:scrollView];
+    
+}
+
+
+-(void)didTriggerRefresh {
+    NSLog(@"refrest");
 }
 
 @end

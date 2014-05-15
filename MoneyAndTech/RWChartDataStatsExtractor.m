@@ -27,7 +27,7 @@
     long long totalBC = [statsResponseObject[@"totalbc"] longLongValue] / BLOCKCHAIN_MISSING_DECIMAL_PLACE;
     
     float marketCapInBillions = (marketPrice * totalBC) / 1000000000;
-    return [NSString stringWithFormat:@"$%.2f B", marketCapInBillions];
+    return [NSString stringWithFormat:@"$%.2f Billion", marketCapInBillions];
 }
 
 +(NSString*) extractTotalBitcoinsInCirculation:(id)statsResponseObject {
