@@ -103,6 +103,8 @@
 		36E525681925720000214899 /* noise-dark-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525641925720000214899 /* noise-dark-blue@2x.png */; };
 		36E5256C1925776E00214899 /* noise-light-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256B1925776E00214899 /* noise-light-gray@2x.png */; };
 		36E5256E19257C8200214899 /* noise-light-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256D19257C8200214899 /* noise-light-gray.png */; };
+		36E52570192585DD00214899 /* noise-light-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256F192585DD00214899 /* noise-light-blue@2x.png */; };
+		36E52572192586E900214899 /* noise-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E52571192586E900214899 /* noise-dark-blue.png */; };
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
@@ -252,6 +254,8 @@
 		36E525641925720000214899 /* noise-dark-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue@2x.png"; sourceTree = "<group>"; };
 		36E5256B1925776E00214899 /* noise-light-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray@2x.png"; sourceTree = "<group>"; };
 		36E5256D19257C8200214899 /* noise-light-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray.png"; sourceTree = "<group>"; };
+		36E5256F192585DD00214899 /* noise-light-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-blue@2x.png"; sourceTree = "<group>"; };
+		36E52571192586E900214899 /* noise-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue.png"; sourceTree = "<group>"; };
 		36F5393A19201FF900CC2442 /* RWPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPriceViewController.h; sourceTree = "<group>"; };
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
@@ -342,7 +346,9 @@
 				365282F51921816E00D50F0A /* RightChartArrow.png */,
 				365282F61921816E00D50F0A /* RightChartArrow@2x.png */,
 				36E525631925720000214899 /* noise-dark-blue.png */,
+				36E52571192586E900214899 /* noise-dark-blue.png */,
 				36E525641925720000214899 /* noise-dark-blue@2x.png */,
+				36E5256F192585DD00214899 /* noise-light-blue@2x.png */,
 				36E5256D19257C8200214899 /* noise-light-gray.png */,
 				36E5256B1925776E00214899 /* noise-light-gray@2x.png */,
 			);
@@ -672,11 +678,13 @@
 				36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */,
 				36C6251C1908721C0014F082 /* iTunesArtwork.png in Resources */,
 				367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */,
+				36E52572192586E900214899 /* noise-dark-blue.png in Resources */,
 				36C625111908721C0014F082 /* Icon-60@2x.png in Resources */,
 				36C625191908721C0014F082 /* Icon-Small@2x.png in Resources */,
 				36C625101908721C0014F082 /* Icon-60.png in Resources */,
 				36C6251A1908721C0014F082 /* Icon.png in Resources */,
 				36C6251D1908721C0014F082 /* iTunesArtwork@2x.png in Resources */,
+				36E52570192585DD00214899 /* noise-light-blue@2x.png in Resources */,
 				36C625151908721C0014F082 /* Icon-76@2x.png in Resources */,
 				36E5256E19257C8200214899 /* noise-light-gray.png in Resources */,
 				365282F91921816E00D50F0A /* RightChartArrow.png in Resources */,

@@ -47,7 +47,7 @@
     [akTabBarController setViewControllers:[self moneyAndTechViewControllers]];
     
     [akTabBarController setBackgroundImageName:@"noise-light-gray.png"];
-    [akTabBarController setSelectedBackgroundImageName:@"noise-dark-blue.png"];
+    [akTabBarController setSelectedBackgroundImageName:@"noise-light-blue.png"];
     
     UIColor* tabIconColor = [UIColor colorWithRed:1 green:1.0 blue:1.0 alpha:0.0];
     
