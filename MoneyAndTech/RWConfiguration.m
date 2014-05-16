@@ -35,6 +35,10 @@
     [[RWConfiguration sharedConfiguration] setShouldReformatVideosPage: [parseConfiguration[@"shouldReformatVideosPage"] boolValue]];
     [[RWConfiguration sharedConfiguration] setShouldReformatArticlesPage: [parseConfiguration[@"shouldReformatArticlesPage"] boolValue]];
     [[RWConfiguration sharedConfiguration] setShouldReformatNewsPage: [parseConfiguration[@"shouldReformatNewsPage"] boolValue]];
+    [[RWConfiguration sharedConfiguration] setShouldShowPricePage:[parseConfiguration[@"shouldShowPricePage"] boolValue]];
+    [[RWConfiguration sharedConfiguration] setShouldShowChartsPage: [parseConfiguration[@"shouldShowChartsPage"] boolValue]];
+    [[RWConfiguration sharedConfiguration] setShouldShowForumPage: [parseConfiguration[@"shouldShowForumPage"] boolValue]];
+    
     [[RWConfiguration sharedConfiguration] setHomeURL: parseConfiguration[@"homeURL"]];
     [[RWConfiguration sharedConfiguration] setGenericPostXPath: parseConfiguration[@"genericPostXPath"]];
     [[RWConfiguration sharedConfiguration] setNewsPostXPath: parseConfiguration[@"newsPostXPath"]];

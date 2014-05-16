@@ -57,6 +57,7 @@
     } else {
         self.webView.hidden = NO;
         [self.webView loadRequest:[self urlRequestForFirstPage]];
+        [self stopSpinner];
     }
 }
 

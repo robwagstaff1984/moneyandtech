@@ -13,6 +13,9 @@
 @property (nonatomic) BOOL shouldReformatVideosPage;
 @property (nonatomic) BOOL shouldReformatArticlesPage;
 @property (nonatomic) BOOL shouldReformatNewsPage;
+@property (nonatomic) BOOL shouldShowPricePage;
+@property (nonatomic) BOOL shouldShowChartsPage;
+@property (nonatomic) BOOL shouldShowForumPage;
 @property (nonatomic, strong) NSString* homeURL;
 @property (nonatomic, strong) NSString* genericPostXPath;
 @property (nonatomic, strong) NSString* newsPostXPath;

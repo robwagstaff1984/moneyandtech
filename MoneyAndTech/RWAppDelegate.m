@@ -64,16 +64,30 @@
     RWVideosViewController* videosViewController = [[RWVideosViewController alloc] init];
     RWArticlesViewController *articlesViewController= [[RWArticlesViewController alloc] init];
     RWNewsViewController *newsViewController= [[RWNewsViewController alloc] init];
-    RWChartsViewController *chartsViewController= [[RWChartsViewController alloc] init];
-    RWPriceViewController *priceViewController = [[RWPriceViewController alloc] init];
     
     videosViewController.view = videosViewController.view;
     articlesViewController.view = articlesViewController.view;
     newsViewController.view = newsViewController.view;
-    priceViewController.view = priceViewController.view;
-    chartsViewController.view = chartsViewController.view;
+
+    NSMutableArray* moneyAndTechViewControllers = [NSMutableArray arrayWithObjects:videosViewController, articlesViewController, newsViewController, nil];
     
-    return [NSMutableArray arrayWithObjects:videosViewController, articlesViewController, newsViewController, priceViewController, chartsViewController, nil];
+    if ([RWConfiguration sharedConfiguration].shouldShowPricePage) {
+        RWPriceViewController *priceViewController = [[RWPriceViewController alloc] init];
+        [moneyAndTechViewControllers addObject:priceViewController];
+        priceViewController.view = priceViewController.view;
+    }
+    if ([RWConfiguration sharedConfiguration].shouldShowChartsPage) {
+        RWChartsViewController *chartsViewController= [[RWChartsViewController alloc] init];
+        [moneyAndTechViewControllers addObject:chartsViewController];
+        chartsViewController.view = chartsViewController.view;
+    }
+    if ([RWConfiguration sharedConfiguration].shouldShowForumPage) {
+        RWForumViewController * forumViewController = [[RWForumViewController alloc] init];
+        [moneyAndTechViewControllers addObject:forumViewController];
+        forumViewController.view = forumViewController.view;
+    }
+    
+    return moneyAndTechViewControllers;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

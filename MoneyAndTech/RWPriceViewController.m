@@ -9,6 +9,7 @@
 #import "RWPriceViewController.h"
 #import "RWStatisticsView.h"
 #import "UIScrollView+SVPullToRefresh.h"
+#import "RWConfiguration.h"
 
 @interface RWPriceViewController()
 @property (nonatomic, strong) UIScrollView* scrollView;
@@ -29,6 +30,9 @@
 - (void)viewDidLoad
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishDownloadingChartData) name:BITCOIN_STATISTICS_DOWNLOADED object:nil];
+    if (![RWConfiguration sharedConfiguration].shouldShowChartsPage) {
+        [[RWChartDataManager sharedChartDataManager] retrieveData];
+    }
     [self startSpinner];
 }
 

@@ -9,6 +9,7 @@
 #import "RWChartDataManager.h"
 #import "RWChart.h"
 #import "RWChartDataStatsExtractor.h"
+#import "RWConfiguration.h"
 
 
 #define MARKET_PRICE_USD_TITLE @"Market Price\n(USD)"
@@ -147,7 +148,15 @@
 }
 
 -(BOOL) isAllBitcoinStatisticsDataDownloaded {
-    return [self.charts count] == NUMBER_OF_CHARTS && [self.latestPrice length] && [self.openingPrice length];
+    return [self isAllChartDataDownloaded] && [self isAllStatsDownloaded];
+}
+
+-(BOOL) isAllChartDataDownloaded {
+    return [self.charts count] == NUMBER_OF_CHARTS || (![RWConfiguration sharedConfiguration].shouldShowChartsPage);
+}
+
+-(BOOL) isAllStatsDownloaded {
+     return ([self.latestPrice length] && [self.openingPrice length]) || (![RWConfiguration sharedConfiguration].shouldShowPricePage);
 }
 
 -(void) broadcastBitcoinStatisticsDownloaded {
