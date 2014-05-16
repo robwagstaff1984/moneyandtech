@@ -9,18 +9,37 @@
 #import "RWStatisticsView.h"
 #import "RWChartDataManager.h"
 
-#define PADDING 10
-#define LINE_PADDING 25
-#define LABEL_WIDTH 140
+#define LINE_PADDING (isIPad ? 25 : 18)
+#define DEFAULT_LABEL_WIDTH ((SCREEN_WIDTH - LINE_PADDING - LINE_PADDING) / 2)
+#define DEFAULT_LABEL_HEIGHT (isIPad ? 25 : 20)
 
-#define LABEL_LEFT_X PADDING
-#define LABEL_RIGHT_X SCREEN_WIDTH - LABEL_WIDTH - LABEL_LEFT_X
+#define LABEL_LEFT_X LINE_PADDING
+#define LABEL_RIGHT_X MIDDLE_SCREEN_X
+#define TOP_SECTION_VERTICAL_GAP (isIPad ? 15 : 7)
+#define MIDDLE_SECTION_VERTICAL_GAP (isIPad ? 10 : 0)
+#define BOTTOM_SECTION_VERTICAL_GAP (isIPad ? 15 : 7)
+#define SECTION_VERTICAL_GAP (isIPad ? 16 : 10)
+#define NETWORK_VERTICAL_GAP (isIPad ? 100 : 35)
 
-#define ROW_ONE_Y 170
-#define ROW_TWO_Y 220
-#define ROW_THREE_Y 305
-#define ROW_FOUR_Y 355
-#define ROW_FIVE_Y 405
+
+#define CURRENT_PRICE_Y (isIPad ? 20 : 10)
+#define CURRENT_PRICE_HEIGHT (isIPad ? 200 : 100)
+
+#define ROW_ONE_Y (isIPad ? 330 : 135)
+#define ROW_TWO_Y ROW_ONE_Y + ROW_HEIGHT
+#define ROW_THREE_Y ROW_TWO_Y + ROW_HEIGHT + NETWORK_VERTICAL_GAP
+#define ROW_FOUR_Y ROW_THREE_Y + ROW_HEIGHT
+#define ROW_FIVE_Y ROW_FOUR_Y + ROW_HEIGHT
+
+#define ROW_HEIGHT (TOP_SECTION_VERTICAL_GAP + DEFAULT_LABEL_HEIGHT + MIDDLE_SECTION_VERTICAL_GAP + DEFAULT_LABEL_HEIGHT + BOTTOM_SECTION_VERTICAL_GAP)
+#define LINE_Y_POINT (ROW_HEIGHT - (isIPad ? 10 : 5))
+
+
+#define MIDDLE_SCREEN_X (SCREEN_WIDTH / 2)
+
+#define SMALL_LABEL_FONT [UIFont systemFontOfSize:isIPad? 28 : 11.0]
+#define LARGE_LABEL_FONT [UIFont boldSystemFontOfSize:isIPad? 120 : 60.0]
+
 
 @interface RWStatisticsView()
 @property (nonatomic, strong) UILabel* latestPriceLabel;
@@ -43,8 +62,8 @@
     CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     CGContextSetLineWidth(context, 1.0);
     
-    CGPoint lineSegments[] = {CGPointMake(LINE_PADDING, ROW_ONE_Y + 43), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_ONE_Y + 43),
-        CGPointMake(LINE_PADDING, ROW_THREE_Y + 43), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_THREE_Y + 43), CGPointMake(LINE_PADDING, ROW_FOUR_Y + 43), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_FOUR_Y + 43), CGPointMake(160, ROW_ONE_Y -4), CGPointMake(160, ROW_TWO_Y + 42), CGPointMake(160, ROW_THREE_Y-4), CGPointMake(160, ROW_FIVE_Y + 42)};
+    CGPoint lineSegments[] = {CGPointMake(LINE_PADDING, ROW_ONE_Y + LINE_Y_POINT), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_ONE_Y + LINE_Y_POINT),
+        CGPointMake(LINE_PADDING, ROW_THREE_Y + LINE_Y_POINT), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_THREE_Y + LINE_Y_POINT), CGPointMake(LINE_PADDING, ROW_FOUR_Y + LINE_Y_POINT), CGPointMake(SCREEN_WIDTH - LINE_PADDING, ROW_FOUR_Y + LINE_Y_POINT), CGPointMake(MIDDLE_SCREEN_X, ROW_ONE_Y), CGPointMake(MIDDLE_SCREEN_X, ROW_TWO_Y + ROW_HEIGHT), CGPointMake(MIDDLE_SCREEN_X, ROW_THREE_Y), CGPointMake(MIDDLE_SCREEN_X, ROW_FIVE_Y + ROW_HEIGHT)};
     
     CGContextStrokeLineSegments(context, lineSegments, 10);
 }
@@ -58,7 +77,7 @@
     [self addLabelWithHeading:@"Total Bitcoins" value:[RWChartDataManager sharedChartDataManager].totalBitcoinsInCirculation atPoint:CGPointMake(LABEL_RIGHT_X, ROW_ONE_Y)];
     [self addLabelWithHeading:@"Trade Volume BTC" value:[RWChartDataManager sharedChartDataManager].tradeVolumeBTC atPoint:CGPointMake(LABEL_LEFT_X, ROW_TWO_Y)];
     [self addLabelWithHeading:@"Trade Volume USD" value:[RWChartDataManager sharedChartDataManager].tradeVolumeUSD atPoint:CGPointMake(LABEL_RIGHT_X, ROW_TWO_Y)];
-    
+
     [self addLabelWithHeading:@"Block Time" value:[RWChartDataManager sharedChartDataManager].blockTime atPoint:CGPointMake(LABEL_LEFT_X, ROW_THREE_Y)];
     [self addLabelWithHeading:@"Number of Transactions" value:[RWChartDataManager sharedChartDataManager].numberOfTransactions atPoint:CGPointMake(LABEL_RIGHT_X, ROW_THREE_Y)];
     [self addLabelWithHeading:@"Hash Rate" value:[RWChartDataManager sharedChartDataManager].hashRate atPoint:CGPointMake(LABEL_LEFT_X, ROW_FOUR_Y)];
@@ -68,34 +87,43 @@
 }
 
 -(void) addLatestPriceLabel {
-    self.latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 100)];
+    self.latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CURRENT_PRICE_Y, SCREEN_WIDTH, CURRENT_PRICE_HEIGHT)];
     [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
-    [self.latestPriceLabel setFont: [UIFont boldSystemFontOfSize:60.0]];
+    [self.latestPriceLabel setFont: LARGE_LABEL_FONT];
     [self.latestPriceLabel setTextAlignment:NSTextAlignmentCenter];
     [self.latestPriceLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
     [self addSubview:self.latestPriceLabel];
 }
 
 -(void) addLabelWithHeading:(NSString*)heading value:(NSString*)value atPoint:(CGPoint)point {
-    
-    UILabel* genericHeadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, LABEL_WIDTH, 20)];
+
+    UILabel* genericHeadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT)];
     [genericHeadingLabel setText:heading];
-    [genericHeadingLabel setFont: [UIFont systemFontOfSize:11.0]];
+    [genericHeadingLabel setFont: SMALL_LABEL_FONT];
     [genericHeadingLabel setTextAlignment:NSTextAlignmentCenter];
     [genericHeadingLabel setTextColor:[UIColor darkGrayColor]];
+//    [genericHeadingLabel setBackgroundColor:[UIColor redColor]];
     
-    UILabel* genericValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y + 16, LABEL_WIDTH, 20)];
+    UILabel* genericValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, genericHeadingLabel.frame.origin.y + genericHeadingLabel.frame.size.height + MIDDLE_SECTION_VERTICAL_GAP, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT)];
     [genericValueLabel setText:value];
-    [genericValueLabel setFont: [UIFont systemFontOfSize:11.0]];
+    [genericValueLabel setFont: SMALL_LABEL_FONT];
     [genericValueLabel setTextAlignment:NSTextAlignmentCenter];
     [genericValueLabel setTextColor:[UIColor blackColor]];
+//        [genericValueLabel setBackgroundColor:[UIColor greenColor]];
     
     [self addSubview:genericHeadingLabel];
     [self addSubview:genericValueLabel];
 }
 
 -(void) updatePrice {
+    
+//    [self.latestPriceLabel setAlpha:0.4];
     [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
+//    [UIView animateWithDuration:0.6 animations:^{
+//            [self.latestPriceLabel setAlpha:1.0];
+//        NSLog(@"sdfsd");
+//    }];
+    
 }
 
 @end

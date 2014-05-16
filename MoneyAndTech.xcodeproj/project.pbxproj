@@ -105,6 +105,7 @@
 		36E5256E19257C8200214899 /* noise-light-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256D19257C8200214899 /* noise-light-gray.png */; };
 		36E52570192585DD00214899 /* noise-light-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256F192585DD00214899 /* noise-light-blue@2x.png */; };
 		36E52572192586E900214899 /* noise-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E52571192586E900214899 /* noise-dark-blue.png */; };
+		36E525751925A3B100214899 /* UILabel+updateFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E525741925A3B100214899 /* UILabel+updateFrame.m */; };
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
@@ -256,6 +257,8 @@
 		36E5256D19257C8200214899 /* noise-light-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray.png"; sourceTree = "<group>"; };
 		36E5256F192585DD00214899 /* noise-light-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-blue@2x.png"; sourceTree = "<group>"; };
 		36E52571192586E900214899 /* noise-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue.png"; sourceTree = "<group>"; };
+		36E525731925A3B100214899 /* UILabel+updateFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+updateFrame.h"; sourceTree = "<group>"; };
+		36E525741925A3B100214899 /* UILabel+updateFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+updateFrame.m"; sourceTree = "<group>"; };
 		36F5393A19201FF900CC2442 /* RWPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPriceViewController.h; sourceTree = "<group>"; };
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
@@ -582,6 +585,8 @@
 				360786E618E8B3CE0045AF0F /* RWXPathStripper.m */,
 				36F5394119202B1600CC2442 /* UIViewController+ActivitySpinner.h */,
 				36F5394219202B1600CC2442 /* UIViewController+ActivitySpinner.m */,
+				36E525731925A3B100214899 /* UILabel+updateFrame.h */,
+				36E525741925A3B100214899 /* UILabel+updateFrame.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */,
 				360786EA18EA1A9A0045AF0F /* RWExternalWebViewController.m in Sources */,
 				36CB28E518DA456C00476E15 /* main.m in Sources */,
+				36E525751925A3B100214899 /* UILabel+updateFrame.m in Sources */,
 				367406F5191D7DE000D78C8E /* RWChartDataManager.m in Sources */,
 				3607869718E607E50045AF0F /* RWWebSectionViewController.m in Sources */,
 				360786D618E8B2640045AF0F /* TFHppleElement.m in Sources */,
