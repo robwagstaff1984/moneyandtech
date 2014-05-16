@@ -17,6 +17,8 @@
 #define HTML_OPEN @"<html><body>"
 #define HTML_CLOSE @"</body></html>"
 
+#define X_PADDING 16
+
 @interface RWXPathStripper()
 
 @property (nonatomic, strong) NSMutableArray* videoPosts;
@@ -221,7 +223,7 @@
     
     if (originalWidth > 300) {
         float originalRatio = (float)originalHeight / (float)originalWidth;
-        int newWidth = SCREEN_WIDTH - 20;
+        int newWidth = SCREEN_WIDTH - X_PADDING;
         int newHeight = newWidth * originalRatio;
         
         htmlToBeFormatted = [self updateWidth:newWidth forFormattedVideoElement:htmlToBeFormatted];

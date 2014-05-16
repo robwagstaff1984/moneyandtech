@@ -15,8 +15,15 @@
 #import "RWChartDataManager.h"
 #import "RWXAxisView.h"
 #import "UIViewController+ActivitySpinner.h"
-#define TITLE_PICKER_WIDTH 320
+#define TITLE_PICKER_WIDTH  SCREEN_WIDTH
+#define TITLE_PICKER_HEIGHT  (isIPad ? 160 : 80)
 #define ARROWS_AND_SPACE_WIDTH 32
+#define PICKER_VIEW_FONT [UIFont boldSystemFontOfSize:isIPad ? 55.0 :28.0]
+#define ARROW_Y (NAV_BAR_HEIGHT + (isIPad ? 81 : 41))
+#define ARROW_X (isIPad ? 24 : 8)
+#define ALTERNATE_DATA_PERIODS_FONT [UIFont boldSystemFontOfSize:(isIPad ? 20 : 11.0 )]
+#define ALTERNATE_DATA_PERIODS_WIDTH (isIPad ? 520 : 280)
+#define ALTERNATE_DATA_PERIODS_HEIGHT (isIPad ? 40 : 28)
 
 
 @interface RWChartsViewController ()
@@ -83,7 +90,7 @@
 #pragma mark - charts chooser
 -(void) addHorizontalChartsPickerView {
     
-    self.horizontalPickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10 + NAV_BAR_HEIGHT, TITLE_PICKER_WIDTH, 80)];
+    self.horizontalPickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - TITLE_PICKER_WIDTH)/2, 10 + NAV_BAR_HEIGHT, TITLE_PICKER_WIDTH, TITLE_PICKER_HEIGHT)];
 	self.horizontalPickerView.delegate    = self;
 	self.horizontalPickerView.dataSource  = self;
 	self.horizontalPickerView.selectionPoint = CGPointMake(60, 0);
@@ -100,11 +107,11 @@
 }
 
 -(void) addChartSwitchArrows {
-    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(8, 41, 16, 23)];
+    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(ARROW_X, ARROW_Y, 16, 23)];
     [self.leftChartArrow setBackgroundImage:[UIImage imageNamed:@"LeftChartArrow.png"] forState:UIControlStateNormal];
     [self.leftChartArrow addTarget:self action:@selector(leftChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
-    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 24, 41, 16, 23)];
+    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - ARROW_X - 15, ARROW_Y, 16, 23)];
     [self.rightChartArrow setBackgroundImage:[UIImage imageNamed:@"RightChartArrow.png"] forState:UIControlStateNormal];
         [self.rightChartArrow addTarget:self action:@selector(rightChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
@@ -124,14 +131,14 @@
 }
 
 -(void) hideAndShowAppropriateArrows {
-    self.leftChartArrow.hidden = self.horizontalPickerView.currentSelectedIndex == 0;
+    self.leftChartArrow.hidden = self.horizontalPickerView.currentSelectedIndex == 0 || self.horizontalPickerView.currentSelectedIndex == -1;
     self.rightChartArrow.hidden = self.horizontalPickerView.currentSelectedIndex == self.horizontalPickerView.numberOfElements - 1;
 }
 
 #pragma mark - chart view
 -(void) setupChartView {
 
-    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height + 25, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
+    self.chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, self.datePeriodSegmentedControl.frame.origin.y + self.datePeriodSegmentedControl.frame.size.height + 28, SCREEN_WIDTH, SCREEN_WIDTH * 0.8)];
     self.chartView.yMin = 0;
     self.chartView.drawsDataPoints = NO;
     self.chartView.axisLabelColor = [UIColor blackColor];
@@ -179,9 +186,10 @@
 -(void) addAlternateDataPeriodButtons {
     self.datePeriodSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Week", @"Month", @"6 Months", @"Year", @"All Time"]];
 
-    self.datePeriodSegmentedControl.frame = CGRectMake(20, self.horizontalPickerView.frame.origin.y + self.horizontalPickerView.frame.size.height + 15, 280, 28);
+    self.datePeriodSegmentedControl.frame = CGRectMake((SCREEN_WIDTH - ALTERNATE_DATA_PERIODS_WIDTH)/ 2, self.horizontalPickerView.frame.origin.y + self.horizontalPickerView.frame.size.height + 15, ALTERNATE_DATA_PERIODS_WIDTH, ALTERNATE_DATA_PERIODS_HEIGHT);
     [self.datePeriodSegmentedControl addTarget:self action:@selector(switchDataPeriods:) forControlEvents:UIControlEventValueChanged];
-    [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:11.0], NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];
+    [self.datePeriodSegmentedControl setTitleTextAttributes:@{NSFontAttributeName: ALTERNATE_DATA_PERIODS_FONT, NSForegroundColorAttributeName:MONEY_AND_TECH_DARK_BLUE} forState:UIControlStateNormal];
+    [self.datePeriodSegmentedControl setTintColor:MONEY_AND_TECH_DARK_BLUE];
 	[self.view addSubview:self.datePeriodSegmentedControl];
 }
 
@@ -231,8 +239,8 @@
 }
 
 -(V8HorizontalPickerLabel*) createPickerViewLabel {
-    V8HorizontalPickerLabel* pickerViewLabel = [[V8HorizontalPickerLabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_PICKER_WIDTH,80)];
-    [pickerViewLabel  setFont:[UIFont boldSystemFontOfSize:28]];
+    V8HorizontalPickerLabel* pickerViewLabel = [[V8HorizontalPickerLabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_PICKER_WIDTH,TITLE_PICKER_HEIGHT)];
+    [pickerViewLabel setFont:PICKER_VIEW_FONT];
     [pickerViewLabel setTextAlignment:NSTextAlignmentCenter];
     pickerViewLabel.numberOfLines = 2;
     [pickerViewLabel setSelectedStateColor:MONEY_AND_TECH_DARK_BLUE];

@@ -101,29 +101,20 @@
     [genericHeadingLabel setText:heading];
     [genericHeadingLabel setFont: SMALL_LABEL_FONT];
     [genericHeadingLabel setTextAlignment:NSTextAlignmentCenter];
-    [genericHeadingLabel setTextColor:[UIColor darkGrayColor]];
-//    [genericHeadingLabel setBackgroundColor:[UIColor redColor]];
+    [genericHeadingLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
     
     UILabel* genericValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(point.x, genericHeadingLabel.frame.origin.y + genericHeadingLabel.frame.size.height + MIDDLE_SECTION_VERTICAL_GAP, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT)];
     [genericValueLabel setText:value];
     [genericValueLabel setFont: SMALL_LABEL_FONT];
     [genericValueLabel setTextAlignment:NSTextAlignmentCenter];
     [genericValueLabel setTextColor:[UIColor blackColor]];
-//        [genericValueLabel setBackgroundColor:[UIColor greenColor]];
     
     [self addSubview:genericHeadingLabel];
     [self addSubview:genericValueLabel];
 }
 
 -(void) updatePrice {
-    
-//    [self.latestPriceLabel setAlpha:0.4];
     [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
-//    [UIView animateWithDuration:0.6 animations:^{
-//            [self.latestPriceLabel setAlpha:1.0];
-//        NSLog(@"sdfsd");
-//    }];
-    
 }
 
 @end

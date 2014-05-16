@@ -99,13 +99,13 @@
 		36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */; };
 		36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */; };
 		36E5256219255D1800214899 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */; };
-		36E525671925720000214899 /* noise-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525631925720000214899 /* noise-dark-blue.png */; };
 		36E525681925720000214899 /* noise-dark-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525641925720000214899 /* noise-dark-blue@2x.png */; };
 		36E5256C1925776E00214899 /* noise-light-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256B1925776E00214899 /* noise-light-gray@2x.png */; };
 		36E5256E19257C8200214899 /* noise-light-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256D19257C8200214899 /* noise-light-gray.png */; };
 		36E52570192585DD00214899 /* noise-light-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256F192585DD00214899 /* noise-light-blue@2x.png */; };
 		36E52572192586E900214899 /* noise-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E52571192586E900214899 /* noise-dark-blue.png */; };
 		36E525751925A3B100214899 /* UILabel+updateFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E525741925A3B100214899 /* UILabel+updateFrame.m */; };
+		36E525771926BAEE00214899 /* noise-light-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E525761926BAEE00214899 /* noise-light-blue.png */; };
 		36F5393C19201FF900CC2442 /* RWPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F5393B19201FF900CC2442 /* RWPriceViewController.m */; };
 		36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393D1920214A00CC2442 /* PriceIcon.png */; };
 		36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F5393E1920214A00CC2442 /* PriceIcon@2x.png */; };
@@ -251,7 +251,6 @@
 		36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWConfiguration.m; sourceTree = "<group>"; };
 		36E5256019255D1800214899 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		36E525631925720000214899 /* noise-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue.png"; sourceTree = "<group>"; };
 		36E525641925720000214899 /* noise-dark-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue@2x.png"; sourceTree = "<group>"; };
 		36E5256B1925776E00214899 /* noise-light-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray@2x.png"; sourceTree = "<group>"; };
 		36E5256D19257C8200214899 /* noise-light-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-gray.png"; sourceTree = "<group>"; };
@@ -259,6 +258,7 @@
 		36E52571192586E900214899 /* noise-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-dark-blue.png"; sourceTree = "<group>"; };
 		36E525731925A3B100214899 /* UILabel+updateFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+updateFrame.h"; sourceTree = "<group>"; };
 		36E525741925A3B100214899 /* UILabel+updateFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+updateFrame.m"; sourceTree = "<group>"; };
+		36E525761926BAEE00214899 /* noise-light-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-light-blue.png"; sourceTree = "<group>"; };
 		36F5393A19201FF900CC2442 /* RWPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWPriceViewController.h; sourceTree = "<group>"; };
 		36F5393B19201FF900CC2442 /* RWPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWPriceViewController.m; sourceTree = "<group>"; };
 		36F5393D1920214A00CC2442 /* PriceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PriceIcon.png; sourceTree = "<group>"; };
@@ -348,9 +348,9 @@
 				365282F41921816E00D50F0A /* LeftChartArrow@2x.png */,
 				365282F51921816E00D50F0A /* RightChartArrow.png */,
 				365282F61921816E00D50F0A /* RightChartArrow@2x.png */,
-				36E525631925720000214899 /* noise-dark-blue.png */,
 				36E52571192586E900214899 /* noise-dark-blue.png */,
 				36E525641925720000214899 /* noise-dark-blue@2x.png */,
+				36E525761926BAEE00214899 /* noise-light-blue.png */,
 				36E5256F192585DD00214899 /* noise-light-blue@2x.png */,
 				36E5256D19257C8200214899 /* noise-light-gray.png */,
 				36E5256B1925776E00214899 /* noise-light-gray@2x.png */,
@@ -680,6 +680,7 @@
 				36C625131908721C0014F082 /* Icon-72@2x.png in Resources */,
 				36C6251B1908721C0014F082 /* Icon@2x.png in Resources */,
 				363BA3F01918489B00277708 /* LaunchImageIPad.png in Resources */,
+				36E525771926BAEE00214899 /* noise-light-blue.png in Resources */,
 				36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */,
 				36C6251C1908721C0014F082 /* iTunesArtwork.png in Resources */,
 				367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */,
@@ -712,7 +713,6 @@
 				36F539401920214A00CC2442 /* PriceIcon@2x.png in Resources */,
 				36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */,
 				365895E419118D18005FAD8A /* tabBarButtonBackground@2x.png in Resources */,
-				36E525671925720000214899 /* noise-dark-blue.png in Resources */,
 				36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */,
 				36E525681925720000214899 /* noise-dark-blue@2x.png in Resources */,
 				36CB291B18DB934A00476E15 /* VideosIcon@2x.png in Resources */,
