@@ -30,7 +30,9 @@ typedef enum {
 @property (nonatomic, strong) NSMutableArray* chartDataItems;
 @property (nonatomic, copy) void (^successBlock)(RWChart*);
 @property (nonatomic, strong) NSString* labelPrefix;
+@property (nonatomic, strong) NSString* labelSuffix;
 @property (nonatomic) DataPeriod dataPeriod;
+@property (nonatomic) BOOL shouldScaleValues;
 
 @property (nonatomic, assign) float yMin;
 @property (nonatomic, assign) float yMax;

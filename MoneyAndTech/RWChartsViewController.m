@@ -103,7 +103,7 @@
 }
 
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
-    return 3;
+    return 7;
 }
 
 -(void) addChartSwitchArrows {

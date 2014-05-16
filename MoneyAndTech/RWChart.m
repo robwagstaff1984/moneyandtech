@@ -41,6 +41,7 @@
         [self.axisNumberFormatter setMaximumFractionDigits:0];
         self.chartDataItems = [[NSMutableArray alloc] init];
         self.labelPrefix = @"";
+        self.labelSuffix = @"";
     }
     return self;
 }
@@ -71,6 +72,10 @@
         RWChartDataItem* chartDataItem = [[RWChartDataItem alloc] init];
         chartDataItem.x = [self.chartRawValues[i][@"x"] intValue];
         chartDataItem.y = [self.chartRawValues[i][@"y"] floatValue];
+        if(self.shouldScaleValues) {
+            chartDataItem.y = (chartDataItem.y / 1000.0);
+        }
+        
         chartDataItem.xLabel = [self formattedDate:chartDataItem.x];
 
         chartDataItem.yLabel = [self displayLabelForValue:chartDataItem.y];
@@ -85,6 +90,9 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", [self currentDataPeriodRawValue]];
             self.cachedMaxPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+            if(self.shouldScaleValues) {
+                self.cachedMaxPrice = [NSNumber numberWithDouble:[self.cachedMaxPrice doubleValue] / 1000.0];
+            }
             dispatch_semaphore_signal(sema);
 
         });
@@ -100,6 +108,9 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSPredicate *minPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@min.y", [self currentDataPeriodRawValue]];
         minPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minPricePredicate][0][@"y"];
+        if(self.shouldScaleValues) {
+            minPrice = [NSNumber numberWithDouble:[minPrice doubleValue] / 1000.0];
+        }
         dispatch_semaphore_signal(sema);
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -193,15 +204,15 @@
 
 #pragma mark - helpers
 -(NSString*) displayLabelForValue:(float)value {
-    if([self.labelPrefix isEqualToString:@"$"] && value < 1000000 ) {
+    if(([self.labelPrefix isEqualToString:@"$"] && value < 1000000) || [self.labelSuffix isEqualToString:@" GB"]) {
         [self.labelNumberFormatter setMinimumFractionDigits:2];
         [self.labelNumberFormatter setMaximumFractionDigits:2];
     }
-    return [NSString stringWithFormat:@"%@%@", self.labelPrefix, [self.labelNumberFormatter stringFromNumber:@(value)]];
+    return [NSString stringWithFormat:@"%@%@%@", self.labelPrefix, [self.labelNumberFormatter stringFromNumber:@(value)], self.labelSuffix];
 }
 
 -(NSString*) displayAxisForValue:(float)value {
-    return [NSString stringWithFormat:@"%@%@", self.labelPrefix, [self.axisNumberFormatter stringFromNumber:@(value)]];
+    return [NSString stringWithFormat:@"%@%@%@", self.labelPrefix, [self.axisNumberFormatter stringFromNumber:@(value)], self.labelSuffix];
 }
 
 #pragma mark - override setters
@@ -213,6 +224,10 @@
 -(void) setLabelPrefix:(NSString *)labelPrefix {
     _labelPrefix = labelPrefix;
 
+}
+
+-(void) setLabelSuffix:(NSString *)labelSuffix {
+    _labelSuffix = labelSuffix;
 }
 
 @end

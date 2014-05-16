@@ -20,14 +20,22 @@
 #define USD_EXCHANGE_TRADE_VOLUME_URL [NSURL URLWithString:@"https://blockchain.info/charts/trade-volume?timespan=all&format=json"]
 #define USD_EXCHANGE_TRADE_VOLUME_TITLE @"USD Exchange\nTrade Volume"
 
+#define TOTAL_TRANSACTION_FEES_TITLE @"Total Transaction\nFees"
+#define TOTAL_TRANSACTION_FEES_URL [NSURL URLWithString:@"https://blockchain.info/charts/transaction-fees?timespan=all&format=json"]
+
+#define HASH_RATE_TITLE @"Hash Rate"
+#define HASH_RATE_URL [NSURL URLWithString:@"https://blockchain.info/charts/hash-rate?timespan=all&format=json"]
+
+#define AVERAGE_BLOCK_CONFIRMATION_TIME_TITLE @"Average Block\nConfirmation Time"
+#define AVERAGE_BLOCK_CONFIRMATION_TIME_URL [NSURL URLWithString:@"https://blockchain.info/charts/avg-confirmation-time?timespan=all&format=json"]
+
+#define BLOCKCHAIN_SIZE_TITLE @"Blockchain Size"
+#define BLOCKCHAIN_SIZE_URL [NSURL URLWithString:@"https://blockchain.info/charts/blocks-size?timespan=all&format=json"]
+
 #define CURRENT_PRICE_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/ticker?format=json"]]
 #define STATS_URL_REQUEST [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://blockchain.info/stats?format=json"]]
 
-
-
-
-
-#define NUMBER_OF_CHARTS 3
+#define NUMBER_OF_CHARTS 7
 
 @implementation RWChartDataManager
 
@@ -42,17 +50,40 @@
 }
 
 -(void) retrieveData {
-    
     NSLog(@"start load chart");
-    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE chartNumber:0 URL:MARKET_PRICE_USD_URL];
-    marketPriceUSDChart.labelPrefix = @"$";
-    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE chartNumber:1 URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
-    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:2 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
-    usdExchangeVolumeChart.labelPrefix = @"$";
-
-    NSArray* dataRequestOperations = @[[self dataRequestOperationForLatestPrice], [self dataRequestOperationForStats], [self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart]];
+    
+    NSArray* dataRequestOperations = @[[self dataRequestOperationForLatestPrice], [self dataRequestOperationForStats]];
+    dataRequestOperations = [dataRequestOperations arrayByAddingObjectsFromArray:[self chartDataRequestOperations]];
 
     [[RWAFHTTPRequestOperationManager sharedJSONRequestOperationManager].operationQueue addOperations:dataRequestOperations waitUntilFinished:NO];
+}
+
+-(NSArray*) chartDataRequestOperations {
+    RWChart* marketPriceUSDChart = [[RWChart alloc] initWithTitle:MARKET_PRICE_USD_TITLE chartNumber:0 URL:MARKET_PRICE_USD_URL];
+    marketPriceUSDChart.labelPrefix = @"$";
+    
+    RWChart* numberOfTransactionsPerDayChart = [[RWChart alloc] initWithTitle:NUMBER_OF_TRANSACTIONS_PER_DAY_TITLE chartNumber:1 URL:NUMBER_OF_TRANSACTIONS_PER_DAY_URL];
+    
+    RWChart* usdExchangeVolumeChart = [[RWChart alloc] initWithTitle:USD_EXCHANGE_TRADE_VOLUME_TITLE chartNumber:2 URL:USD_EXCHANGE_TRADE_VOLUME_URL];
+    usdExchangeVolumeChart.labelPrefix = @"$";
+    
+    RWChart* averageBlockConfirmationTimeChart = [[RWChart alloc] initWithTitle:AVERAGE_BLOCK_CONFIRMATION_TIME_TITLE chartNumber:3 URL:AVERAGE_BLOCK_CONFIRMATION_TIME_URL];
+    averageBlockConfirmationTimeChart.labelSuffix = @" mins";
+    
+    RWChart* hashRateChart = [[RWChart alloc] initWithTitle:HASH_RATE_TITLE chartNumber:4 URL:HASH_RATE_URL];
+    hashRateChart.labelSuffix = @" TH/s";
+    hashRateChart.shouldScaleValues = YES;
+
+    RWChart* totalTransactionFeesChart = [[RWChart alloc] initWithTitle:TOTAL_TRANSACTION_FEES_TITLE chartNumber:5 URL:TOTAL_TRANSACTION_FEES_URL];
+    totalTransactionFeesChart.labelSuffix = @" BTC";
+    
+    RWChart* blockChainSizeChart = [[RWChart alloc] initWithTitle:BLOCKCHAIN_SIZE_TITLE chartNumber:6 URL:BLOCKCHAIN_SIZE_URL];
+    blockChainSizeChart.labelSuffix = @" GB";
+    blockChainSizeChart.shouldScaleValues = YES;
+    
+    NSArray* chartDataRequestOperations = @[[self dataRequestOperationForChart:marketPriceUSDChart], [self dataRequestOperationForChart:numberOfTransactionsPerDayChart], [self dataRequestOperationForChart:usdExchangeVolumeChart], [self dataRequestOperationForChart:totalTransactionFeesChart], [self dataRequestOperationForChart:hashRateChart], [self dataRequestOperationForChart:averageBlockConfirmationTimeChart], [self dataRequestOperationForChart:blockChainSizeChart]];
+    
+    return chartDataRequestOperations;
 }
 
 -(void) retrieveLatestPrice {
