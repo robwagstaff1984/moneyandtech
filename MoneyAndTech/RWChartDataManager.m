@@ -164,8 +164,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:BITCOIN_STATISTICS_DOWNLOADED object:self userInfo:nil];
 }
 
--(NSString*) calculatePercentChange:(id)responseObject {
-    return @"TEMP %";
+-(double) percentChange {
+    double latestPrice = [[self.latestPrice substringFromIndex:1] doubleValue];
+    double openingPrice = [[self.openingPrice substringFromIndex:1] doubleValue];
+    return  (1 - (openingPrice / latestPrice)) * 100;
 }
 
 

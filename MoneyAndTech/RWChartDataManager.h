@@ -13,7 +13,6 @@
 //PRICE
 @property (nonatomic, strong) NSString* openingPrice;
 @property (nonatomic, strong) NSString* latestPrice;
-@property (nonatomic, strong) NSString* percentChange;
 
 //MARKET
 @property (nonatomic, strong) NSString* marketCap;
@@ -34,4 +33,5 @@
 +(RWChartDataManager*) sharedChartDataManager;
 -(void) retrieveData;
 -(void) retrieveLatestPrice;
+-(double) percentChange;
 @end

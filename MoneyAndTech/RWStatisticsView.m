@@ -43,6 +43,8 @@
 
 @interface RWStatisticsView()
 @property (nonatomic, strong) UILabel* latestPriceLabel;
+@property (nonatomic, strong) UILabel* priceChangeLabel;
+@property (nonatomic, strong) UIImageView* priceChangeArrow;
 @end
 
 @implementation RWStatisticsView
@@ -72,6 +74,7 @@
     
     self.backgroundColor = MONEY_AND_TECH_GREY;
     [self addLatestPriceLabel];
+    [self addPriceChangeLabel];
     
     [self addLabelWithHeading:@"Market cap" value:[RWChartDataManager sharedChartDataManager].marketCap atPoint:CGPointMake(LABEL_LEFT_X, ROW_ONE_Y)];
     [self addLabelWithHeading:@"Total Bitcoins" value:[RWChartDataManager sharedChartDataManager].totalBitcoinsInCirculation atPoint:CGPointMake(LABEL_RIGHT_X, ROW_ONE_Y)];
@@ -87,12 +90,36 @@
 }
 
 -(void) addLatestPriceLabel {
-    self.latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CURRENT_PRICE_Y, SCREEN_WIDTH, CURRENT_PRICE_HEIGHT)];
+    self.latestPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CURRENT_PRICE_Y, SCREEN_WIDTH - 50, CURRENT_PRICE_HEIGHT)];
     [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
     [self.latestPriceLabel setFont: LARGE_LABEL_FONT];
     [self.latestPriceLabel setTextAlignment:NSTextAlignmentCenter];
     [self.latestPriceLabel setTextColor:MONEY_AND_TECH_DARK_BLUE];
     [self addSubview:self.latestPriceLabel];
+}
+
+-(void) addPriceChangeLabel {
+    self.priceChangeArrow = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 70, CURRENT_PRICE_Y + 54, 20, 20)];
+    
+    self.priceChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 46, CURRENT_PRICE_Y + 58, 40, 18) ];
+    [self.priceChangeLabel setFont:[UIFont systemFontOfSize:11]];
+
+    [self addSubview:self.priceChangeLabel];
+    [self addSubview:self.priceChangeArrow];
+    [self updatePriceChange];
+}
+
+-(void) updatePriceChange {
+    double percentChange = [RWChartDataManager sharedChartDataManager].percentChange;
+    [self.priceChangeLabel setText:[NSString stringWithFormat:@"%.2f%%", percentChange]];
+    
+    if (percentChange >= 0) {
+        [self.priceChangeLabel setTextColor:[UIColor colorWithRed:0 green:180.0/255.0 blue:0 alpha:1.0]];
+        [self.priceChangeArrow setImage:[UIImage imageNamed:@"priceUpArrow.png"]];
+    } else {
+        [self.priceChangeLabel setTextColor:[UIColor colorWithRed:180/255.0 green:0/255.0 blue:0 alpha:1.0]];
+        [self.priceChangeArrow setImage:[UIImage imageNamed:@"priceDownArrow.png"]];
+    }
 }
 
 -(void) addLabelWithHeading:(NSString*)heading value:(NSString*)value atPoint:(CGPoint)point {
@@ -115,6 +142,7 @@
 
 -(void) updatePrice {
     [self.latestPriceLabel setText:[RWChartDataManager sharedChartDataManager].latestPrice];
+    [self updatePriceChange];
 }
 
 @end

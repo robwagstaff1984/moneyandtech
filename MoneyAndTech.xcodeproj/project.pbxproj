@@ -30,6 +30,8 @@
 		3607870618F365230045AF0F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870518F365230045AF0F /* Parse.framework */; };
 		3607870A18F365EC0045AF0F /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 3607870918F365EC0045AF0F /* FBMissingSymbols.m */; };
 		3607870B18F366480045AF0F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3607870718F3656F0045AF0F /* Accounts.framework */; };
+		360B128E1927042D0033BEF3 /* priceDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 360B128C1927042D0033BEF3 /* priceDownArrow.png */; };
+		360B128F1927042D0033BEF3 /* priceUpArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 360B128D1927042D0033BEF3 /* priceUpArrow.png */; };
 		362048F91909C4CC00A1C10C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 362048F81909C4CC00A1C10C /* Reachability.m */; };
 		363BA3F01918489B00277708 /* LaunchImageIPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3EC1918489B00277708 /* LaunchImageIPad.png */; };
 		363BA3F11918489B00277708 /* LaunchImageIPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363BA3ED1918489B00277708 /* LaunchImageIPad@2x.png */; };
@@ -155,6 +157,8 @@
 		3607870518F365230045AF0F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		3607870718F3656F0045AF0F /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		3607870918F365EC0045AF0F /* FBMissingSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBMissingSymbols.m; sourceTree = "<group>"; };
+		360B128C1927042D0033BEF3 /* priceDownArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = priceDownArrow.png; sourceTree = "<group>"; };
+		360B128D1927042D0033BEF3 /* priceUpArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = priceUpArrow.png; sourceTree = "<group>"; };
 		362048F71909C4CC00A1C10C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		362048F81909C4CC00A1C10C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		363BA3EC1918489B00277708 /* LaunchImageIPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageIPad.png; sourceTree = "<group>"; };
@@ -305,6 +309,8 @@
 		3607869118E6010D0045AF0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				360B128C1927042D0033BEF3 /* priceDownArrow.png */,
+				360B128D1927042D0033BEF3 /* priceUpArrow.png */,
 				363BA3EC1918489B00277708 /* LaunchImageIPad.png */,
 				363BA3ED1918489B00277708 /* LaunchImageIPad@2x.png */,
 				363BA3EE1918489B00277708 /* LaunchImageIPhone4inch.png */,
@@ -675,7 +681,9 @@
 				36C6251B1908721C0014F082 /* Icon@2x.png in Resources */,
 				363BA3F01918489B00277708 /* LaunchImageIPad.png in Resources */,
 				36E525771926BAEE00214899 /* noise-light-blue.png in Resources */,
+				360B128E1927042D0033BEF3 /* priceDownArrow.png in Resources */,
 				36F5393F1920214A00CC2442 /* PriceIcon.png in Resources */,
+				360B128F1927042D0033BEF3 /* priceUpArrow.png in Resources */,
 				36C6251C1908721C0014F082 /* iTunesArtwork.png in Resources */,
 				367406D9191AF17100D78C8E /* ChartsIcon.png in Resources */,
 				36C625111908721C0014F082 /* Icon-60@2x.png in Resources */,
