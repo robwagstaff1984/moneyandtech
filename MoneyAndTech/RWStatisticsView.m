@@ -37,6 +37,14 @@
 
 #define MIDDLE_SCREEN_X (SCREEN_WIDTH / 2)
 
+#define PRICE_ARROW_SIZE (isIPad ? 40 : 20)
+#define PRICE_ARROW_X (isIPad ? SCREEN_WIDTH - 170 : SCREEN_WIDTH - 70)
+#define PRICE_ARROW_Y (isIPad ? CURRENT_PRICE_Y + 106:  CURRENT_PRICE_Y + 54)
+#define PRICE_CHANGE_X (PRICE_ARROW_X + PRICE_ARROW_SIZE + (isIPad ? 4 : 2))
+#define PRICE_CHANGE_Y (PRICE_ARROW_Y + (isIPad? 12 : 5))
+#define PRICE_CHANGE_WIDTH (isIPad ? 120 : 50)
+#define PRICE_CHANGE_HEIGHT (isIPad? 25 : 18)
+
 #define SMALL_LABEL_FONT [UIFont systemFontOfSize:isIPad? 28 : 11.0]
 #define LARGE_LABEL_FONT [UIFont boldSystemFontOfSize:isIPad? 120 : 60.0]
 
@@ -99,10 +107,10 @@
 }
 
 -(void) addPriceChangeLabel {
-    self.priceChangeArrow = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 70, CURRENT_PRICE_Y + 54, 20, 20)];
+    self.priceChangeArrow = [[UIImageView alloc] initWithFrame:CGRectMake(PRICE_ARROW_X, PRICE_ARROW_Y, PRICE_ARROW_SIZE, PRICE_ARROW_SIZE)];
     
-    self.priceChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 46, CURRENT_PRICE_Y + 58, 40, 18) ];
-    [self.priceChangeLabel setFont:[UIFont systemFontOfSize:11]];
+    self.priceChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(PRICE_CHANGE_X, PRICE_CHANGE_Y, PRICE_CHANGE_WIDTH, PRICE_CHANGE_HEIGHT) ];
+    [self.priceChangeLabel setFont:[UIFont systemFontOfSize:isIPad ? 25 : 11]];
 
     [self addSubview:self.priceChangeLabel];
     [self addSubview:self.priceChangeArrow];
