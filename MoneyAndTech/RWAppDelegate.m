@@ -37,7 +37,6 @@
     
     RWNavigationController *navigationController = [[RWNavigationController alloc] initWithRootViewController:[self setupAKTabBarController]];
     
-    
     return navigationController;
 }
 

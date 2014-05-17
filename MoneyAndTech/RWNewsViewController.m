@@ -20,7 +20,6 @@
 {
     self = [super init];
     if (self) {
-        self.title = @"News";
     }
     return self;
 }

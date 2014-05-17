@@ -46,7 +46,7 @@
 {
     self = [super init];
     if (self) {
-        self.title = @"Charts";
+        self.title = @"MONEY & TECH";
     }
     return self;
 }

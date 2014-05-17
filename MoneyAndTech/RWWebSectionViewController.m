@@ -34,6 +34,7 @@
     self = [super init];
     if (self) {
         self.pageNumber = 1;
+        self.title = @"MONEY & TECH";
     }
     return self;
 }
