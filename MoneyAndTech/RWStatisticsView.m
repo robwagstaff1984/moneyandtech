@@ -84,12 +84,12 @@
     [self addLatestPriceLabel];
     [self addPriceChangeLabel];
     
-    [self addLabelWithHeading:@"Market cap" value:[RWChartDataManager sharedChartDataManager].marketCap atPoint:CGPointMake(LABEL_LEFT_X, ROW_ONE_Y)];
+    [self addLabelWithHeading:@"Market Cap" value:[RWChartDataManager sharedChartDataManager].marketCap atPoint:CGPointMake(LABEL_LEFT_X, ROW_ONE_Y)];
     [self addLabelWithHeading:@"Total Bitcoins" value:[RWChartDataManager sharedChartDataManager].totalBitcoinsInCirculation atPoint:CGPointMake(LABEL_RIGHT_X, ROW_ONE_Y)];
     [self addLabelWithHeading:@"Trade Volume BTC" value:[RWChartDataManager sharedChartDataManager].tradeVolumeBTC atPoint:CGPointMake(LABEL_LEFT_X, ROW_TWO_Y)];
     [self addLabelWithHeading:@"Trade Volume USD" value:[RWChartDataManager sharedChartDataManager].tradeVolumeUSD atPoint:CGPointMake(LABEL_RIGHT_X, ROW_TWO_Y)];
 
-    [self addLabelWithHeading:@"Block Time" value:[RWChartDataManager sharedChartDataManager].blockTime atPoint:CGPointMake(LABEL_LEFT_X, ROW_THREE_Y)];
+    [self addLabelWithHeading:@"Avg Block Time" value:[RWChartDataManager sharedChartDataManager].blockTime atPoint:CGPointMake(LABEL_LEFT_X, ROW_THREE_Y)];
     [self addLabelWithHeading:@"Number of Transactions" value:[RWChartDataManager sharedChartDataManager].numberOfTransactions atPoint:CGPointMake(LABEL_RIGHT_X, ROW_THREE_Y)];
     [self addLabelWithHeading:@"Hash Rate" value:[RWChartDataManager sharedChartDataManager].hashRate atPoint:CGPointMake(LABEL_LEFT_X, ROW_FOUR_Y)];
     [self addLabelWithHeading:@"Difficulty" value:[RWChartDataManager sharedChartDataManager].difficulty atPoint:CGPointMake(LABEL_RIGHT_X, ROW_FOUR_Y)];

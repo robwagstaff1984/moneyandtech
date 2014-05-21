@@ -195,7 +195,7 @@
 
 -(void) switchDataPeriods:(id)sender{
     [self.chartActivityIndicatorView startAnimating];
-    dispatch_after(0.01, dispatch_get_main_queue(), ^{
+    dispatch_after(.1, dispatch_get_main_queue(), ^{
         self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
         [self updateChartView];
     });

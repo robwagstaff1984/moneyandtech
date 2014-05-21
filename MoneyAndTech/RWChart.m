@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSNumber* cachedMinPrice;
 @property (nonatomic, strong) NSNumber* cachedMaxPrice;
 
+@property (nonatomic, strong) NSMutableArray* chartRawYValues;
+
 @end
 
 @implementation RWChart
@@ -40,6 +42,8 @@
         [self.axisNumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         [self.axisNumberFormatter setMaximumFractionDigits:0];
         self.chartDataItems = [[NSMutableArray alloc] init];
+        self.chartRawYValues = [[NSMutableArray alloc] init];
+        
         self.labelPrefix = @"";
         self.labelSuffix = @"";
     }
@@ -72,6 +76,8 @@
         RWChartDataItem* chartDataItem = [[RWChartDataItem alloc] init];
         chartDataItem.x = [self.chartRawValues[i][@"x"] intValue];
         chartDataItem.y = [self.chartRawValues[i][@"y"] floatValue];
+        
+        [self.chartRawYValues addObject:self.chartRawValues[i][@"y"]];
         if(self.shouldScaleValues) {
             chartDataItem.y = (chartDataItem.y / 1000.0);
         }
@@ -88,13 +94,11 @@
         self.cachedDataPeriod = self.dataPeriod;
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSPredicate *maxPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@max.y", [self currentDataPeriodRawValue]];
-            self.cachedMaxPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxPricePredicate][0][@"y"];
+            self.cachedMaxPrice = [[self currentDataPeriodRawYValue] valueForKeyPath:@"@max.doubleValue"];
             if(self.shouldScaleValues) {
                 self.cachedMaxPrice = [NSNumber numberWithDouble:[self.cachedMaxPrice doubleValue] / 1000.0];
             }
             dispatch_semaphore_signal(sema);
-
         });
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     }
@@ -106,8 +110,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __block NSNumber* minPrice;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSPredicate *minPricePredicate = [NSPredicate predicateWithFormat:@"SELF.y == %@.@min.y", [self currentDataPeriodRawValue]];
-        minPrice = [[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minPricePredicate][0][@"y"];
+        minPrice= [[self currentDataPeriodRawYValue] valueForKeyPath:@"@min.doubleValue"];
         if(self.shouldScaleValues) {
             minPrice = [NSNumber numberWithDouble:[minPrice doubleValue] / 1000.0];
         }
@@ -122,8 +125,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __block int minDate;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSPredicate *minDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@min.x", [self currentDataPeriodRawValue]];
-        minDate = [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:minDatePredicate][0][@"x"] intValue];
+        minDate = [[self currentDataPeriodRawValue][0][@"x"] intValue];
         dispatch_semaphore_signal(sema);
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -133,8 +135,8 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __block int maxDate;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSPredicate *maxDatePredicate = [NSPredicate predicateWithFormat:@"SELF.x == %@.@max.x", [self currentDataPeriodRawValue]];
-        maxDate = [[[self currentDataPeriodRawValue] filteredArrayUsingPredicate:maxDatePredicate][0][@"x"] intValue];
+        NSArray* currentDataPeriodRawValue = [self currentDataPeriodRawValue];
+        maxDate = [currentDataPeriodRawValue[[currentDataPeriodRawValue count] - 1][@"x"] intValue];
         dispatch_semaphore_signal(sema);
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -144,6 +146,11 @@
 -(NSArray*) currentDataPeriodRawValue {
     NSInteger dataPeriodLength = MIN([self.chartRawValues  count], self.dataPeriod);
     return [self.chartRawValues subarrayWithRange:NSMakeRange([self.chartRawValues count] - dataPeriodLength, dataPeriodLength)];
+}
+
+-(NSArray*) currentDataPeriodRawYValue {
+    NSInteger dataPeriodLength = MIN([self.chartRawValues  count], self.dataPeriod);
+    return [self.chartRawYValues subarrayWithRange:NSMakeRange([self.chartRawYValues count] - dataPeriodLength, dataPeriodLength)];
 }
 
 -(NSString*) formattedDate:(int)date {
