@@ -45,6 +45,7 @@
     [[RWConfiguration sharedConfiguration] setGenericTitleXPath: parseConfiguration[@"genericTitleXPath"]];
     [[RWConfiguration sharedConfiguration] setGenericShareXPath: parseConfiguration[@"genericShareXPath"]];
     [[RWConfiguration sharedConfiguration] setGenericTimeXPath: parseConfiguration[@"genericTimeXPath"]];
+    [[RWConfiguration sharedConfiguration] setSourceXPath: parseConfiguration[@"sourceXPath"]];
     [[RWConfiguration sharedConfiguration] setVideoXPath: parseConfiguration[@"videoXPath"]];
     [[RWConfiguration sharedConfiguration] setArticleTextXPath: parseConfiguration[@"articleTextXPath"]];
     [[RWConfiguration sharedConfiguration] setNewsBodyXPath: parseConfiguration[@"newsBodyXPath"]];
@@ -54,7 +55,7 @@
 }
 
 -(void) printParseConfiguration {
-    NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
+    NSLog(@"Configuration:, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@ %@", [RWConfiguration sharedConfiguration].homeURL, [RWConfiguration sharedConfiguration].genericPostXPath, [RWConfiguration sharedConfiguration].newsPostXPath, [RWConfiguration sharedConfiguration].genericTitleXPath, [RWConfiguration sharedConfiguration].genericShareXPath, [RWConfiguration sharedConfiguration].genericTimeXPath, [RWConfiguration sharedConfiguration].sourceXPath, [RWConfiguration sharedConfiguration].videoXPath, [RWConfiguration sharedConfiguration].articleTextXPath, [RWConfiguration sharedConfiguration].newsBodyXPath, [RWConfiguration sharedConfiguration].forumPageXPath);
 }
 
 @end

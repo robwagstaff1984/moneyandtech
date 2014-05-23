@@ -17,6 +17,7 @@
         self.titleHTML = @"";
         self.shareHTML = @"";
         self.timeHTML = @"";
+        self.sourceHTML = @"";
     }
     return self;
 }

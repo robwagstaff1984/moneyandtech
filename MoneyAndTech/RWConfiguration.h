@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString* genericTitleXPath;
 @property (nonatomic, strong) NSString* genericShareXPath;
 @property (nonatomic, strong) NSString* genericTimeXPath;
+@property (nonatomic, strong) NSString* sourceXPath;
 @property (nonatomic, strong) NSString* videoXPath;
 @property (nonatomic, strong) NSString* articleTextXPath;
 @property (nonatomic, strong) NSString* newsBodyXPath;

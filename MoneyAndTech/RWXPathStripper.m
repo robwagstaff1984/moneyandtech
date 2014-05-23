@@ -126,6 +126,7 @@
         [self extractNewsBodyFromPostNumber:postNumber intoPost:newsPost];
         [self extractShareElementfromPostNumber:postNumber intoPost:newsPost];
         [self extractTimeElementfromPostNumber:postNumber intoPost:newsPost];
+        [self extractSourceElementfromPostNumber:postNumber intoPost:newsPost];
         [self.newsPosts addObject:newsPost];
     }
     
@@ -322,9 +323,23 @@
 }
 
 -(NSString*) formattedTimeHTMLFromElement:(TFHppleElement*)timeElement {
-     return  [NSString stringWithFormat: @"<span id=\"iosAppTime\" style=\"display:inline-block; font-style:italic; padding-top:15px\">%@</span>", timeElement.raw];
+    return  [NSString stringWithFormat: @"<span id=\"iosAppTime\" style=\"display:inline-block; font-style:italic; padding-top:15px\">%@</span>", timeElement.raw];
 }
 
+#pragma mark - source
+-(void) extractSourceElementfromPostNumber:(int)postNumber intoPost:(RWPost*)post {
+    NSArray *sourceNodes = [self.pageParser searchWithXPathQuery:[RWConfiguration sharedConfiguration].sourceXPath];
+    TFHppleElement *sourceElement = [sourceNodes count] > postNumber ? sourceNodes[postNumber] : nil;
+    
+    if (post != nil && sourceElement != nil) {
+        post.sourceHTML = [self formattedSourceHTMLFromElement:sourceElement];
+    }
+
+}
+
+-(NSString*) formattedSourceHTMLFromElement:(TFHppleElement*)sourceElement {
+    return  [NSString stringWithFormat: @"<span id=\"iosAppSource\" style=\"display:inline-block; font-style:italic; padding-top:15px; padding-left:4px;\">%@</span>", sourceElement.raw];
+}
 
 #pragma mark - article
 -(void) extractArticleElementfromPostNumber:(int)postNumber intoPost:(RWArticlePost*)articlePost {
@@ -385,6 +400,7 @@
     nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.newsBodyHTML];
     //    newsHTML = [newsHTML stringByAppendingString:newsPost.shareHTML];
     nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.timeHTML];
+    nextNewsPost = [nextNewsPost stringByAppendingString:newsPost.sourceHTML];
     nextNewsPost = [NSString stringWithFormat: @"<div id=\"iosAppNewsPost\" style=\"border-bottom: 1px solid darkgray; padding-bottom:20px;\">%@</div>", nextNewsPost];
     newsHTML =[newsHTML stringByAppendingString:nextNewsPost];
     return newsHTML;

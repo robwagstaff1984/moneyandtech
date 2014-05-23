@@ -24,6 +24,8 @@
 #define ALTERNATE_DATA_PERIODS_FONT [UIFont boldSystemFontOfSize:(isIPad ? 20 : 11.0 )]
 #define ALTERNATE_DATA_PERIODS_WIDTH (isIPad ? 520 : 280)
 #define ALTERNATE_DATA_PERIODS_HEIGHT (isIPad ? 40 : 28)
+#define ARROW_WIDTH (isIPad ? 32 : 16)
+#define ARROW_HEIGHT (isIPad ? 46 : 23)
 
 
 @interface RWChartsViewController ()
@@ -36,6 +38,7 @@
 @property (nonatomic, strong) UIButton* rightChartArrow;
 @property (nonatomic, strong) RWXAxisView* chartXAxis;
 @property (nonatomic, strong) UIActivityIndicatorView* chartActivityIndicatorView;
+@property (nonatomic) long previouslySelectedIndex;
 
 
 @end
@@ -107,11 +110,11 @@
 }
 
 -(void) addChartSwitchArrows {
-    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(ARROW_X, ARROW_Y, 16, 23)];
+    self.leftChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(ARROW_X, ARROW_Y, ARROW_WIDTH, ARROW_HEIGHT)];
     [self.leftChartArrow setBackgroundImage:[UIImage imageNamed:@"LeftChartArrow.png"] forState:UIControlStateNormal];
     [self.leftChartArrow addTarget:self action:@selector(leftChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
-    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - ARROW_X - 15, ARROW_Y, 16, 23)];
+    self.rightChartArrow = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - ARROW_X - ARROW_WIDTH, ARROW_Y, ARROW_WIDTH, ARROW_HEIGHT)];
     [self.rightChartArrow setBackgroundImage:[UIImage imageNamed:@"RightChartArrow.png"] forState:UIControlStateNormal];
         [self.rightChartArrow addTarget:self action:@selector(rightChartArrowTapped) forControlEvents:UIControlEventTouchUpInside];
     
@@ -221,13 +224,16 @@
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
     
-    [self.chartActivityIndicatorView startAnimating];
-    dispatch_after(0.01, dispatch_get_main_queue(), ^{
-        self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
-        self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
-        [self updateChartView];
-        [self hideAndShowAppropriateArrows];
-    });
+    if (self.previouslySelectedIndex != index) {
+        self.previouslySelectedIndex = index;
+        [self.chartActivityIndicatorView startAnimating];
+        dispatch_after(0.01, dispatch_get_main_queue(), ^{
+            self.currentChart = [RWChartDataManager sharedChartDataManager].charts[index];
+            self.currentChart.dataPeriod = [self currentlySelectedDataPeriod];
+            [self updateChartView];
+            [self hideAndShowAppropriateArrows];
+        });
+    }
 }
 
 - (UIView *)horizontalPickerView:(V8HorizontalPickerView *)picker viewForElementAtIndex:(NSInteger)index {

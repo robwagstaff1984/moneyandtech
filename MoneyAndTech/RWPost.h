@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString* titleHTML;
 @property (nonatomic, strong) NSString* shareHTML;
 @property (nonatomic, strong) NSString* timeHTML;
+@property (nonatomic, strong) NSString* sourceHTML;
 
 @end
