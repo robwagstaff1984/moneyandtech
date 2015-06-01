@@ -22,6 +22,6 @@
 +(NSString*) extractHashRate:(id)statsResponseObject;
 +(NSString*) extractDifficulty:(id)statsResponseObject;
 +(NSString*) extractTransactionFreesPerDay:(id)statsResponseObject;
-+(NSString*) extractElectricityConsumputionPerDay:(id)statsResponseObject;
++(NSString*) extractTotalBTCSent:(id)statsResponseObject;
 
 @end

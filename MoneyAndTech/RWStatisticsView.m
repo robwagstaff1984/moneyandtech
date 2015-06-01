@@ -94,7 +94,7 @@
     [self addLabelWithHeading:@"Hash Rate" value:[RWChartDataManager sharedChartDataManager].hashRate atPoint:CGPointMake(LABEL_LEFT_X, ROW_FOUR_Y)];
     [self addLabelWithHeading:@"Difficulty" value:[RWChartDataManager sharedChartDataManager].difficulty atPoint:CGPointMake(LABEL_RIGHT_X, ROW_FOUR_Y)];
     [self addLabelWithHeading:@"Transaction Fees Per Day" value:[RWChartDataManager sharedChartDataManager].transactionFeesPerDay atPoint:CGPointMake(LABEL_LEFT_X, ROW_FIVE_Y)];
-    [self addLabelWithHeading:@"Electricity Use Per Day" value:[RWChartDataManager sharedChartDataManager].electricityConsumputionPerDay atPoint:CGPointMake(LABEL_RIGHT_X, ROW_FIVE_Y)];
+    [self addLabelWithHeading:@"Total Bitcoins sent" value:[RWChartDataManager sharedChartDataManager].totalBTCSent atPoint:CGPointMake(LABEL_RIGHT_X, ROW_FIVE_Y)];
 }
 
 -(void) addLatestPriceLabel {

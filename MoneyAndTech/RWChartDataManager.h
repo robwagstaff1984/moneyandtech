@@ -26,12 +26,15 @@
 @property (nonatomic, strong) NSString* hashRate;
 @property (nonatomic, strong) NSString* difficulty;
 @property (nonatomic, strong) NSString* transactionFeesPerDay;
-@property (nonatomic, strong) NSString* electricityConsumputionPerDay;
+@property (nonatomic, strong) NSString* totalBTCSent;
+
 
 @property (nonatomic, strong) NSMutableArray* charts;
+@property (nonatomic) int numberOfChartDataLoadErrors;
 
 +(RWChartDataManager*) sharedChartDataManager;
 -(void) retrieveData;
 -(void) retrieveLatestPrice;
 -(double) percentChange;
+-(int) numberOfCharts;
 @end

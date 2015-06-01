@@ -50,6 +50,10 @@
     return _sharedChartDataManager;
 }
 
+-(int) numberOfCharts {
+    return NUMBER_OF_CHARTS - _numberOfChartDataLoadErrors;
+}
+
 -(void) retrieveData {
     NSLog(@"start load chart");
     
@@ -100,6 +104,8 @@
         [self.charts addObject:chart];
         [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.numberOfChartDataLoadErrors++;
+        [self didFinishDownloadingOnePieceOfChartData];
         NSLog(@"failure for chartRequest:%@\n %@", chartURLRequest, error);
     }];
     return operation;
@@ -130,7 +136,7 @@
         self.hashRate = [RWChartDataStatsExtractor extractHashRate:responseObject];
         self.difficulty = [RWChartDataStatsExtractor extractDifficulty:responseObject];
         self.transactionFeesPerDay = [RWChartDataStatsExtractor extractTransactionFreesPerDay:responseObject];
-        self.electricityConsumputionPerDay = [RWChartDataStatsExtractor extractElectricityConsumputionPerDay:responseObject];
+        self.totalBTCSent = [RWChartDataStatsExtractor extractTotalBTCSent:responseObject];
         
         [self didFinishDownloadingOnePieceOfChartData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -152,7 +158,7 @@
 }
 
 -(BOOL) isAllChartDataDownloaded {
-    return [self.charts count] == NUMBER_OF_CHARTS || (![RWConfiguration sharedConfiguration].shouldShowChartsPage);
+    return [self.charts count] == [self numberOfCharts] || (![RWConfiguration sharedConfiguration].shouldShowChartsPage);
 }
 
 -(BOOL) isAllStatsDownloaded {

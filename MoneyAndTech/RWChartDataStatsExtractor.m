@@ -71,9 +71,11 @@
     return [NSString stringWithFormat:@"%@ BTC", [[self twoDigitsNumberFormater] stringFromNumber:[NSNumber numberWithLongLong:transactionFeesPerDay]]];
 }
 
-+(NSString*) extractElectricityConsumputionPerDay:(id)statsResponseObject {
-    double electricityConsumption = [statsResponseObject[@"electricity_consumption"] doubleValue] / 1000000;
-    return  [NSString stringWithFormat:@"%@ MWh", [[self twoDigitsNumberFormater] stringFromNumber:[NSNumber numberWithDouble:electricityConsumption]]];
++(NSString*) extractTotalBTCSent:(id)statsResponseObject {
+    
+    NSLog(@"this %@", statsResponseObject);
+    double totalBTCSent = [statsResponseObject[@"total_btc_sent"] doubleValue];
+    return  [NSString stringWithFormat:@"%@ BTC", [[self zeroDigitsNumberFormater] stringFromNumber:[NSNumber numberWithDouble:totalBTCSent]]];
 }
 
 +(NSNumberFormatter*) zeroDigitsNumberFormater {

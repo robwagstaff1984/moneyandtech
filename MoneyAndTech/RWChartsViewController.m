@@ -106,7 +106,7 @@
 }
 
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
-    return 7;
+    return [[RWChartDataManager sharedChartDataManager] numberOfCharts];
 }
 
 -(void) addChartSwitchArrows {

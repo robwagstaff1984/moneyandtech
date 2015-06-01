@@ -27,6 +27,7 @@
     if(!_sharedJSONRequestOperationManager) {
         _sharedJSONRequestOperationManager = [self new];
         _sharedJSONRequestOperationManager = [RWAFHTTPRequestOperationManager manager];
+        _sharedJSONRequestOperationManager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     return _sharedJSONRequestOperationManager;
 }
