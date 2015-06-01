@@ -99,6 +99,7 @@
 		36CB291F18DBBB3300476E15 /* ArticlesIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */; };
 		36CB292218DBBF9E00476E15 /* NewsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292018DBBF9E00476E15 /* NewsIcon.png */; };
 		36CB292318DBBF9E00476E15 /* NewsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */; };
+		36CC82D21B1C7ED4002F74DC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CC82D11B1C7ED4002F74DC /* Social.framework */; };
 		36CFE7F91913FE9F00BE93C7 /* RWConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */; };
 		36E5256219255D1800214899 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E5256119255D1800214899 /* UIScrollView+SVPullToRefresh.m */; };
 		36E5256C1925776E00214899 /* noise-light-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E5256B1925776E00214899 /* noise-light-gray@2x.png */; };
@@ -249,6 +250,7 @@
 		36CB291D18DBBB3300476E15 /* ArticlesIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArticlesIcon@2x.png"; sourceTree = "<group>"; };
 		36CB292018DBBF9E00476E15 /* NewsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewsIcon.png; sourceTree = "<group>"; };
 		36CB292118DBBF9E00476E15 /* NewsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewsIcon@2x.png"; sourceTree = "<group>"; };
+		36CC82D11B1C7ED4002F74DC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		36CFE7F71913FE9F00BE93C7 /* RWConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWConfiguration.h; sourceTree = "<group>"; };
 		36CFE7F81913FE9F00BE93C7 /* RWConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWConfiguration.m; sourceTree = "<group>"; };
 		36E5256019255D1800214899 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
@@ -266,7 +268,8 @@
 		36F5394119202B1600CC2442 /* UIViewController+ActivitySpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ActivitySpinner.h"; sourceTree = "<group>"; };
 		36F5394219202B1600CC2442 /* UIViewController+ActivitySpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ActivitySpinner.m"; sourceTree = "<group>"; };
 		373E7C6795DD43FAB03D8DF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A9E8A68522D44D5817CE441 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		5B5687FF2F73249373E2D4E5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EC9A1531FD140BBE56C5F2ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36CC82D21B1C7ED4002F74DC /* Social.framework in Frameworks */,
 				3607870B18F366480045AF0F /* Accounts.framework in Frameworks */,
 				3607870418F35F570045AF0F /* SystemConfiguration.framework in Frameworks */,
 				3607870218F35F4D0045AF0F /* StoreKit.framework in Frameworks */,
@@ -477,7 +481,7 @@
 				36CB28F718DA456C00476E15 /* MoneyAndTechTests */,
 				36CB28D718DA456C00476E15 /* Frameworks */,
 				36CB28D618DA456C00476E15 /* Products */,
-				4A9E8A68522D44D5817CE441 /* Pods.xcconfig */,
+				7E731FC07DA92F63983BFE12 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -493,6 +497,7 @@
 		36CB28D718DA456C00476E15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36CC82D11B1C7ED4002F74DC /* Social.framework */,
 				367406DD191AF55300D78C8E /* ios-linechart */,
 				362048F71909C4CC00A1C10C /* Reachability.h */,
 				362048F81909C4CC00A1C10C /* Reachability.m */,
@@ -589,6 +594,15 @@
 				36E525741925A3B100214899 /* UILabel+updateFrame.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		7E731FC07DA92F63983BFE12 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5B5687FF2F73249373E2D4E5 /* Pods.debug.xcconfig */,
+				EC9A1531FD140BBE56C5F2ED /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -745,7 +759,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF4408B2D9934F29A5E540F0 /* Check Pods Manifest.lock */ = {
@@ -882,6 +896,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -916,6 +931,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "$(inherited)";
 				PROVISIONING_PROFILE = "1716F5A9-983F-4413-94C2-754B2AFC79B1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -925,7 +941,7 @@
 		};
 		36CB290218DA456C00476E15 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A9E8A68522D44D5817CE441 /* Pods.xcconfig */;
+			baseConfigurationReference = 5B5687FF2F73249373E2D4E5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -938,6 +954,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
@@ -945,6 +962,7 @@
 				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-framework",
 					CoreGraphics,
 					"-framework",
@@ -962,7 +980,7 @@
 		};
 		36CB290318DA456C00476E15 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A9E8A68522D44D5817CE441 /* Pods.xcconfig */;
+			baseConfigurationReference = EC9A1531FD140BBE56C5F2ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -975,6 +993,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoneyAndTech/MoneyAndTech-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
@@ -982,6 +1001,7 @@
 				);
 				INFOPLIST_FILE = "MoneyAndTech/MoneyAndTech-Info.plist";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-framework",
 					CoreGraphics,
 					"-framework",

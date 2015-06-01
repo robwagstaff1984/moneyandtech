@@ -1,28 +1,30 @@
 PODS:
-  - AFNetworking (2.2.1):
+  - AFNetworking (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.1):
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.1):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.1)
-  - AFNetworking/Security (2.2.1)
-  - AFNetworking/Serialization (2.2.1)
-  - AFNetworking/UIKit (2.2.1):
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AKTabBarController (1.1.0)
-  - ios-versioncheck (1.0.0)
-  - Reachability (3.1.1)
-  - uikit-utils (0.5.0):
-    - ios-versioncheck
+  - ios-versioncheck (1.0.1)
+  - Reachability (3.2)
+  - uikit-utils (0.5.1):
+    - ios-versioncheck (~> 1.0.1)
   - V8HorizontalPickerView (1.0.0)
 
 DEPENDENCIES:
@@ -33,11 +35,11 @@ DEPENDENCIES:
   - V8HorizontalPickerView (~> 1.0.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
-  AKTabBarController: 34443d5d028700dea1d00a6f275e8ef17fc947c2
-  ios-versioncheck: 9e5a71698152c9b66ede56571cccdda37105f68d
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  uikit-utils: 94a8da139b0fc9a20fddfe90321fce8233362d1d
-  V8HorizontalPickerView: 75a6cd27acc117553325b09879db17e0dbe6c19f
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AKTabBarController: 6a250b798852e58a663a3bc438b400fedb82c20f
+  ios-versioncheck: bca7254bd6855e6b713493d958281d3c57507103
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  uikit-utils: 301717f97302d5a1fe0234e3316b9ca2c3794244
+  V8HorizontalPickerView: 6451e226ea7939c3499cefbbc0dcab85c941c28c
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.34.4
